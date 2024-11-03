@@ -6,6 +6,7 @@ Earlier in this program, you learned about the uses and benefits of the National
 
 #### These core functions help organizations manage cybersecurity risks, implement risk management strategies, and learn from previous mistakes. Plans based on this framework should be continuously updated to stay ahead of the latest security threats. The core functions help ensure organizations are protected against potential threats, risks, and vulnerabilities. Each function can be used to improve an organization’s security:
 
+![5 Core Functions of the NIST CSF](NIST_framework.png)
 
 
 - **Identify**: Manage security risks through regular audits of internal networks, systems, devices, and access privileges to identify potential gaps in security.
