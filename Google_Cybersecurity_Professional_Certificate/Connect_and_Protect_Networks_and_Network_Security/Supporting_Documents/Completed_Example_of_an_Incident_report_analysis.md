@@ -1,63 +1,8 @@
 **Incident report analysis - Example**
 
   ---------------------------------------------------------------------------
-  **Summary**    This morning, an                       
-                 intern reported                        
-                 to the IT                              
-                 department that                        
-                 she was unable                         
-                 to log in to her                       
-                 internal network                       
-                 account. Access                        
-                 logs indicate                          
-                 that her account                       
-                 has been                               
-                 actively                               
-                 accessing                              
-                 records in the                         
-                 customer                               
-                 database, even                         
-                 though she is                          
-                 locked out of                          
-                 that account.                          
-                 The intern                             
-                 indicated that                         
-                 she received an                        
-                 email this                             
-                 morning asking                         
-                 her to go to an                        
-                 external website                       
-                 to log in with                         
-                 her internal                           
-                 network                                
-                 credentials to                         
-                 retrieve a                             
-                 message. We                            
-                 believe this is                        
-                 the method used                        
-                 by a malicious                         
-                 actor to gain                          
-                 access to our                          
-                 network and                            
-                 customer                               
-                 database. A                            
-                 couple of other                        
-                 employees have                         
-                 noticed that                           
-                 several customer                       
-                 records are                            
-                 either missing                         
-                 or contain                             
-                 incorrect data.                        
-                 It appears that                        
-                 not only was                           
-                 customer data                          
-                 exposed to a                           
-                 malicious actor,                       
-                 but that some                          
-                 data was deleted                       
-                 or manipulated                         
-                 as well.                               
+
+  | **Summary**   |This morning, an intern reported to the IT department that she was unable to log in to her internal network account. Access logs indicate that her account has been actively accessing records in the customer database, even though she is locked out of that account. The intern indicated that she received an email this morning asking her to go to an external website to log in with her internal network credentials to retrieve a message. We believe this is the method used by a malicious actor to gain access to our network and customer database. A couple of other employees have noticed that several customer records are either missing or contain incorrect data. It appears that not only was customer data exposed to a malicious actor, but that some data was deleted or manipulated as well.|                               
   -------------- ---------------- --------------------- ---------------------
   Identify       The incident                           
                  management team                        
