@@ -6,6 +6,7 @@ echo $name
 set -x
 num1=3
 num2=5
-echo $(expr $num1*$num2)
+echo "number 1:" $num1
+echo "number 2:" $num2
 set +x
 
