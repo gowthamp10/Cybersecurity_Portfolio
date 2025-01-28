@@ -1,0 +1,9 @@
+Learning Objectives
+1. Learn how to investigate malicious link files.
+2. Learn about OPSEC and OPSEC mistakes.
+3. Understand how to track and attribute digital identities in cyber investigations.
+
+As part of day1's challenge the following actions must be made to solve the challenge.
+1. Start machine(Challenge VM)
+2. Start attack machine 
+

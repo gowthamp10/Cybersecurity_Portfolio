@@ -1,0 +1,104 @@
+Microsoft's Active Directory is the backbone of the corporate world. 
+It simplifies the management of devices and users within a corporate environment. In this room, we'll take a deep dive into the essential components of Active Directory.
+
+Room Objectives
+1. What Active Directory is
+2. What an Active Directory Domain is
+3. What components go into an Active Directory Domain
+4. Forests and Domain Trust
+5. And much more!
+
+Room Prerequisites
+General familiarity with Windows.
+
+Module 1: Windows Domain
+
+Points to remember
+
+1.Windows domain is a group of users and computers under the administration of a given business. 
+2.The main idea behind a domain is to centralise the administration of common components of a Windows computer network in a single repository called Active Directory (AD). 
+3.The server that runs the Active Directory services is known as a Domain Controller (DC).
+4. The main advantages of having a configured Windows domain are:
+    Centralised identity management: All users across the network can be configured from Active Directory with minimum effort.
+    Managing security policies: You can configure security policies directly from Active Directory and apply them to users and computers across the network as needed.
+
+Question 1:
+In a Windows domain, credentials are stored in a centralised repository called...
+Ans: Active Directory
+
+Question 2:
+The server in charge of running the Active Directory services is called...
+Ans: Domain Controller
+
+Module 2: Active Directory
+
+Points to remember
+
+1.The core of any Windows Domain is the Active Directory Domain Service (AD DS). 
+This service acts as a catalogue that holds the information of all of the "objects" that exist on your network. Amongst the many objects supported by AD, we have users, groups, machines, printers, shares and many others.
+
+Users 
+Users are one of the most common object types in Active Directory. Users are one of the objects known as security principals, meaning that they can be authenticated by the domain and can be assigned privileges over resources like files or printers. 
+
+Users can be used to represent two types of entities:
+1. People: users will generally represent persons in your organisation that need to access the network, like employees.
+2. Services: you can also define users to be used by services like IIS or MSSQL. Every single service requires a user to run, but service users are different from regular users as they will only have the privileges needed to run their specific service.
+
+Machines
+
+Machines are another type of object within Active Directory; for every computer that joins the Active Directory domain, a machine object will be created. Machines are also considered "security principals" and are assigned an account just as any regular user. This account has somewhat limited rights within the domain itself.
+
+Note: Machine Account passwords are automatically rotated out and are generally comprised of 120 random characters.
+
+Machine account naming convention: <Machinename>$
+
+Security groups 
+
+Define user groups to assign access rights to files or other resources to entire groups instead of single users. This allows for better manageability as you can add users to an existing group, and they will automatically inherit all of the group's privileges. Security groups are also considered security principals and, therefore, can have privileges over resources on the network.
+Groups can have both users and machines as members. If needed, groups can include other groups as well.
+
+Some important groups in the domain are:
+1. Domain Admins: Users of this group have administrative privileges over the entire domain. By default, they can administer any computer on the domain, including the DCs.
+2. Server Operators: Users in this group can administer Domain Controllers. They cannot change any administrative group memberships.
+3. Backup Operators: Users in this group are allowed to access any file, ignoring their permissions. They are used to perform backups of data on computers.
+4. Account Operators: Users in this group can create or modify other accounts in the domain.
+5. Domain Users: Includes all existing user accounts in the domain.
+6. Domain Computers: Includes all existing computers in the domain.
+7. Domain Controllers: Includes all existing DCs on the domain.
+
+Objects are organised in Organizational Units (OUs) which are container objects that allow you to classify users and machines. OUs are mainly used to define sets of users with similar policing requirements. 
+Default containers are created by Windows and are listed below:
+1. Builtin: Contains default groups available to any Windows host.
+2. Computers: Any machine joining the network will be put here by default. You can move them if needed.
+3. Domain Controllers: Default OU that contains the DCs in your network.
+4. Users: Default users and groups that apply to a domain-wide context.
+5. Managed Service Accounts: Holds accounts used by services in your Windows domain.
+
+Security Groups vs OUs
+
+1. OUs are handy for applying policies to users and computers, which include specific configurations that pertain to sets of users depending on their particular role in the enterprise. Remember, a user can only be a member of a single OU at a time, as it wouldn't make sense to try to apply two different sets of policies to a single user.
+2. Security Groups, on the other hand, are used to grant permissions over resources. For example, you will use groups if you want to allow some users to access a shared folder or network printer. A user can be a part of many groups, which is needed to grant access to multiple resources.
+
+Question 3: Which group normally administrates all computers and resources in a domain?
+Ans: Domain Admins
+
+Question 4: What would be the name of the machine account associated with a machine named TOM-PC?
+Ans: TOM-PC$
+
+Question 5: Suppose our company creates a new department for Quality Assurance. What type of containers should we use to group all Quality Assurance users so that policies can be applied consistently to them?
+Ans: Organizational Units
+
+Module 3: Managing users in AD 
+
+Delegation 
+Allows you to grant users specific privileges to perform advanced tasks on OUs without needing a Domain Administrator to step in.
+
+
+Question 6: What was the flag found on Sophie's desktop?
+Ans:
+
+Question 7: The process of granting privileges to a user over some OU or other AD Object is called...?
+Ans: Delegation
+
+
+
