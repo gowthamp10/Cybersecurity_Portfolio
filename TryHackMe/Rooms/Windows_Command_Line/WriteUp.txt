@@ -1,0 +1,130 @@
+Room: Windows Command Line
+
+Introduction
+
+Learning Objectives
+The purpose of this room is to teach you how to use MS Windows Command Prompt cmd.exe, the default command-line interpreter in the Windows environment. We will learn how to use the command line to:
+
+Display basic system information
+Check and troubleshoot network configuration
+Manage files and folders
+Check running processes
+Room Prerequisites
+Before starting this room, you should have finished the Windows and AD Fundamentals module.
+
+Question 1: What is the default command line interpreter in the Windows environment?
+Ans:cmd.exe
+
+Basic System Information
+
+1.set command  provides details on path variable.
+2.ver command  provides OS version.
+3.systeminfo command provides details on system information like hostname, version, etc.
+4.driverquery command provides details the installed device drivers.
+
+Note: In order view the output in page format we can use the pipe(|) operater. example: " driverquery | more "
+
+Question 2: What is the OS version of the Windows VM?
+Ans:10.0.20348.2655
+
+Question 3: What is the hostname of the Windows VM?
+Ans: WINSRV2022-CORE
+
+Network Configuration
+
+ipconfig provides details on the network configuration on the system.
+ipconfig /all  provides details on all the network configuration on the system.
+
+Network Troubleshooting
+
+One common troubleshooting task is checking if the server can access a particular server on the Internet.
+Done using the ping command. syntax: ping <target_name>
+
+What ping verifies?
+Send a specific ICMP packet and listen for a response. If a response is received, we know that we can reach the target and that the target can reach us.
+
+What is the functionality of tracert?
+tracert, which stands for trace route. The command tracert target_name traces the network route traversed to reach the target. 
+Without getting into more details, it expects the routers on the path to notify us if they drop a packet because its time-to-live (TTL) has reached zero. 
+
+More Networking Commands
+
+What is the functionality of nslookup?
+nslookup. It looks up a host or domain and returns its IP address. 
+
+What is the functionality of netstat?
+netstat, This command displays current network connections and listening ports. A basic netstat command with no arguments will show you established connections
+
+netstat -h, where -h displays the help page
+
+Few options available on netstat are:
+-a displays all established connections and listening ports
+-b shows the program associated with each listening port and established connection
+-o reveals the process ID (PID) associated with the connection
+-n uses a numerical form for addresses and port numbers
+
+Question 4: Which command can we use to look up the server’s physical address (MAC address)?
+Ans: ipconfig /all
+
+Question 5: What is the name of the process listening on port 3389?
+Ans: TermService
+
+Question 6: What is the subnet mask?
+Ans: 255.255.0.0
+
+File and Disk Management
+
+Working With Directories
+
+cd without parameters to display the current drive and directory. It is the equivalent of asking the system, where am I?
+view the child directories using dir.
+
+Few options that can be used as part of dir command are:
+dir /a - Displays hidden and system files as well.
+dir /s - Displays files in the current directory and all subdirectories.
+
+tree to visually represent the child directories and subdirectories.
+change to any directory by using the command cd target_directory
+use cd .. to go up one level
+To create a directory, use mkdir directory_name; mkdir stands for make directory. 
+To delete a directory, use rmdir directory_name; rmdir stands for remove directory.
+
+Working With Files
+
+view text files with the command type, This command will dump the contents of the text file on the screen; this is convenient for files that fit within your terminal window.
+more for longer text files. This command will display enough text file contents to fill your terminal window. In other words, for long text files, more will display a single page and wait for you to press Spacebar to move by one page (flip the page) or Enter to move by one line.
+copy command allows you to copy files from one location to another.
+move files using the move command
+delete a file using del or erase
+use the wildcard character * to refer to multiple files. For example, copy *.md C:\Markdown will copy all files with the extension md to the directory C:\Markdown.
+
+Question 7: What are the file’s contents in C:\Treasure\Hunt?
+Ans: THM{CLI_POWER}
+
+Task and Process Management
+
+list the running processes using tasklist.
+check all available filters by displaying the help page using tasklist /?
+terminate any task using taskkill /PID target_pid, pid is noting but the process id.
+
+Question 8: What command would you use to find the running processes related to notepad.exe?
+Ans: tasklist /FI "imagename eq notepad.exe"
+
+Question 9: What command can you use to kill the process with PID 1516?
+Ans: taskkill /PID 1516
+
+Conclusion
+
+chkdsk: checks the file system and disk volumes for errors and bad sectors.
+driverquery: displays a list of installed device drivers.
+sfc /scannow: scans system files for corruption and repairs them if possible.
+
+Note: important to know that /? can be used with most commands to display a help page.
+
+Question 10: The command shutdown /s can shut down a system. What is the command you can use to restart a system?
+Ans: shutdown /r
+
+Question 11: What command can you use to abort a scheduled system shutdown?
+Ans: shutdown /a
+
+

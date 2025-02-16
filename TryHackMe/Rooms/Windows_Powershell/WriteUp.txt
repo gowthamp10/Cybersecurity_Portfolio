@@ -1,0 +1,78 @@
+Room: Windows Powershell
+
+Introduction
+
+Learning Objectives
+This is the second room in the Command Line module. It is an introductory room to PowerShell, the second—only historically—command-line utility built for the Windows operating system.
+
+Learn what PowerShell is and its capabilities.
+Understand the basic structure of PowerShell’s language.
+Learn and run some basic PowerShell commands.
+Understand PowerShell’s many applications in the cyber security industry.
+
+What Is PowerShell
+
+PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework
+
+PowerShell is a powerful tool from Microsoft designed for task automation and configuration management. It combines a command-line interface and a scripting language built on the .NET framework. 
+Unlike older text-based command-line tools, PowerShell is object-oriented, which means it can handle complex data types and interact with system components more effectively
+
+The Power in PowerShell
+
+In programming, an object represents an item with properties (characteristics) and methods (actions). 
+For example, a car object might have properties like Color, Model, and FuelLevel, and methods like Drive(), HonkHorn(), and Refuel().
+
+Similarly, in PowerShell, objects are fundamental units that encapsulate data and functionality, making it easier to manage and manipulate information. 
+An object in PowerShell can contain file names, usernames or sizes as data (properties), and carry functions (methods) such as copying a file or stopping a process.
+
+The traditional Command Shell’s basic commands are text-based, meaning they process and output data as plain text. Instead, when a cmdlet (pronounced command-let) is run in PowerShell, it returns objects that retain their properties and methods. 
+This allows for more powerful and flexible data manipulation since these objects do not require additional parsing of text.
+
+Question 1: What do we call the advanced approach used to develop PowerShell?
+Ans: object-oriented 
+
+PowerShell Basics
+
+Launching PowerShell
+
+These are some of the possible ways to launch:
+
+Start Menu: Type powershell in the Windows Start Menu search bar, then click on Windows PowerShell or PowerShell from the results.
+Run Dialog: Press Win + R to open the Run dialog, type powershell, and hit Enter.
+File Explorer: Navigate to any folder, then type powershell in the address bar, and press Enter. This opens PowerShell in that specific directory.
+Task Manager: Open the Task Manager, go to File > Run new task, type powershell, and press Enter.
+
+Alternatively, PowerShell can be launched from a Command Prompt (cmd.exe) by typing powershell, and pressing Enter.
+
+Basic Syntax: Verb-Noun
+PowerShell commands are known as cmdlets (pronounced command-lets). They are much more powerful than the traditional Windows commands and allow for more advanced data manipulation.
+
+Cmdlets follow a consistent Verb-Noun naming convention. This structure makes it easy to understand what each cmdlet does. The Verb describes the action, and the Noun specifies the object on which action is performed. 
+For example:
+Get-Content: Retrieves (gets) the content of a file and displays it in the console.
+Set-Location: Changes (sets) the current working directory. 
+
+Basic Cmdlets
+
+Get-Command: It’s an essential tool for discovering what commands one can use. CommandInfo object retrieved by the cmdlet
+Filter the list of commands based on displayed property values. For example, if we want to display only the available commands of type “function”, we can use -CommandType "Function"
+Get-Help: it provides detailed information about cmdlets, including usage, parameters, and examples. It’s the go-to cmdlet for learning how to use PowerShell commands.
+Get-Alias: lists all aliases available
+
+Where to Find and Download Cmdlets
+
+Find-Module: Cmdlet can be used to find the repository for particular command-lets. 
+Syntax: Find-Module <Filtering_Type> <Filter>
+Example: Find-Module -Name Power*
+Install-Module: Cmdlet can be used to install the command let to the local system from the remote repository.
+Syntax: Find-Module <Filtering_Type> <Desired-Cmdlet>
+Example: Find-Module -Name PowerShellGet
+
+Question 2: How would you retrieve a list of commands that start with the verb Remove? [for the sake of this question, avoid the use of quotes (" or ') in your answer]
+Ans: Get-Command -Name Remove*
+
+Question 3: What cmdlet has its traditional counterpart echo as an alias?
+Ans: Write-Output
+
+Question 4: What is the command to retrieve some example usage for the cmdlet New-LocalUser?
+Ans: Get-Help New-LocalUser -examples
