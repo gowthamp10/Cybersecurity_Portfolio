@@ -19,3 +19,10 @@
 1. Run Find-Module -Name Power*, to find remote repositories of Command let starting with Power.
 2. Run Install-Module -Name PowerShellGet, to download the cmdlet to the local machine.
 
+- **Phase 2** : 
+1. Execute the command "Get-ChildItem", to get the directories  and files in the current working directory.
+2. Execute the command "Get-ChildItem -Path "C:\Users"", to get the directories  and files in the path: C:\Users.
+3. Execute the command "Set-Location -Path "\Document"", to naviagte to the Document directory.
+4. Execute the command "New-Item -Path "Test.txt"", creates a new file in the currently working directory having the name Test.txt.
+5. Execute the command "Remove-Item -Path "Test.txt"", deletes the file in the currently working directory having the name Test.txt.
+6. 

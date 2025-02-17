@@ -75,4 +75,31 @@ Question 3: What cmdlet has its traditional counterpart echo as an alias?
 Ans: Write-Output
 
 Question 4: What is the command to retrieve some example usage for the cmdlet New-LocalUser?
-Ans: Get-Help New-LocalUser -examples
+Ans: Get-Help New-LocalUser -Examples
+
+Navigating the File System and Working with Files
+
+Similar to the dir command in Command Prompt (or ls in Unix-like systems), Get-ChildItem lists the files and directories in a location specified with the -Path parameter. 
+It can be used to explore directories and view their contents. If no Path is specified, the cmdlet will display the content of the current working directory.
+
+To navigate to a different directory, we can use the Set-Location cmdlet. It changes the current directory, bringing us to the specified path, akin to the cd command in Command Prompt.
+
+To create an item in PowerShell, we can use New-Item. We will need to specify the path of the item and its type (whether it is a file or a directory).
+
+Remove-Item cmdlet removes both directories and files, whereas in Windows CLI we have separate commands rmdir and del.
+
+copy or move files and directories alike, using respectively Copy-Item (equivalent to copy) and Move-Item (equivalent to move).
+
+read and display the contents of a file, we can use the Get-Content cmdlet, which works similarly to the type command in Command Prompt (or cat in Unix-like systems).
+
+Question 5:What cmdlet can you use instead of the traditional Windows command type?
+Ans:Get-Content
+
+Question 6:What PowerShell command would you use to display the content of the "C:\Users" directory? [for the sake of this question, avoid the use of quotes (" or ') in your answer]
+Ans: Get-ChildItem -Path C:\Users
+
+Question 7:How many items are displayed by the command described in the previous question?
+Ans:4
+
+
+

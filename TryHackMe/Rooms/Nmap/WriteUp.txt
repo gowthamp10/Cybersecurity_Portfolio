@@ -1,0 +1,184 @@
+Introduction
+
+When it comes to hacking, knowledge is power. 
+The more knowledge you have about a target system or network, the more options you have available. 
+This makes it imperative that proper enumeration is carried out before any exploitation attempts are made.
+
+The first stage in establishing this “map” of the landscape is something called port scanning. 
+When a computer runs a network service, it opens a networking construct called a “port” to receive the connection.  
+Ports are necessary for making multiple network requests or having multiple services available.
+
+Network connections are made between two ports – an open port listening on the server and a randomly selected port on your own computer.
+
+If we do not know which of these ports a server has open, then we do not have a hope of successfully attacking the target; thus, it is crucial that we begin any attack with a port scan. 
+
+Nmap can be used to perform many different kinds of port scan,  Depending on how the port responds, it can be determined as being open, closed, or filtered (usually by a firewall).
+
+Question 1: What networking constructs are used to direct traffic to the right application on a server?
+Ans: Ports
+
+Question 2: How many of these are available on any network-enabled computer?
+Ans:65535
+
+Question 3: [Research] How many of these are considered "well-known"? (These are the "standard" numbers mentioned in the task)
+Ans:1024
+
+Nmap Switches
+
+Question 4:What is the first switch listed in the help menu for a 'Syn Scan' (more on this later!)?
+Ans:-sS
+
+Question 5:Which switch would you use for a "UDP scan"?
+Ans:-sU
+
+Question 6:If you wanted to detect which operating system the target is running on, which switch would you use?
+Ans:-O
+
+Question 7: Nmap provides a switch to detect the version of the services running on the target. What is this switch?
+Ans: -sV
+
+Question 8:The default output provided by nmap often does not provide enough information for a pentester. How would you increase the verbosity?
+Ans:-v
+
+Question 9:Verbosity level one is good, but verbosity level two is better! How would you set the verbosity level to two?
+(Note: it's highly advisable to always use at least this option)
+Ans:-vv
+
+Question 10:We should always save the output of our scans -- this means that we only need to run the scan once (reducing network traffic and thus chance of detection), and gives us a reference to use when writing reports for clients.
+What switch would you use to save the nmap results in three major formats?
+Ans:-oA
+
+Question 11:What switch would you use to save the nmap results in a "normal" format?
+Ans:-oN
+
+Question 12:A very useful output format: how would you save results in a "grepable" format?
+Ans:-oG
+
+Question 13:Sometimes the results we're getting just aren't enough. If we don't care about how loud we are, we can enable "aggressive" mode. This is a shorthand switch that activates service detection, operating system detection, a traceroute and common script scanning.
+How would you activate this setting?
+Ans:-A
+
+Question 14:Nmap offers five levels of "timing" template. These are essentially used to increase the speed your scan runs at. Be careful though: higher speeds are noisier, and can incur errors!
+How would you set the timing template to level 5?
+Ans:-T5
+
+Question 15: We can also choose which port(s) to scan.
+How would you tell nmap to only scan port 80?
+Ans:-p 80
+
+Question 16: How would you tell nmap to scan ports 1000-1500?
+Ans:-p 1000-1500
+
+Question 17:A very useful option that should not be ignored:
+How would you tell nmap to scan all ports?
+Ans:-p-
+
+Question 18:How would you activate a script from the nmap scripting library (lots more on this later!)?
+Ans:--script
+
+Question 19:How would you activate all of the scripts in the "vuln" category?
+Ans:--script=vuln
+
+Scan Types - Overview
+
+When port scanning with Nmap, there are three basic scan types. These are:
+
+TCP Connect Scans (-sT)
+SYN "Half-open" Scans (-sS)
+UDP Scans (-sU)
+
+Note: Most of these (with the exception of UDP scans) are used for very similar purposes, however, the way that they work differs between each scan. This means that, whilst one of the first three scans are likely to be your go-to in most situations, it's worth bearing in mind that other scan types exist.
+
+Scan Types - TCP Connect Scans
+
+To understand TCP Connect scans (-sT), it's important that you're comfortable with the TCP three-way handshake.
+TCP Connect scan works by performing the three-way handshake with each target port in turn. In other words, Nmap tries to connect to each specified TCP port, and determines whether the service is open by the response it receives.
+
+if Nmap sends a TCP request with the SYN flag set to a closed port, the target server will respond with a TCP packet with the RST (Reset) flag set. By this response, Nmap can establish that the port is closed.
+If, however, the request is sent to an open port, the target will respond with a TCP packet with the SYN/ACK flags set. Nmap then marks this port as being open (and completes the handshake by sending back a TCP packet with ACK set).
+
+What if the port is open, but hidden behind a firewall?
+Many firewalls are configured to simply drop incoming packets. Nmap sends a TCP SYN request, and receives nothing back. This indicates that the port is being protected by a firewall and thus the port is considered to be filtered.
+
+to configure a firewall to respond with a RST TCP packet
+Syntax: iptables -I INPUT -p tcp --dport <port> -j REJECT --reject-with tcp-reset
+
+Question 20:Which RFC defines the appropriate behaviour for the TCP protocol?
+Ans:RFC 9293
+
+Question 21:If a port is closed, which flag should the server send back to indicate this?
+Ans:RST
+
+Scan Types - SYN Scans
+
+SYN scans (-sS) are used to scan the TCP port-range of a target or targets; however, the two scan types work slightly differently. SYN scans are sometimes referred to as "Half-open" scans, or "Stealth" scans.
+SYN scans sends back a RST TCP packet after receiving a SYN/ACK from the server (this prevents the server from repeatedly trying to make the request).
+
+variety of advantages for us as hackers:
+1. It can be used to bypass older Intrusion Detection systems as they are looking out for a full three way handshake. This is often no longer the case with modern IDS solutions; it is for this reason that SYN scans are still frequently referred to as "stealth" scans.
+2. SYN scans are often not logged by applications listening on open ports, as standard practice is to log a connection once it's been fully established. Again, this plays into the idea of SYN scans being stealthy.
+3. Without having to bother about completing (and disconnecting from) a three-way handshake for every port, SYN scans are significantly faster than a standard TCP Connect scan.
+
+couple of disadvantages to SYN scans, namely:
+1. They require sudo permissions[1] in order to work correctly in Linux. This is because SYN scans require the ability to create raw packets (as opposed to the full TCP handshake), which is a privilege only the root user has by default.
+2. Unstable services are sometimes brought down by SYN scans, which could prove problematic if a client has provided a production environment for the test.
+
+SYN scans are the default scans used by Nmap if run with sudo permissions. If run without sudo permissions, Nmap defaults to the TCP Connect scan
+
+If a port is closed then the server responds with a RST TCP packet. If the port is filtered by a firewall then the TCP SYN packet is either dropped, or spoofed with a TCP reset.
+In this regard, the two scans are identical: the big difference is in how they handle open ports.
+
+[1] SYN scans can also be made to work by giving Nmap the CAP_NET_RAW, CAP_NET_ADMIN and CAP_NET_BIND_SERVICE capabilities; however, this may not allow many of the NSE scripts to run properly.
+
+Question 22: There are two other names for a SYN scan, what are they?
+Ans: Half-Open, Stealth
+
+Question 23: Can Nmap use a SYN scan without Sudo permissions (Y/N)?
+Ans: N
+
+Scan Types - UDP Scans
+
+When a packet is sent to an open UDP port, there should be no response. When this happens, Nmap refers to the port as being open|filtered. In other words, it suspects that the port is open, but it could be firewalled. 
+If it gets a UDP response (which is very unusual), then the port is marked as open. More commonly there is no response, in which case the request is sent a second time as a double-check. If there is still no response then the port is marked open|filtered and Nmap moves on.
+
+When a packet is sent to a closed UDP port, the target should respond with an ICMP (ping) packet containing a message that the port is unreachable. This clearly identifies closed ports, which Nmap marks as such and moves on.
+
+Due to this difficulty in identifying whether a UDP port is actually open, UDP scans tend to be incredibly slow in comparison to the various TCP scans (in the region of 20 minutes to scan the first 1000 ports, with a good connection). For this reason it's usually good practice to run an Nmap scan with --top-ports <number> enabled.
+
+When scanning UDP ports, Nmap usually sends completely empty requests -- just raw UDP packets. That said, for ports which are usually occupied by well-known services, it will instead send a protocol-specific payload which is more likely to elicit a response from which a more accurate result can be drawn.
+
+Question 24:If a UDP port doesn't respond to an Nmap scan, what will it be marked as?
+Ans:open|filtered
+
+Question 25:When a UDP port is closed, by convention the target should send back a "port unreachable" message. Which protocol would it use to do so?
+Ans:ICMP
+
+Scan Types - NULL, FIN and Xmas
+
+NULL, FIN and Xmas TCP port scans are less commonly used
+All three are interlinked and are used primarily as they tend to be even stealthier, relatively speaking, than a SYN "stealth" scan.
+
+NULL scans:
+NULL scans (-sN) are when the TCP request is sent with no flags set at all. As per the RFC, the target host should respond with a RST if the port is closed.
+
+FIN scans:
+FIN scans (-sF) work in an almost identical fashion; however, instead of sending a completely empty packet, a request is sent with the FIN flag (usually used to gracefully close an active connection). Once again, Nmap expects a RST if the port is closed.
+
+Xmas scans:
+Xmas scans (-sX) send a malformed TCP packet and expects a RST response for closed ports. It's referred to as an xmas scan as the flags that it sets (PSH, URG and FIN) give it the appearance of a blinking christmas tree when viewed as a packet capture in Wireshark.
+
+The expected response for open ports with these scans is also identical, and is very similar to that of a UDP scan.
+If the port is open then there is no response to the malformed packet. Unfortunately (as with open UDP ports), that is also an expected behaviour if the port is protected by a firewall, so NULL, FIN and Xmas scans will only ever identify ports as being open|filtered, closed, or filtered.
+
+It's also worth noting that while RFC 793 mandates that network hosts respond to malformed packets with a RST TCP packet for closed ports, and don't respond at all for open ports; this is not always the case in practice.
+
+Question 26: Which of the three shown scan types uses the URG flag?
+Ans:xmas
+
+Question 27: Why are NULL, FIN and Xmas scans generally used?
+Ans:Firewall Evasion
+
+Question 28: Which common OS may respond to a NULL, FIN or Xmas scan with a RST for every port?
+Ans:Microsoft Windows
+
+
