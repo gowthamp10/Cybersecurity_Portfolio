@@ -1,0 +1,6 @@
+Get Connected
+
+Pre-requsite: A basic knowledge of Linux, and how to navigate the Linux file system, is required for this room. If you think you'll need some help with this, try completing the 'Linux Fundamentals' Module (https://tryhackme.com/module/linux-fundamentals)
+
+Understanding SMB
+
