@@ -181,4 +181,130 @@ Ans:Firewall Evasion
 Question 28: Which common OS may respond to a NULL, FIN or Xmas scan with a RST for every port?
 Ans:Microsoft Windows
 
+Scan Types - ICMP Network Scanning
+
+On first connection to a target network in a black box assignment, our first objective is to obtain a "map" of the network structure -- or, in other words, we want to see which IP addresses contain active hosts, and which do not.
+One way to do this is by using Nmap to perform a so called "ping sweep". This is exactly as the name suggests: Nmap sends an ICMP packet to each possible IP address for the specified network. When it receives a response, it marks the IP address that responded as being alive.
+
+To perform a ping sweep, we use the -sn switch in conjunction with IP ranges which can be specified with either a hypen (-) or CIDR notation.
+
+The -sn switch tells Nmap not to scan any ports -- forcing it to rely primarily on ICMP echo packets (or ARP requests on a local network, if run with sudo or directly as the root user) to identify targets. 
+In addition to the ICMP echo requests, the -sn switch will also cause nmap to send a TCP SYN packet to port 443 of the target, as well as a TCP ACK (or TCP SYN if not run as root) packet to port 80 of the target.
+
+Question 29:How would you perform a ping sweep on the 172.16.x.x network (Netmask: 255.255.0.0) using Nmap? (CIDR notation)
+Ans:nmap -sn 172.16.0.0/16
+
+NSE Scripts - Overview
+
+Nmap Scripting Engine (NSE) is an incredibly powerful addition to Nmap, extending its functionality quite considerably. 
+NSE Scripts are written in the Lua programming language, and can be used to do a variety of things: from scanning for vulnerabilities, to automating exploits for them. 
+
+There are many categories available. Some useful categories include:
+
+safe:- Won't affect the target
+intrusive:- Not safe: likely to affect the target
+vuln:- Scan for vulnerabilities
+exploit:- Attempt to exploit a vulnerability
+auth:- Attempt to bypass authentication for running services (e.g. Log into an FTP server anonymously)
+brute:- Attempt to bruteforce credentials for running services
+discovery:- Attempt to query running services for further information about the network (e.g. query an SNMP server).
+
+Exhastive list of categories are found here: https://nmap.org/book/nse-usage.html
+
+Question 30:What language are NSE scripts written in?
+Ans:Lua
+
+Question 31:Which category of scripts would be a very bad idea to run in a production environment?
+Ans:intrusive
+
+NSE Scripts - Working with the NSE
+
+To run a specific script, we would use --script=<script-name> , e.g. --script=http-fileupload-exploiter.
+Multiple scripts can be run simultaneously in this fashion by separating them by a comma. For example: --script=smb-enum-users,smb-enum-shares.
+
+Some scripts require arguments (for example, credentials, if they're exploiting an authenticated vulnerability). 
+These can be given with the --script-args Nmap switch. An example of this would be with the http-put script (used to upload files using the PUT method). This takes two arguments: the URL to upload the file to, and the file's location on disk.  For example:
+nmap -p 80 --script http-put --script-args http-put.url='/dav/shell.php',http-put.file='./shell.php'
+
+Note that the arguments are separated by commas, and connected to the corresponding script with periods (i.e.  <script-name>.<argument>).
+
+NSE scripts list: https://nmap.org/nsedoc/
+
+Nmap scripts come with built-in help menus, which can be accessed using nmap --script-help <script-name>.
+
+Question 32:What optional argument can the ftp-anon.nse script take?
+Ans:maxlist
+
+NSE Scripts - Searching for Scripts
+
+We have two options for this, which should ideally be used in conjunction with each other. The first is the page on the Nmap website (mentioned in the previous task) which contains a list of all official scripts. 
+The second is the local storage on your attacking machine. Nmap stores its scripts on Linux at /usr/share/nmap/scripts. All of the NSE scripts are stored in this directory by default -- this is where Nmap looks for scripts when you specify them.
+
+There are two ways to search for installed scripts. 
+One is by using the /usr/share/nmap/scripts/script.db file. Despite the extension, this isn't actually a database so much as a formatted text file containing filenames and categories for each available script.
+Nmap uses this file to keep track of (and utilise) scripts for the scripting engine; however, we can also grep through it to look for scripts. For example: grep "ftp" /usr/share/nmap/scripts/script.db.
+
+The second way to search for scripts is quite simply to use the ls command. For example, we could get the same results as in the previous screenshot by using ls -l /usr/share/nmap/scripts/*ftp*:
+
+Installing New Scripts
+
+We mentioned previously that the Nmap website contains a list of scripts, so, what happens if one of these is missing in the scripts directory locally? A standard sudo apt update && sudo apt install nmap should fix this; 
+however, it's also possible to install the scripts manually by downloading the script from Nmap (sudo wget -O /usr/share/nmap/scripts/<script-name>.nse https://svn.nmap.org/nmap/scripts/<script-name>.nse). This must then be followed up with nmap --script-updatedb, which updates the script.db file to contain the newly downloaded script.
+
+It's worth noting that you would require the same "updatedb" command if you were to make your own NSE script and add it into Nmap -- a more than manageable task with some basic knowledge of Lua!
+
+
+Question 33:Search for "smb" scripts in the /usr/share/nmap/scripts/ directory using either of the demonstrated methods.
+What is the filename of the script which determines the underlying OS of the SMB server?
+Ans:smb-os-discovery.nse
+
+Question 34:Read through this script. What does it depend on?
+Ans:smb-brute
+
+Firewall Evasion
+
+Your typical Windows host will, with its default firewall, block all ICMP packets. This presents a problem: not only do we often use ping to manually establish the activity of a target, Nmap does the same thing by default. 
+This means that Nmap will register a host with this firewall configuration as dead and not bother scanning it at all.
+
+A way to get around this configuration. Fortunately Nmap provides an option for this: -Pn, which tells Nmap to not bother pinging the host before scanning it. This means that Nmap will always treat the target host(s) as being alive, effectively bypassing the ICMP block; 
+however, it comes at the price of potentially taking a very long time to complete the scan (if the host really is dead then Nmap will still be checking and double checking every specified port).
+
+Note:It's worth noting that if you're already directly on the local network, Nmap can also use ARP requests to determine host activity.
+
+Documentation on firewall evasion: https://nmap.org/book/man-bypass-firewalls-ids.html
+
+The following switches are of particular note:
+
+1. -f:- Used to fragment the packets (i.e. split them into smaller pieces) making it less likely that the packets will be detected by a firewall or IDS.
+    An alternative to -f, but providing more control over the size of the packets: --mtu <number>, accepts a maximum transmission unit size to use for the packets sent. This must be a multiple of 8.
+2. --scan-delay <time>ms:- used to add a delay between packets sent. This is very useful if the network is unstable, but also for evading any time-based firewall/IDS triggers which may be in place.
+3. --badsum:- this is used to generate in invalid checksum for packets. Any real TCP/IP stack would drop this packet, however, firewalls may potentially respond automatically, without bothering to check the checksum of the packet. As such, this switch can be used to determine the presence of a firewall/IDS.
+
+Question 35:Which simple (and frequently relied upon) protocol is often blocked, requiring the use of the -Pn switch?
+Ans:ICMP
+
+Question 36:[Research] Which Nmap switch allows you to append an arbitrary length of random data to the end of packets?
+Ans:--data-length
+
+Practical
+
+Question 37: Does the target ip respond to ICMP echo (ping) requests (Y/N)?
+Ans:N
+
+Question 38: Perform an Xmas scan on the first 999 ports of the target -- how many ports are shown to be open or filtered?
+Ans:999
+
+Question 39:There is a reason given for this -- what is it?
+Note: The answer will be in your scan results. Think carefully about which switches to use -- and read the hint before asking for help!
+Ans:No Response
+
+Question 40:Perform a TCP SYN scan on the first 5000 ports of the target -- how many ports are shown to be open?
+Ans:5
+
+Question 41: Open Wireshark (see Cryillic's Wireshark Room for instructions) and perform a TCP Connect scan against port 80 on the target, monitoring the results. Make sure you understand what's going on. Deploy the ftp-anon script against the box. Can Nmap login successfully to the FTP server on port 21? (Y/N)
+Ans:Y
+
+Nmap Documentation: https://nmap.org/book/
+
+
 
