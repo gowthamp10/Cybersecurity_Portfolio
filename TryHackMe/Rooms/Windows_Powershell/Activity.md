@@ -25,4 +25,5 @@
 3. Execute the command "Set-Location -Path "\Document"", to naviagte to the Document directory.
 4. Execute the command "New-Item -Path "Test.txt"", creates a new file in the currently working directory having the name Test.txt.
 5. Execute the command "Remove-Item -Path "Test.txt"", deletes the file in the currently working directory having the name Test.txt.
-6. 
+6. Execute the command "Copy-Item -Path <File_Location> -Destination <Destination_Location>", copies the file mentioned in <File_Location> to <Destination_Location>.
+7. Execute the command "Move-Item -Path <File_Location> -Destination <Destination_Location>", copies the file mentioned in <File_Location> to <Destination_Location>.
