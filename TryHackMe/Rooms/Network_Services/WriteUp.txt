@@ -73,5 +73,99 @@ Ans:profiles
 
 Exploiting SMB
 
+Types of SMB Exploit
+
+exploiting anonymous SMB share access- a common misconfiguration that can allow us to gain information that will lead to a shell.
+In many case vulnerabilities such as CVE-2017-7494, can allow remote code execution by exploiting SMB.
+
+Method Breakdown
+
+from our enumeration stage, we know:
+    - The SMB share location
+    - The name of an interesting SMB share
+The above details are both related to profiles which we can across in Share information of enum4linux enumeration.
+
+SMBClient
+Because we're trying to access an SMB share, we need a client to access resources on servers. We will be using SMBClient because it's part of the default samba suite. 
+
+syntax: "smbclient //[IP]/[SHARE]"
+
+Question 11: What would be the correct syntax to access an SMB share called "secret" as user "suit" on a machine with the IP 10.10.10.2 on the default port?
+Ans: smbclient //10.10.10.2/secret -U suit -p 445
+
+Question 12: Does the share allow anonymous access? Y/N?
+Ans: Y
+
+Question 13:Great! Have a look around for any interesting documents that could contain valuable information. Who can we assume this profile folder belongs to?
+Ans: John Cactus
+
+Question 14: What service has been configured to allow him to work from home?
+Ans: ssh
+
+Question 15: Okay! Now we know this, what directory on the share should we look in?
+Ans: .ssh
+
+Question 16: This directory contains authentication keys that allow a user to authenticate themselves on, and then access, a server. Which of these keys is most useful to us?
+Ans: id_rsa
+
+Question 17: What is the smb.txt flag?
+Ans: THM{smb_is_fun_eh?}
+
+Understanding Telnet
+
+What is Telnet?
+Telnet is an application protocol which allows you, with the use of a telnet client, to connect to and execute commands on a remote machine that's hosting a telnet server.
+The telnet client will establish a connection with the server. The client will then become a virtual terminal- allowing you to interact with the remote host.
+
+Replacement: As telent uses no encryption or masking while sending the data most of the implemetions are replaced with ssh.
+
+How does Telnet work?
+The user connects to the server by using the Telnet protocol, which means entering "telnet" into a command prompt. The user then executes commands on the server by using specific Telnet commands in the Telnet prompt.
+Syntax: "telnet [ip] [port]"
+
+Question 18: What is Telnet?
+Ans: application protocol
+
+Question 19: What has slowly replaced Telnet?    
+Ans: ssh
+
+Question 20: How would you connect to a Telnet server with the IP 10.10.10.3 on port 23?
+Ans: telnet 10.10.10.3 23
+
+Question 21: The lack of what, means that all Telnet communication is in plaintext?
+Ans: encryption
+
+Enumerating Telnet
+
+NOTE: when it comes to enumerating network services, we need to be thorough in our method.
+Port Scanning
+find out as much information as we can about the services, applications, structure and operating system of the target machine. 
+
+
+Question 22:How many ports are open on the target machine?    
+Ans:1
+
+Question 23:What port is this?
+Ans:8012
+
+Question 24:This port is unassigned, but still lists the protocol it's using, what protocol is this?
+Ans:tcp
+
+Question 25:Now re-run the nmap scan, without the -p- tag, how many ports show up as open?
+Ans:0
+
+NOTE: Here, we see that by assigning telnet to a non-standard port, it is not part of the common ports list, or top 1000 ports, that nmap scans. 
+It's important to try every angle when enumerating, as the information you gather here will inform your exploitation stage.
+Question 26:Based on the title returned to us, what do we think this port could be used for?
+Ans: 
+
+Question 27: Who could it belong to? Gathering possible usernames is an important step in enumeration.
+Ans: 
+
+NOTE: Always keep a note of information you find during your enumeration stage, so you can refer back to it when you move on to try exploits.
+
+
+
+
 
 

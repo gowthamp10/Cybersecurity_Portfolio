@@ -101,5 +101,86 @@ Ans: Get-ChildItem -Path C:\Users
 Question 7:How many items are displayed by the command described in the previous question?
 Ans:4
 
+Piping, Filtering, and Sorting Data
 
+Piping: Is a technique used in command-line environments that allows the output of one command to be used as the input for another. This creates a sequence of operations where the data flows from one command to the next. 
+Syntax: <command_1> | <command_2>
 
+NOTE: In PowerShell, piping is even more powerful because it passes objects rather than just text. These objects carry not only the data but also the properties and methods that describe and interact with the data.
+
+Sort-Object command sorts based on property mentioned.
+
+Filtering: 
+Where-Object: To filter objects based on specified conditions, returning only those that meet the criteria
+
+set of comparison operators that are shared with other scripting languages (e.g. Bash, Python). To show the potentiality of the PowerShell's filtering, we have selected some of the most useful operators from that list:
+
+-ne: "not equal". This operator can be used to exclude objects from the results based on specified criteria.
+-gt: "greater than". This operator will filter only objects which exceed a specified value. It is important to note that this is a strict comparison, meaning that objects that are equal to the specified value will be excluded from the results.
+-ge: "greater than or equal to". This is the non-strict version of the previous operator. A combination of -gt and -eq.
+-lt: "less than". Like its counterpart, "greater than", this is a strict operator. It will include only objects which are strictly below a certain value.
+-le: "less than or equal to". Just like its counterpart -ge, this is the non-strict version of the previous operator. A combination of -lt and -eq.
+
+Select-Object: Is used to select specific properties from objects or limit the number of objects returned. It’s useful for refining the output to show only the details one needs.
+
+Select-String: This cmdlet searches for text patterns within files, similar to grep in Unix-based systems or findstr in Windows Command Prompt. It’s commonly used for finding specific content within log files or documents.
+
+System and Network Information
+
+Get-ComputerInfo: cmdlet retrieves comprehensive system information, including operating system information, hardware specifications, BIOS details, and more. It provides a snapshot of the entire system configuration in a single command. Its traditional counterpart systeminfo retrieves only a small set of the same details.
+Get-LocalUser: lists all the local user accounts on the system. The default output displays, for each user, username, account status, and description.
+Get-NetIPConfiguration: provides detailed information about the network interfaces on the system, including IP addresses, DNS servers, and gateway configurations.
+Get-NetIPAddress: cmdlet will show details for all IP addresses configured on the system, including those that are not currently active.
+
+Question 8: Other than your current user and the default "Administrator" account, what other user is enabled on the target machine?
+Ans: p1r4t3
+
+Question 9: This lad has hidden his account among the others with no regard for our beloved captain! What is the motto he has so bluntly put as his account's description?
+Ans: A merry life and a short one.
+
+Question 10: Now a small challenge to put it all together. This shady lad that we just found hidden among the local users has his own home folder in the "C:\Users" directory. 
+Can you navigate the filesystem and find the hidden treasure inside this pirate's home?
+Ans:  THM{p34rlInAsh3ll}
+
+Real-Time System Analysis
+
+Get-Process: provides a detailed view of all currently running processes, including CPU and memory usage, making it a powerful tool for monitoring and troubleshooting.
+Get-Service: allows the retrieval of information about the status of services on the machine, such as which services are running, stopped, or paused. It is used extensively in troubleshooting by system administrators, but also by forensics analysts hunting for anomalous services installed on the system.
+Get-NetTCPConnection: displays current TCP connections, giving insights into both local and remote endpoints. This cmdlet is particularly handy during an incident response or malware analysis task, as it can uncover hidden backdoors or established connections towards an attacker-controlled server. Helps with monitoring activity.
+Get-FileHash: as a useful cmdlet for generating file hashes, which is particularly valuable in incident response, threat hunting, and malware analysis, as it helps verify file integrity and detect potential tampering.
+
+Question 11: In the previous task, you found a marvellous treasure carefully hidden in the target machine. What is the hash of the file that contains it?
+Ans: 71FC5EC11C2497A32F8F08E61399687D90ABE6E204D2964DF589543A613F3E08
+
+Question 12: What property retrieved by default by Get-NetTCPConnection contains information about the process that has started the connection?
+Ans: OwningProcess
+
+Question 13: It's time for another small challenge. Some vital service has been installed on this pirate ship to guarantee that the captain can always navigate safely. But something isn't working as expected, and the captain wonders why. Investigating, they find out the truth, at last: the service has been tampered with! The shady lad from before has modified the service DisplayName to reflect his very own motto, the same that he put in his user description.
+With this information and the PowerShell knowledge you have built so far, can you find the service name?
+Ans: p1r4t3-s-compass
+
+Scripting
+
+Scripting: Is the process of writing and executing a series of commands contained in a text file, known as a script, to automate tasks that one would generally perform manually in a shell, like PowerShell.
+
+Understand that Scripting power makes it a crucial skill across all cyber security roles:
+
+1. Blue team professionals: PowerShell scripts can automate many different tasks, including log analysis, detecting anomalies, and extracting indicators of compromise (IOCs). These scripts can also be used to reverse-engineer malicious code (malware) or automate the scanning of systems for signs of intrusion.
+(incident responders, malware analysts, and threat hunters)
+
+2. Red team professionals: PowerShell scripts can automate tasks like system enumeration, executing remote commands, and crafting obfuscated scripts to bypass defences. Its deep integration with all types of systems makes it a powerful tool for simulating attacks and testing systems’ resilience against real-world threats.
+(penetration testers and ethical hackers)
+
+3. System Administrators: PowerShell scripting for automating integrity checks, managing system configurations, and securing networks, especially in remote or large-scale environments. PowerShell scripts can be designed to enforce security policies, monitor systems health, and respond automatically to security incidents, thus enhancing the overall security posture.
+
+Invoke-Command: Is essential for executing commands on remote systems, making it fundamental for system administrators, security engineers and penetration testers. Invoke-Command enables efficient remote management and—combining it with scripting—automation of tasks across multiple machines. It can also be used to execute payloads or commands on target systems during an engagement by penetration testers—or attackers alike.
+
+Examples:
+1. Invoke-Command -FilePath c:\scripts\test.ps1 -ComputerName Server01
+how the cmdlet can be very easily combined with any custom script to automate tasks on remote computers.
+
+2. Invoke-Command -ComputerName Server01 -Credential Domain01\User01 -ScriptBlock { Get-Culture }
+Demonstrates that we don't need to know how to script to benefit from the power of Invoke-Command. In fact, by appending the -ScriptBlock { ... } parameter to the cmdlet's syntax, we can execute any command (or sequence of commands) on the remote computer. The result would be the same as if we were typing the commands in a local PowerShell session on the remote computer itself.
+
+Question 14: What is the syntax to execute the command Get-Service on a remote computer named "RoyalFortune"? Assume you don't need to provide credentials to establish the connection. [for the sake of this question, avoid the use of quotes (" or ') in your answer]
+Ans: Invoke-Command -ComputerName  RoyalFortune -ScriptBlock { Get-Service }

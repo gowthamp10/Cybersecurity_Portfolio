@@ -27,3 +27,30 @@
 5. Execute the command "Remove-Item -Path "Test.txt"", deletes the file in the currently working directory having the name Test.txt.
 6. Execute the command "Copy-Item -Path <File_Location> -Destination <Destination_Location>", copies the file mentioned in <File_Location> to <Destination_Location>.
 7. Execute the command "Move-Item -Path <File_Location> -Destination <Destination_Location>", copies the file mentioned in <File_Location> to <Destination_Location>.
+
+- **Phase 3** : 
+1. Execute the command "Get-ChildItem | Sort-Object Length", to get files and directories sorted with length in asc order. 
+2. Execute the command "Get-ChildItem | Where-Object -Property "Length" -gt 100", to get the files and directories having size/length greater than 100.
+3. Execute the command "Get-ChildItem | Select-Object Name,Length", to get the files and directories but only there Name and Length with no other properties.
+4. Execute the command "Get-ChildItem | Sort-Object Length -Descending | Select-Object -First 1", to get the largest file in the currently working directory.
+5. Execute the command "Select-String -Path <File_name> -Pattern <string_pattern>", to get the lines in the file with the occurance of <string_pattern>.
+
+- **Phase 4** : 
+1. Execute the command "Get-ComputerInfo", to get the basic information about the machine.
+2. Execute the command "Get-localUser", providers list of users present on the machine and there properties.
+3. Execute the command "Get-NetIPConfiguration", provides details on network interfaces on the system, IP addess etc.
+4. Execute the command "Get-NetIPAddress", provides all the details on IP addresses configured on the system and irrespective of the current status.
+5. Execute the following commands to get the flag for the question meentioned.
+    5.1 "Set-Location "C:\Users\<user>"", to navigate to the <user> users location on the users directory.
+    5.2 "Get-ChildItem", to view all the files and directories present in the current working directory.
+    5.3 "Get-Content <file_name>", to get the flag present in the file.
+
+- **Phase 5** :
+1. Execute the command "Get-Process", to get all the currently running processes on the sytem.
+2. Execute the command "Get-Service", to get all the services that are running, stopped and paused.
+3. Execute the command "Get-NetTCPConnection", to get all the TCP connections with both local and remote endpoints.
+4. Execute the command "Get-FileHash -Path <File_path>\<File_name>", to get the hash on the <File_name> mentioned.
+
+- **Phase 6** :
+1. Execute the command "Get-Help Invoke-Command -examples", to get the examples usage of the command to understand better.
+
