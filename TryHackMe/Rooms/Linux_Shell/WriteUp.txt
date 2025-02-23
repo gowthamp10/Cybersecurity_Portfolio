@@ -1,0 +1,14 @@
+Introduction to Linux Shells 
+
+The shells give you some great features for the commands you write in your CLI. This way of interacting with the OS is more efficient and resource-friendly.
+Using CLI to perform operations in a Linux system gives you more power and control while carrying out the tasks.
+
+Learning Objectives
+1. Learn interaction with Linux shell
+2. Use basic shell commands
+3. Explore the types of Linux shells available
+4. Write some shell scripts
+
+Question 1: Who is the facilitator between the user and the OS?
+Ans: Shell
+

