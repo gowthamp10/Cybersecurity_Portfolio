@@ -12,3 +12,137 @@ Learning Objectives
 Question 1: Who is the facilitator between the user and the OS?
 Ans: Shell
 
+How To Interact With a Shell?
+
+By default, when you open a shell in most of the Linux distributions, you will be in your home directory. To see your current working directory, you can execute pwd, which stands for Print Working Directory
+Syntax/Command: pwd
+
+you can change your directory as well. To do that, you can use cd (short for Change Directory)
+Syntax/Command: cd <path>
+
+To view contents of a directory, you can use "ls" command.
+Syntax: ls <options>
+Example: ls -al 
+
+To view the contents of a file, you can use "cat" command.
+Syntax: cat <file_name>
+Example: cat flag.txt
+
+The grep command is a very popular command among Linux users. This powerful command can search for any word or pattern inside a file. 
+Syntax: grep <options> "pattern" <file_name>
+Example: grep Cat raining.txt 
+
+Question 2: What is the default shell in most Linux distributions?
+Ans: Bash
+
+Question 3: Which command utility is used to list down the contents of a directory?
+Ans: ls
+
+Question 4: Which command utility can help you search for anything in a file?
+Ans: grep
+
+Types of Linux Shells
+
+To see which shell you are using, use the command "echo $SHELL"
+You can also list down the available shells in your Linux OS. The file /etc/shells contains all the installed shells on a Linux system.
+To view all the available shells use command "cat /etc/shells".
+To switch between these shells, you can type the shell name that is present on your OS
+If you want to permanently change your default shell, you can use the command: chsh -s <shell_path>. shell_path can be found from /etc/shells.
+Example: chsh -s /usr/bin/zsh
+
+Bourne Again Shell: Bourne Again Shell (Bash) is the default shell for most Linux distributions. When you open the terminal, bash is present for you to enter commands. Before bash, some shells like sh, ksh, and csh had different capabilities. Bash came as an enhanced replacement for these shells, borrowing capabilities from all of them.
+Some of the key features provided by bash are listed below:
+- Bash is a widely used shell with scripting capabilities.
+- It offers a tab completion feature, which means if you are in the middle of completing a command, you can press the tab key on your keyboard. It will automatically complete the command based on a possible match or give you multiple suggestions for completing it.
+- Bash keeps a history file and logs all of your commands. You can use the up and down arrow keys to use the previous commands without typing them again. You can also type history to display all your previous commands.
+
+Friendly Interactive Shell: Friendly Interactive Shell (Fish) is also not default in most Linux distributions.
+Some of the key features provided by fish are listed below:
+- It offers a very simple syntax, which is feasible for beginner users.
+- Unlike bash, it has auto spell correction for the commands you write.
+- You can customize the command prompt with some cool themes using fish.
+- The syntax highlighting feature of fish colors different parts of a command based on their roles, which can improve the readability of commands. It also helps us to spot errors with their unique colors.
+- Fish also provides scripting, tab completion, and command history functionality like the shells mentioned in this task.
+
+Z Shell: Z Shell (Zsh) is not installed by default in most Linux distributions. It is considered a modern shell that combines the functionalities of some previous shells.
+Some of the key features provided by zsh are listed below:
+- Zsh provides advanced tab completion and is also capable of writing scripts.
+- Just like fish, it also provides auto spell correction for the commands.
+- It offers extensive customization that may make it slower than other shells.
+- It also provides tab completion, command history functionality, and several other features.
+
+Question 5: Which shell comes with syntax highlighting as an out-of-the-box feature?
+Ans: Fish
+
+Question 6: Which shell does not have auto spell correction?
+Ans: Bash
+
+Question 7: Which command displays all the previously executed commands of the current session?
+Ans: history
+
+Shell Scripting and Components
+
+Create file using shell command.
+Syntax: nano <file_name>.sh
+
+shebang line: #!/bin/bash
+
+Accpeting input from the terminal, using read operator.
+Example script:welcome.sh
+
+To add execute permissions to file we can use the chmod command
+syntax: chmod +x <file_name>
+
+Loops: Loop, as the name suggests, is something that is repeating.
+Syntax: 
+for <condition>;
+do
+<statements>
+done
+
+Example: loops.sh
+
+Conditional Statements
+
+help you execute a specific code only when a condition is satisfied; otherwise, you can execute another code.
+Syntax:
+if <condition>; then
+    <statements>
+else 
+    <statements>
+fi 
+
+Example: condition.sh
+
+Comments
+A comment is a sentence that we write in our code just for the sake of our understanding. It is written with a # sign followed by a space and the sentence you need to write.
+Example: comments.sh
+
+Question 8: What is the shebang used in a Bash script?
+Ans: #!/bin/bash
+
+Question 9: Which command gives executable permissions to a script?
+Ans: chmod +x
+
+Question 10: Which scripting functionality helps us configure iterative tasks?
+Ans: loops
+
+The Locker Script
+
+Example: Locker.sh
+
+Question 11: What would be the correct PIN to authenticate in the locker script?
+Ans: 7385
+
+Practical Exercise
+
+Question 12: Which file has the keyword?
+Ans: authentication.log
+
+Question 13: Where is the cat sleeping?
+Ans: under the table
+
+
+
+
+
