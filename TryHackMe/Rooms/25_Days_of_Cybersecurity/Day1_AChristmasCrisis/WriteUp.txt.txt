@@ -1,0 +1,26 @@
+Scenario: 
+"The Best Festival Company's brand new OpenVPN server has been hacked. This is a crisis!
+
+The attacker has damaged various aspects of the company infrastructure -- including using the Christmas Control Centre to shut off the assembly line!
+
+It's only 24 days until Christmas, and that line has to be operational or there won't be any presents! You have to hack your way  back into Santa's account (blast that hacker changing the password!) and getting the assembly line up and running again, or Christmas will be ruined!"
+
+The Web:
+
+Computer communicates with a known DNS (Domain Name System) server to find out where the website can be found on the internet. The DNS server will then return an IP address for the remote server. This can be used to go directly to the website.
+
+HTTP(S):
+
+Amongst many other headers, HTTP requests always have a method and a target. These specify what to retrieve from the server (the target), and how to retrieve it (the method). The method most commonly used to retrieve information is called the GET method. When sending data to the server, it's more common to use a method called POST.
+
+Once the content has been retrieved from the server, your browser reads the retrieved code and renders it as a web page. This usually means taking the layout of the page from a HTML (Hyper Text Markup Language) document, styling it with a connected CSS (Cascading Style Sheets) file, then adding any dynamic content with one or more connected Javascript files.
+HTTP has one inherent disadvantage: namely, it is not secure. Anyone can see what you're requesting, and what's being sent back to you. For this reason, HTTPS (Hypertext Transfer Protocol Secure) was invented. This works in exactly the same way as standard HTTP but provides an encrypted connection (the functionality of which is beyond the level of this dossier)
+
+Cookies:
+
+HTTP is an inherently stateless protocol. This means that no data persists between connections; your computer could make two requests immediately after each other, and, without relying on separate software, the web server would have no way to know that it was you making both the requests.
+
+The answer is cookies -- tiny little pieces of information that get stored on your computer and get sent to the server along with every request that you make. Authentication (or session) cookies are used to identify you (these will be very important in your mission today!). The server receives your request with the attached cookie, and checks the cookie to see what level of access you are allowed to have. It then returns a response appropriate to that level of access.
+It's worth noting that a site can only access cookies that are associated with its own domain (i.e. google.com can't access any cookies stored by tryhackme.com, and vice versa).
+
+

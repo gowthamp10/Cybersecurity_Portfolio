@@ -1,2 +1,9 @@
 Introduction
 
+Learning Objectives
+By the time you finish this room, you will have learned about the following:
+- ISO OSI network model
+- IP addresses, subnets, and routing
+- TCP, UDP, and port numbers
+- How to connect to an open TCP port from the command line
+
