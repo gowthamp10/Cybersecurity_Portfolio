@@ -251,7 +251,75 @@ Ans: 21
 Question 36: How many modes of FTP connection are there?   
 Ans: 2
 
+Enumerating FTP
 
+Method
+We're going to be exploiting an anonymous FTP login, to see what files we can access- and if they contain any information that might allow us to pop a shell on the system. This is a common pathway in CTF challenges, and mimics a real-life careless implementation of FTP servers.
+
+Alternative Enumeration Methods
+It's worth noting  that some vulnerable versions of in.ftpd and some other FTP server variants return different responses to the "cwd" command for home directories which exist and those that don’t. This can be exploited because you can issue cwd commands before authentication, and if there's a home directory- there is more than likely a user account to go with it. While this bug is found mainly within legacy systems, it's worth knowing about, as a way to exploit FTP.
+
+documented at: https://www.exploit-db.com/exploits/20745 
+
+Question 37: How many ports are open on the target machine? 
+Ans: 2
+Note the scan gives only one port as open but the answer is 2 so dig around to find why?
+
+Question 38: What port is ftp running on?
+Ans: 21
+
+Question 39: What variant of FTP is running on it?  
+Ans: vsftpd
+
+Question 40: What is the name of the file in the anonymous FTP directory?
+Ans: PUBLIC_NOTICE.txt
+
+Question 41: What do we think a possible username could be?
+Ans: mike
+
+Note: Great! Now we've got details about the FTP server and, crucially, a possible username. Let's see what we can do with that...
+
+Exploiting FTP
+
+Types of FTP Exploit
+Similarly to Telnet, when using FTP both the command and data channels are unencrypted. Any data sent over these channels can be intercepted and read.
+
+Method Breakdown
+    - There is an FTP server running on this machine
+    - We have a possible username
+Using this information, let's try and bruteforce the password of the FTP Server.
+
+Hydra
+Hydra is a very fast online password cracking tool, which can perform rapid dictionary attacks against more than 50 Protocols, including Telnet, RDP, SSH, FTP, HTTP, HTTPS, SMB, several databases and much more.
+
+Syntax for the command we're going to use to find the passwords is this:
+"hydra -t 4 -l dale -P /usr/share/wordlists/rockyou.txt -vV 10.10.10.6 ftp"
+
+SECTION             FUNCTION
+hydra                   Runs the hydra tool
+-t 4                    Number of parallel connections per target
+-l [user]               Points to the user who's account you're trying to compromise
+-P [path to dictionary] Points to the file containing the list of possible passwords
+-vV                     Sets verbose mode to very verbose, shows the login+pass combination for each attempt
+[machine IP]            The IP address of the target machine
+ftp / protocol          Sets the protocol
+
+
+Question 42: What is the password for the user "mike"?
+Ans: password
+
+Note: Bingo! Now, let's connect to the FTP server as this user using "ftp [IP]" and entering the credentials when prompted
+Question 43: What is ftp.txt?
+Ans: THM{y0u_g0t_th3_ftp_fl4g}
+
+Expanding Your Knowledge
+
+Reading
+
+Here's some things that might be useful to read after completing this room, if it interests you:
+https://medium.com/@gregIT/exploiting-simple-network-services-in-ctfs-ec8735be5eef
+https://attack.mitre.org/techniques/T1210/
+https://www.nextgov.com/cybersecurity/2019/10/nsa-warns-vulnerabilities-multiple-vpn-services/160456/
 
 
 

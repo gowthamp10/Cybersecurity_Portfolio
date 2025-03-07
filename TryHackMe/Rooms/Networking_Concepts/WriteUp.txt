@@ -7,3 +7,24 @@ By the time you finish this room, you will have learned about the following:
 - TCP, UDP, and port numbers
 - How to connect to an open TCP port from the command line
 
+OSI Model
+
+The OSI (Open Systems Interconnection) model is a conceptual model developed by the International Organization for Standardization (ISO) that describes how communications should occur in a computer network. In other words, the OSI model defines a framework for computer network communications. Although this model is theoretical, it is vital to learn and understand as it helps grasp networking concepts on a deeper level. 
+The OSI model is composed of seven layers:
+Physical Layer
+Data Link Layer
+Network Layer
+Transport Layer
+Session Layer
+Presentation Layer
+Application Layer
+
+"Please Do Not Throw Spinach Pizza Away"
+
+Layer 1: Physical Layer
+The physical layer, also referred to as layer 1, deals with the physical connection between devices; this includes the medium, such as a wire, and the definition of the binary digits 0 and 1. Data transmission can be via an electrical, optical, or wireless signal. Consequently, we need data cables or antennas, depending on our physical medium.
+
+Layer 2: Data Link Layer
+The physical layer defines a medium to transmit our signal. The data link layer, i.e., layer 2, represents the protocol that enables data transfer between nodes on the same network segment. 
+The data link layer describes an agreement between the different systems on the same network segment on how to communicate. 
+

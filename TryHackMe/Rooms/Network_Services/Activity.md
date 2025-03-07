@@ -60,5 +60,20 @@ rm /tmp/qnnue -> It deletes the file /tmp/qnnue from the system.
 
 Navigate through the file structure to get the flag.
 
+- **Phase 3(Enumerating FTP)** :
+1. Run the command "nmap -sV -A -vv -p- <IP> > <output_file>", user should be able to view the nmap scan results with verbosity level of 2 and all 65535 ports are scanned with Aggresive and Service Version scan.
+
+According to the nmap results anonymous login is allowed on FTP server which is running on port 21.
+1. Run the command "ftp <IP>" and provide username as anonymous and no password, user should be able to login to ftp server successfully.
+2. Run the command "ls" on the ftp server, user should be able to view list of files and directories.
+3. Run the command "get <file_name>", user should be able to get the file to the local system.
+
+- **Phase 3(Exploiting FTP)** :
+Utilizing Hydra for brute force attack is the best option and the one suggested in the room.
+1. Run the command "hydra -t 4 -l <username> -P /usr/share/wordlists/rockyou.txt.gz -vV <IP> ftp", user should be able find a brute force password.
+Login to the ftp server using the username and password. 
+1. Run the command "ftp <IP>" provide the <username> the <password> on the prompts, user should be able to login to the ftp server as the <username>.
+2. Run the command "ls" on the ftp server, user should be able to view the list of files and directories.
+3. Run the command "get <file_name>" on the ftp server, user should be able to get the file on the local machine.
 
 

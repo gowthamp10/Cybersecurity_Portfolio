@@ -1,3 +1,5 @@
+DAY 1
+
 Scenario: 
 "The Best Festival Company's brand new OpenVPN server has been hacked. This is a crisis!
 

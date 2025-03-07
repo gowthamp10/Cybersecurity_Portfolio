@@ -1,0 +1,41 @@
+DAY 2
+
+Scenario:
+After your heroic deeds regaining control of the control centre yesterday, Elf McSkidy has decided to give you an important job to do.
+
+"We know we've been hacked, so we need a way to protect ourselves! The dev team have set up a website for the elves to upload pictures of any suspicious people hanging around the factory, but we need to make sure it's secure before we add it to the public network. Please perform a security audit on the new server and make sure it's unhackable!"
+
+You listen to the briefing and accept the task, pressing the deploy button to start the server as you do so.
+
+McSkidy once again gives you a dossier of useful information to help you with your task, which you read as you wait for the server to boot:
+
+GET Parameters and URLs:
+With POST requests the data being sent is included in the "body" of the request. With GET requests, the data is included in the URL as a "parameter". This is best demonstrated with an example:
+
+https://www.thebestfestivalcompany.xyz/index.php?snack=mincePie
+
+There are 7 different parts which make up this URL. 
+1.First up we have the protocol (https://). This specifies whether the request should be made using HTTP, or HTTPS. In our example, we are using HTTPS.
+2.ext we have the subdomain (www). This is traditionally "www" (World Wide Web) to signify that the target is a website; however, this is not essential. Indeed, subdomains can be basically anything you want; for example, a lot of websites use things like "assets", or "api" to indicate different subdomains with different uses. (e.g. https://api.thebestfestivalcompany.xyz)
+3.The next part of the URL is the domain (thebestfestivalcompany). Domains need to be registered and are used as links between a memorable word or phrase, and an IP address. In other words, they're used to give a name to the server running a website.
+4.Next up we have the TLD (Top Level Domain) -- .xyz, for our example. Top-level domains are used by DNS to determine where to look if they want to find your domain. Previously top-level domains had specific uses (and many still do!), but this is not always the case these days. For example, .co.uk  indicates a company based in the UK, .com indicates a company based in the US.
+5.We then have the resource that we're selecting -- in this case that is the homepage of the website: index.php. As a side note, all homepages must be called "index" in order to be correctly served by the web server without having to be specified fully, unless this parameter has been changed from the default in the webserver configuration. This is how you can go to https://tryhackme.com without having to specify that you want to receive the home page -- the index page is served automatically because you didn't specify!
+6.The final two aspects of the URL are the most important for our current topic: they both relate to GET parameters. First up we have ?snack=. Here ? is used to specify that a GET parameter is forthcoming. We then have the parameter name: snack. This is used to identify the parameter to the server. We then have an equals sign (=), indicating that the value will come next.
+7.Finally, we have the value of the GET parameter: mincePie, because who doesn't like mince pies, right?
+
+It's important to note exactly which part of the URL is the GET parameter. Specifically, we are talking about ?snack=mincePie. If there was more than one parameter, we would separate them with an ampersand (&). For example: ?snack=mincePie&drink=hotChocolate. In this way we can send multiple values to the server, distinguished by keys (i.e. "mincePie" is identified by the key: "snack").
+
+File Uploads:
+There are countless uses for file uploads in the modern internet -- profile pictures, school/university submissions, diagrams, pictures of your dog, you name it! Whilst file uploads are very common, they're also very easy to implement in an insecure fashion. For this reason, it's important that we understand the gravity of the attack vector.
+
+NOTE: When you have the ability to upload files to a server, you have a path straight to RCE (Remote Command Execution). 
+
+The script has to be written in a language which the server can execute. PHP is usually a good choice for this, as most websites are still written with a PHP back end.
+
+Most common types of filter and its bypass:
+File Extension Filtering: As the name suggests extension filtering checks the file extension of uploaded files. This is often done by specifying a list of allowed extensions, then checking the uploaded file against the list. If the extension is not in the allowlist, the upload is rejected.
+So, what's the bypass? Well, the answer is that it depends entirely on how the filter is implemented. Many extension filters split a filename at the dot (.) and check what comes after it against the list. This makes it very easy to bypass by uploading a double-barrelled extension (e.g. .jpg.php). The filter splits at the dot(s), then checks what it thinks is the extension against the list. If jpg is an allowed extension then the upload will succeed and our malicious PHP script will be uploaded to the server.
+
+When implementing an upload system, it's good practice to upload the files to a directory that can't be accessed remotely. Unfortunately, this is often not the case, and scripts are uploaded to a subdirectory on the webserver (often something like /uploads, /images, /media, or /resources). For example, we might be able to find the uploaded script at https://www.thebestfestivalcompany.xyz/images/shell.jpg.php.
+
+Reverse Shells:
