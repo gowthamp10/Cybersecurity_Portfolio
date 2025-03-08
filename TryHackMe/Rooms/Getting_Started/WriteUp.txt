@@ -1,0 +1,34 @@
+Introduction
+
+To help familiarize yourself with how things work, your first assignment is to breach the security of a social media site called BFFs.
+
+Learning Objectives
+- Learn about rooms in THM and how to complete them
+- Learn how to launch a VM and access a website it serves
+- Learn how to exploit a simple vulnerability in a website
+
+Inspecting the site
+It's very common for developers to leave comments about how the application works on the web page's source. Sometimes this information can include usernames, passwords and even hidden pages that users are not supposed to have access to. 
+
+Question 1: What is the name of the hidden admin page?
+Ans: /test-admin
+
+Default Credentials
+discovered the hidden admin page leading to a login form. Gaining access to the page behind this form can have significant consequences, as it will enable us to:
+1.Access sensitive user information, such as names and addresses.
+2.Modify users' profiles and data.
+
+If a website has not been configured correctly, there is a chance that there remain default credentials in the platform that the developers forgot to remove. We can search for the default credentials depending on the platform used. Sometimes these are typically easy to guess. Some common username and password combinations (in the format username:password) are:
+
+admin:admin
+admin:password
+administrator:password123
+
+Question 2: What is the username and password in the form username:password?
+Ans: admin:admin
+
+Question 3: How many user are signed up to the application?
+Ans: 3
+
+Conclusion
+By learning about common web application misconfigurations like these, you are well on enhancing your cybersecurity knowledge. Continue exploring this field to expand your skill set and understanding further!
