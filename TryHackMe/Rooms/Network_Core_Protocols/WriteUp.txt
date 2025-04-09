@@ -1,0 +1,142 @@
+Introduction
+
+Learning Objectives
+By the time you finish this room, you will have learned about the following protocols:
+1. WHOIS
+2. DNS
+3. HTTP and FTP
+4. SMTP, POP3, and IMAP
+
+DNS: Remembering Addresses
+
+Domain Name System (DNS), which is responsible for properly mapping a domain name to an IP address.
+DNS operates at the Application Layer, i.e., Layer 7 of the ISO OSI model. DNS traffic uses UDP port 53 by default and TCP port 53 as a default fallback. 
+
+Majorly used 4 types of DNS Records:
+1. A record: The A (Address) record maps a hostname to one or more IPv4 addresses. For example, you can set example.com to resolve to 172.17.2.172.
+2. AAAA Record: The AAAA record is similar to the A Record, but it is for IPv6. AAA refers to Authentication, Authorization, and Accounting; neither falls under DNS.
+3. CNAME Record: The CNAME (Canonical Name) record maps a domain name to another domain name. For example, www.example.com can be mapped to example.com or even to example.org.
+4. MX Record: The MX (Mail Exchange) record specifies the mail server responsible for handling emails for a domain.
+
+In other words, when you type example.com in your browser, your browser tries to resolve this domain name by querying the DNS server for the A record. 
+However, when you try to send an email to test@example.com, the mail server would query the DNS server to find the MX record.
+
+Question 1: Which DNS record type refers to IPv6?
+Answer: AAAA
+
+Question 2: Which DNS record type refers to the email server?
+Answer: MX 
+
+WHOIS
+
+You can register any available domain name for one or more years. You need to pay the annual fee, and you are required to provide accurate contact information as the registrant. 
+This information is part of the data available via WHOIS records and is available publicly. (Although written in uppercase, WHOIS is not an acronym; it is pronounced who is.) 
+However, don’t worry if you want to register a domain without revealing your contact information publicly; you can use one of the privacy services that hide all your information from the WHOIS records.
+
+You can look up the WHOIS records of any registered domain name using one of the online services or via the command-line tool whois, available on Linux systems, among others. 
+As expected, a WHOIS record provides information about the entity that registered a domain name, including name, phone number, email, and address. 
+
+Question 3: When was the x.com record created? Provide the answer in YYYY-MM-DD format.
+Answer: 1993-04-02
+
+Question 4: When was the twitter.com record created? Provide the answer in YYYY-MM-DD format.
+Answer: 2000-01-21
+
+HTTP(S): Accessing the Web
+
+When you fire up your browser, you mainly use HTTP and HTTPS protocols. HTTP stands for Hypertext Transfer Protocol; the S in HTTPS stands for Secure. This protocol relies on TCP and defines how your web browser communicates with the web servers.
+
+Some of the commands or methods that your web browser commonly issues to the web server are:
+1. GET: retrieves data from a server, such as an HTML file or an image.
+2. POST: allows us to submit new data to the server, such as submitting a form or uploading a file.
+3. PUT: is used to create a new resource on the server and to update and overwrite existing information.
+4. DELETE: is used to delete a specified file or resource on the server.
+
+Note: HTTP and HTTPS commonly use TCP ports 80 and 443, respectively, and less commonly other ports such as 8080 and 8443.
+
+Question 5: Use telnet to access the file flag.html on {IP_Address}. What is the hidden flag?
+Answer: THM{TELNET-HTTP}
+
+FTP: Transferring Files
+
+File Transfer Protocol (FTP) is designed to transfer files. As a result, FTP is very efficient for file transfer, and when all conditions are equal, it can achieve higher speeds than HTTP.
+
+Example commands defined by the FTP protocol are:
+1. USER: is used to input the username
+2. PASS: is used to enter the password
+3. RETR(retrieve): is used to download a file from the FTP server to the client.
+4. STOR(store): is used to upload a file from the client to the FTP server.
+
+Note: FTP server listens on TCP port 21 by default; data transfer is conducted via another connection from the client to the server.
+
+Question 6: Using the FTP client ftp on the AttackBox, access the FTP server at {IP_Address} and retrieve flag.txt. What is the flag found?
+Answer: THM{FAST-FTP}
+
+SMTP: Sending Email
+
+Simple Mail Transfer Protocol (SMTP) defines how a mail client talks with a mail server and how a mail server talks with another.
+
+some of the commands used by your mail client when it transfers an email to an SMTP server:
+1. HELO or EHLO: initiates an SMTP session
+2. MAIL FROM: specifies the sender’s email address
+3. RCPT TO: specifies the recipient’s email address
+4. DATA: indicates that the client will begin sending the content of the email message
+5. .(Dot): is sent on a line by itself to indicate the end of the email message
+
+Note: The SMTP server listens on TCP port 25 by default.
+
+Question 7: Which SMTP command indicates that the client will start the contents of the email message?
+Answer: DATA
+
+Question 8: What does the email client send to indicate that the email message has been fully entered?
+Answer: .
+
+POP3: Receiving Email
+
+The Post Office Protocol version 3 (POP3) is designed to allow the client to communicate with a mail server and retrieve email messages.
+An email client sends its messages by relying on SMTP and retrieves them using POP3. SMTP is similar to handing your envelope or package to the post office, and POP3 is similar to checking your local mailbox for new letters or packages.
+
+Some common POP3 commands are:
+1. USER <username>: identifies the user
+2. PASS <password>: provides the user’s password
+3. STAT: requests the number of messages and total size
+4. LIST: lists all messages and their sizes
+5. RETR <message_number>: retrieves the specified message
+6. DELE <message_number>: marks a message for deletion
+7. QUIT: ends the POP3 session applying changes, such as deletions
+
+Note:  POP3 server listens on TCP port 110 by default.
+
+Question 9: Looking at the traffic exchange, what is the name of the POP3 server running on the remote server?
+Answer: Dovecot
+
+Question 10: Use telnet to connect to {IP_Address}’s POP3 server. What is the flag contained in the fourth message?
+Answer: THM{TELNET_RETR_EMAIL}
+
+IMAP: Synchronizing Email
+
+IMAP allows synchronizing read, moved, and deleted messages. IMAP is quite convenient when you check your email via multiple clients. Unlike POP3, which tends to minimize server storage as email is downloaded and deleted from the remote server, IMAP tends to use more storage as email is kept on the server and synchronized across the email clients.
+
+few example commands pf IMAP are below:
+1. LOGIN <username> <password>: authenticates the user
+2. SELECT <mailbox>: selects the mailbox folder to work with
+3. FETCH <mail_number> <data_item_name>: Example fetch 3 body[] to fetch message number 3, header and body.
+4. MOVE <sequence_set> <mailbox>: moves the specified messages to another mailbox
+5. COPY <sequence_set> <data_item_name>: copies the specified messages to another mailbox
+6. LOGOUT: logs out
+
+Note: IMAP server listens on TCP port 143 by default
+
+
+
+Conclusion
+
+Protocol	Transport Protocol	Default Port Number
+TELNET	    TCP	                23
+DNS	        UDP or TCP	        53
+HTTP	    TCP	                80
+HTTPS	    TCP	                443
+FTP	        TCP	                21
+SMTP	    TCP	                25
+POP3	    TCP	                110
+IMAP	    TCP	                143

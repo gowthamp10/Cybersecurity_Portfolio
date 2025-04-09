@@ -1,4 +1,0 @@
-A charset is defined by enclosing in [ square brackets ] the character(s), or range of characters that you want to match.  
-Then, it finds every occurrence of the pattern you have defined in the file/text you are searching.
-
-

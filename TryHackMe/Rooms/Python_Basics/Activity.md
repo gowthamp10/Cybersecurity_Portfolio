@@ -21,3 +21,5 @@
 - **Task 8** :
 1. Utilize the code provided in the bitcoin.py and complete the logic and follow the changes in the question to obtain the flags.
 
+- **Task 9** :
+1. Use the code"f = open("flag.txt", "r") print(f.read())", to get the flag. Take care of the indentation.
