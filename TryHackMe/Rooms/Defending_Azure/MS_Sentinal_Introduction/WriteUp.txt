@@ -1,0 +1,177 @@
+Microsoft Security Operations Analyst
+
+A Security Operations Center (SOC) is a centralized security unit with team(s) responsible for protecting the organization against security threats.
+
+A Security Operations Center Analyst, also known as a SOC Analyst, works in a SOC team to monitor, analyze, and respond to security issues as the front line of an organization's cyber defenses. 
+Similarly, a Microsoft SOC Analyst has the same security goals as a SOC Analyst but with the additional distinction of working and specializing in Microsoft Security products.
+
+The main goal is to reduce organizational risk. The mission statement would include the following points:
+1. Remediate active attacks in the environment.
+2. Advise on improvements to threat protection practices.
+3. Refer violations of organizational policies to appropriate stakeholders.
+
+Responsibilities
+Monitoring	                                        SOC Level 1 Analyst
+Triage	                                            SOC Level 1 Analyst
+Incident Response	                                SOC Level 2 Analyst
+Threat Hunting	                                    SOC Level 2 Analyst
+Advanced Threat Hunting	                            SOC Level 3 Analyst
+Threat Intelligence (TI) Analysis	                SOC Level 3 Analyst
+Vulnerability Management	                        SOC Level 3 Analyst
+
+Prerequisites
+1. Understanding of Microsoft 365
+2. Fundamental understanding of Microsoft Security, Compliance, and Identity products
+3. Intermediate understanding of Microsoft Windows
+4. Familiarity with Azure services - specifically Azure SQL Database and Azure Storage, Azure VMs, and Virtual Networking
+5. Familiarity with scripting concepts
+
+Question 1: What security unit is responsible for protecting the organization against security threats?
+Answer: Security Operations Center
+
+Question 2: Generally, which level of SOC Analyst is responsible for responding to incidents?
+Answer: SOC Level 2 Analyst
+
+Question 3: Besides monitoring, what else do SOC Level 1 Analysts spend the majority of their time with?
+Answer: triage
+
+Introduction to Microsoft Sentinel
+
+What Is SIEM?
+SIEM stands for Security Information and Event Management. It is a comprehensive approach to security management that combines Security Information Management (SIM) and Security Event Management (SEM) into a single solution. 
+The primary purpose of SIEM is to provide a holistic view of an organization's information security by collecting and analyzing log data from various sources across its IT infrastructure.
+
+What Is SOAR?
+SOAR stands for Security Orchestration, Automation, and Response. It is a set of technologies and practices designed to improve the efficiency and effectiveness of an organization's cyber security operations. 
+SOAR platforms integrate security orchestration and automation to streamline and accelerate incident response processes.
+
+What Is Microsoft Sentinel?
+
+Microsoft Sentinel's own definition becomes a combination of the two. It is essentially a scalable, cloud-native solution that provides the following:
+
+Security Information and Event Management (SIEM) functionality by:
+1. Collecting and querying logs
+2. Doing correlation or anomaly detection
+3. Creating alerts and incidents based on findings
+Security Orchestration, Automation, and Response (SOAR) functionality by:
+1. Defining playbooks
+2. Automating threat responses
+
+Microsoft Sentinel also delivers security analytics and threat intelligence across the organization. It's a one-stop-shop and bird's-eye view solution for:
+Attack detection
+Threat visibility
+Proactive hunting
+Threat response
+
+Microsoft Sentinel performs the above actions and enables security operations by means of 4 main pillars:
+Collect
+Detect
+Investigate
+Respond
+
+Question 4: Microsoft Sentinel is a combination of two security concepts, namely SIEM and which other one?
+Answer: SOAR
+
+Question 5: Creating security alerts and incidents is part of which security concept?
+Answer: SIEM
+
+Question 6: By means of how many pillars does Microsoft Sentinel help us to perform security operations?
+Answer: 4
+
+How Microsoft Sentinel Works
+
+To understand how Microsoft Sentinel does what it does, maybe it is better to go through the journey together with the logs. 
+Without log data ingested from different data sources, there wouldn't be any correlation, alerting, threat intelligence, or response automation
+
+Phase 1: Collect
+1. Data connectors: The first step is to ingest data into Microsoft Sentinel. This is exactly what data connectors are for. There are 100+ connectors to cover all various data sources and scenarios.
+2. Log retention: Once the data has been ingested into Microsoft Sentinel, it must be stored for further correlation and analysis. This log storage mechanism is called Log Analytics workspaces. Data stored in these workspaces can be queried to gain further insights using Kusto Query Language (KQL).
+
+Phase 2: Detect
+1. Workbooks: Workbooks are essentially dashboards in Microsoft Sentinel used to visualize data. There are many built-in workbooks, and custom ones can also be created by utilizing KQL.
+2. Analytics rules: What good is a bunch of logs and visualizations if we can't gain insights from them? That's why there are Analytics rules. Analytics rules provide proactive analytics so that SOC teams get notified when suspicious things happen. The output of running Analytics rules are security alerts and incidents.
+3. Threat hunting: Reacting to security incidents only after they happen is not good enough. SOC analysts also need to perform proactive threat hunting. Microsoft Sentinel has over 200 built-in threat-hunting queries to support that needle-in-a-haystack job.
+
+Phase 3: Investigate
+Incidents and investigations: Once Analytics rules detect suspicious activities, i.e., once an alert is triggered, security incidents are created for SOC analysts to triage and investigate. 
+Typical incident management activities include:
+1. Changing the incident status
+2. Assigning to other analysts for further investigation
+3. Mapping entities to the investigation
+4. Investigating the incident timeline
+5. Deep-dive into investigation details using investigation maps
+6. Recording investigation comments
+
+Phase 4: Respond
+Alert fatigue occurs occurs when cyber security professionals are inundated with a high volume of security alerts, which leads to a diminished ability for SOC teams to react effectively to and investigate real threats.
+Automation via playbooks: One of the main challenges of a SOC team is alert fatigue. To overcome alert fatigue, automation in security operations is a must. This is done by automated workflows, also known as playbooks, in response to events. 
+By doing so, automated responses can be provided for:
+1. Incident management
+2. Enrichment
+3. Investigation
+4. Remediation
+
+Respond is part of the SOAR (Security Orchestration, Automation, and Response) capabilities of Microsoft Sentinel.
+
+Question 7: What is used to ingest data into Sentinel?
+Answer: data connectors
+
+Question 8: Where are the ingested logs stored for further correlation and analysis?
+Answer: log analytics workspaces
+
+Question 9: Workbooks are essentially _______ used for visualization.
+Answer: dashboards
+
+Question 10: When SOC teams are flooded with security alerts and incidents, this is called?
+Answer: alert fatigue
+
+Question 11: In Microsoft Sentinel, automation is done via automated workflows, known as?
+Answer: playbooks
+
+Question 12: The output of running Analytics rules includes security alerts and?
+Answer: Incidents
+
+When To Use Microsoft Sentinel
+
+Microsoft Sentinel serves as a solution for conducting security operations across cloud and on-premises environments. 
+Security operations encompass various tasks such as:
+1. Visualizing log data
+2. Detecting anomalies
+3. Conducting threat hunting
+4. Investigating security incidents
+5. Implementing automated responses to alerts and incidents
+
+Opt for Microsoft Sentinel if the organization aims to:
+1. Gather event data from diverse data sources
+2. Execute security operations on the collected data to pinpoint suspicious activities
+
+Some of Microsoft Sentinel's additional features are:
+1. Cloud-native SIEM - No need for server provisioning, facilitating seamless scalability
+2. Easy integration with Azure services and its extensive range of connectors
+3. Centralized monitoring
+4. Automated incident response
+5. Real-time advanced threat detection
+6. Leveraging Microsoft's Research and Machine Learning capabilities
+7. Support for hybrid cloud and on-premises environments
+
+If the organization has requirements such as:
+1. Support for data from multiple cloud environments
+2. Features and functionality necessary for a Security Operations Center (SOC) without excessive administrative overhead
+
+Note: If the organization's objectives involve understanding the security posture, ensuring compliance with policies, and checking for security misconfigurations, you would use Microsoft Defender for Cloud (formerly known as Security Center) rather than mainly using Microsoft Sentinel. You could also use both in conjunction by ingesting Defender for Cloud alerts into Microsoft Sentinel, which would enhance the overall security framework.
+
+Question 13: Organizations use Microsoft Sentinel mainly because they need to _______ their cloud infrastructure.
+Answer: monitor
+
+Question 14: With Microsoft Sentinel, there is no need for server provisioning. This means it is?
+Answer: cloud-native
+
+Conclusion
+
+we have delved into an initial introduction to security operations as a whole, understanding the responsibilities of a SOC Analyst and some key prerequisites.
+We also discussed some key concepts of Microsoft Sentinel, how it works, and how SOC Analysts can use it to improve their security posture.
+
+After completing this Microsoft Sentinel introductory room, you should have learnt the following:
+1. The roles of a SOC Analyst and the different levels
+2. How Microsoft Sentinel works as a SIEM solution
+3. The key features of Microsoft Sentinel

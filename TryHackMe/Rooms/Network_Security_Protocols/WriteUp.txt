@@ -1,0 +1,13 @@
+Introduction
+
+A network protocol is a pre-defined set of rules and processes to determine how data is transmitted between devices, such as end-user devices, networking devices, and servers. 
+The fundamental objective of all protocols is to allow machines to connect and communicate seamlessly, regardless of any difference in their internal design, structure, logic, or operation. 
+In analogy, a networking protocol is like a “common language” that helps make communication possible among people with different native languages and from various parts of the globe.
+
+Prerequisites
+
+Understanding of following topics is recommended before starting the course:
+OSI Model - Done
+HTTP Protocols and Methods
+Principles of Security - Done
+

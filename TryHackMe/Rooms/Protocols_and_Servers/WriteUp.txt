@@ -1,0 +1,12 @@
+Introduction
+
+This room introduces the user to a few protocols commonly used, such as:
+HTTP
+FTP
+POP3
+SMTP
+IMAP
+
+Telnet
+
+
