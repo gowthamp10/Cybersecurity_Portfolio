@@ -1,0 +1,143 @@
+Getting Ready To Ingest Data
+
+As a Microsoft Security Analyst, it is essential to know how to connect log data from different sources. The organization may have data from Microsoft and non-Microsoft resources as well as on-premise and network appliances.
+
+Learning Objectives
+In this room, we will look into the options for ingesting data and how to connect them so that Microsoft Sentinel starts to analyze and correlate logs. 
+The main parts of this room will be:
+1. Data connectors
+2. Content hub solutions
+3. How to install Content hub solutions
+4. How to connect data connectors
+
+Question 1: What is used to ingest log data into Microsoft Sentinel?
+Answer: data connectors
+
+Data Connectors Introduction
+
+Data Sources and Data Connectors
+Data connectors are used to connect log data to various data sources. There are several hundreds of associating data connectors since these connectors are specific to the data sources, data types and data formats of the ingested log data.
+
+Microsoft Sentinel includes various data connectors for both Microsoft and third-party products to assist in onboarding your data. These data connectors are essential for integrating and ingesting data from various sources, such as Microsoft Defender, AWS, Cisco, etc., into Microsoft Sentinel, providing real-time threat detection and analysis.
+
+Data connectors are available in various ways:
+1. Out-of-the-box (OOTB)
+2. Packaged with Content hub solutions
+
+In the earlier years of Microsoft Sentinel, the only option to ingest data was to use data connectors. However, as the number of data connectors increased, the need to organize them based on their type and package them into a solution-like entity emerged. Out of this need, the Content hub concept was introduced. The Content hub provides a packaged way of installing and enabling data connectors for various data sources.
+
+Question 2: Are data connectors specific to each data source? (Yea/Nay)
+Answer: Yea
+
+Question 3: Data connectors are available in how many ways?
+Answer: 2
+
+Content Hub Introduction
+
+Microsoft Sentinel Content hub is a place to centrally discover, install, enable, and manage out-of-the-box content and solutions for Microsoft Sentinel. It is usually the starting point for any Microsoft Sentinel administrator after the initial deployment.
+
+Content hub provides:
+1. Centralized in-product search for solutions
+2. Single-step deployment
+3. Installation of out-of-the-box solutions and content in Microsoft Sentinel
+
+Content hub can also be referred to as a Security Information and Event Management (SIEM) library that enables you to ingest data, monitor, alert, hunt, investigate, respond, and connect with different products, platforms, and services in Microsoft Sentinel.
+
+Content Source: Standalone vs. Solutions
+Microsoft Sentinel Solutions are packages of content, such as data connectors, workbooks, analytic rules, playbooks, etc., that fulfil an end-to-end product, domain, or industry vertical scenario in Microsoft Sentinel. 
+
+As an example, let's take a peek at the Microsoft Entra ID solution.
+The solution description shows what this solution is made of in terms of content types, i.e., what the package contains:
+1 Data connector - for ingesting log data
+63 Analytics rules - for analyzing the threats and creating incidents
+11 Playbooks - for automation
+This also means that, when installed, this solution will deploy the above-listed contents into your Microsoft Sentinel environment. 
+
+Question 4: What are bundles of data connectors, workbooks, analytic rules, and playbooks called in Microsoft Sentinel?
+Answer: Solutions
+
+Question 5: Content source can either be a Solution or?
+Answer: standalone
+
+Lab Instructions
+
+Kindly follow the instructions below to access your lab on the next task.
+1. click the Cloud Details button.
+2. On the Environment tab, click the Join Lab button to deploy your lab environment.
+3. Select the Credentials tab to view the credentials required to access the lab environment, including your lab ID.
+4. Click the Open Lab button to launch a new browser tab that will direct you to the Microsoft Azure portal.
+5. enter your credentials to access the Microsoft Azure portal. When asked to set up multi-factor authentication, you can click Ask later to skip this step.
+
+Note: Lab access will expire after 1 hour.
+
+Lab-02: Install Content Hub Solutions
+
+Context: Your company recently deployed Microsoft Sentinel. However, no Content hub solutions have been installed yet.
+
+Role: You are logged in as:
+Microsoft Sentinel Contributor
+Log Analytics Contributor
+
+Lab scenario: Following the initial deployment of Microsoft Sentinel, you are tasked with installing a Content hub solution.
+1. First, make sure Sentinel is enabled for the workspace
+2. Then, you will install a Content hub solution
+3. Finally, you will review the results
+
+Question 6: What Content source type is Microsoft Entra ID?
+Answer: Solution
+
+Question 7: What category is the Microsoft Entra ID?
+Answer: Identity, Security - Automation (SOAR)
+
+Connecting Data Connectors
+
+Content hub solution installed, which comes with a data connector, the next step is to connect and configure it so that log data starts flowing into the Log Analytics workspace for Microsoft Sentinel to analyze and correlate.
+To connect a data connector, the concept is to go to its connector page and follow the specific instructions for that connector.
+
+There will be lots of information on connector pages; note that they are all specific to that particular connector. 
+The main sections to note are:
+Description: What the connector is
+Data types: Log tables that will be populated in the Log Analytics workspace once the connector is connected, i.e., types of log data
+Instructions:
+    Prerequisites: Permissions you need to have to connect the data
+    Configuration: Specific config steps for the connector
+
+Note: As per prerequisites, your current assigned role may not always have the necessary permissions to connect a data connector, although you might have a Microsoft Sentinel-specific role assigned, such as Microsoft Sentinel Contributor. It's a good practice to familiarize yourself with Microsoft Sentinel roles and permissions.
+
+Depending on a specific connector, you may need extra permissions for different scopes
+
+Question 8: Where can you find all the details about a connector?
+Answer: connector page
+
+Question 9: In order to configure the Microsoft Entra ID data connector, what permissions are required on the Log Analytics workspace?
+Answer: read and write
+
+Lab-03: Connect and Configure a Data Connector
+
+Context: Your company recently deployed Microsoft Sentinel and a Content hub solution is installed. A data connector is populated; however, it has not been connected yet.
+
+Role: You are logged in as:
+Microsoft Sentinel Contributor
+Log Analytics Contributor
+
+Lab scenario: Following the installation of the Content hub solution, you are tasked with configuring data connectors.
+1. First, you will install another Content hub solution: Threat Intelligence
+2. Then, you will connect the data connector
+3. Finally, you will review the ingested Threat Intelligence data
+
+Question 10: What does the Microsoft Defender Threat Intelligence (MDTI) connector import?
+Answer: Indicators of Compromise
+
+Question 11: Can threat indicators include IP addresses and domains? (Yea/Nay)
+Answer: Yea
+
+Conclusion
+
+Now, you should be able to:
+Describe what Content hub solutions and Data Connectors are
+Install a Content hub solution
+Connect and configure a Data connector
+Confirm the connection results by reviewing ingested logs
+
+
+

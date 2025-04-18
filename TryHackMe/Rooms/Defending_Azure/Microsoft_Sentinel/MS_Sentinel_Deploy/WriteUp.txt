@@ -1,0 +1,211 @@
+Getting Ready for Deployment
+
+Azure Service vs. Azure Resource
+
+Azure Resource
+1. Something you do create in Azure
+2. An instance
+3. Consumes either computing, networking, or storage
+E.g. Virtual Machine, Azure Storage, Log Analytics workspace
+
+Azure Service
+1. Something you do NOT create in Azure
+2. It is always there, provided for you
+3. Gets added to a resource OR enabled for a resource
+4. To provide additional functionality to that resource
+E.g. Microsoft Sentinel, Azure Policy, Entra ID
+
+Microsoft Sentinel Architecture
+
+The core component of MS Sentinel architecture is Log Analytics workspaces (LAWs). Essentially, a LAW is an Azure resource where the logs are stored. 
+The number of LAWs and how they are structured will determine the architecture of the Microsoft Sentinel environment.
+
+When it comes to implementing Microsoft Sentinel, there are mainly three options:
+1. Single Tenant - Single Log Analytics workspace
+    Central repo for all logs across all resources
+        Central pane of glass
+        Consolidated logs
+    Potential concerns: Logs will travel across Azure regions. As a result of this:
+        Bandwidth costs due to logs travelling across regions
+        Data governance issues due to data residency requirements
+
+2. Single Tenant - Multiple Log Analytics workspaces (Regional)
+    In order to address the logs travelling across regions, regional LAWs can be created in different regions.
+    Although this might address bandwidth costs and data governance concerns, on the other hand, it will bring other concerns, such as:
+        No central pane of glass
+        Granular access control
+        Granular retention settings
+
+3. Multi-Tenant
+    If LAWs are not home tenants, then a multi-tenant architecture will be needed.
+    An example of this architecture would be cloud service providers.
+        I.e., when a security organization needs to monitor other organizations' Microsoft Sentinel deployments.
+
+The following considerations will shape your Microsoft Sentinel architecture and deployment options:
+1. Tenancy
+2. Compliance
+3. Region
+4. Access
+
+Question 1: Is Microsoft Sentinel a resource or a service?
+Answer: service
+
+Question 2: What is a potential concern due to logs travelling across the Azure regions?
+Answer: bandwidth costs
+
+Log Analytics Workspace
+
+What Is a Log Analytics Workspace
+In Microsoft Sentinel, Log Analytics workspaces are crucial in collecting, storing, and analyzing log data from various sources to provide security insights and threat detection capabilities.
+
+Breakdown of what Log Analytics workspaces are in Microsoft Sentinel:
+1. Data collection: Log Analytics workspaces serve as centralized repositories where log data from different sources, such as security devices, servers, applications, and cloud services, can be aggregated. These sources include Azure services like Microsoft Defender for Cloud, Microsoft Entra ID, Azure Monitor, and non-Azure sources through agents or connectors.
+2. Data storage: Log Analytics workspaces store the collected log data in a structured format, typically utilizing the Log Analytics data model. This model enables efficient querying and analysis of large volumes of data. The data is retained based on the configured retention settings, allowing for historical analysis and compliance requirements.
+3. Querying and analysis: Users can leverage the Log Analytics query language, Kusto Query Language (KQL), to analyze the log data stored in the workspace. KQL provides a powerful and flexible way to query and manipulate data, enabling security analysts to identify patterns, anomalies, and potential threats within their environment.
+4. Visualization and reporting: Log Analytics workspaces offer built-in visualization tools and dashboards to help users visualize query results and key metrics. These visualizations can aid in understanding the environment's security posture, detecting trends, and identifying areas that require attention.
+5. Integration with Microsoft Sentinel: Log Analytics workspaces are tightly integrated with Microsoft Sentinel, Microsoft's cloud-native SIEM (Security Information and Event Management) solution. Microsoft Sentinel utilizes the data stored in Log Analytics workspaces to perform advanced threat detection, hunting, and investigation activities. Sentinel leverages machine learning, behavioral analytics, and threat intelligence to detect and respond to security threats in real-time.
+
+Log Analytics workspaces in Microsoft Sentinel are the foundation for collecting, storing, analyzing, and acting upon security-related data, enabling organizations to enhance their security posture and effectively mitigate cyber threats.
+
+Microsoft Sentinel Workspace
+Log Analytics workspace as Microsoft Sentinel workspace. This actually means the same as Log Analytics workspace, with a minor difference in Microsoft Sentinel service being enabled (or onboarded) on it.
+
+Question 3: What does a Log Analytics workspace, where log data from different sources is aggregated, essentially serve as?
+Answer: Centralized repository
+
+Question 4: How can we also refer to a Log Analytics workspace once Microsoft Sentinel is enabled on it?
+Answer: Microsoft Sentinel workspace
+
+How to Create a LAW
+
+Prerequisites
+To enable Microsoft Sentinel, Microsoft Sentinel Contributor permissions are required at the resource group level where the Microsoft Sentinel workspace resides. 
+
+Creating a Log Analytics Workspace
+1. In the Azure portal, search for Sentinel at the search bar and select Microsoft Sentinel.
+2. Since there is no previously created Log Analytics workspace with Sentinel enabled, select Create Microsoft Sentinel.
+3. As mentioned earlier, creating a Microsoft Sentinel instance enables or adds the service to a LAW. First, we need to create a LAW instance by clicking Create a new workspace.
+4. Provide the below details and click Create + Review, followed by clicking Create.
+    Subscription: Select the subscription available in the drop-down
+    Resource Group: Select the resource group available in the drop-down
+    Name: Name of LAW instance
+    Region: Azure region where the ingested log data will reside. This setting is significant as the organization might have certain data residency requirements. It is important to note that once created, the region of a LAW cannot be changed
+
+Adding Microsoft Sentinel to a Log Analytics Workspace
+1. Now, we can add Microsoft Sentinel to the previously created LAW by clicking the Add button at the bottom.
+2. After a while, Microsoft Sentinel is ready to go.
+
+Question 5: What permissions do you need to enable Microsoft Sentinel?
+Answer: microsoft sentinel contributor
+
+Question 6: Do you need to have a Log Analytics workspace created before you can enable/onboard Microsoft Sentinel? (yea/nay)
+Answer: yea
+
+Question 7: While creating a LAW instance, which setting defines where the log data will reside?
+Answer: region
+
+Lab Instructions
+
+Kindly follow the instructions below to access your lab on the next task.
+1. click the Cloud Details button.
+2. On the Environment tab, click the Join Lab button to deploy your lab environment.
+3. Select the Credentials tab to view the credentials required to access the lab environment, including your lab ID.
+4. Click the Open Lab button to launch a new browser tab that will direct you to the Microsoft Azure portal.
+5. enter your credentials to access the Microsoft Azure portal. When asked to set up multi-factor authentication, you can click Ask later to skip this step.
+
+Note: Lab access will expire after 1 hour.
+
+Lab-01: Deploy Microsoft Sentinel
+
+Context: You recently joined a company's SOC team as a Security Engineer associate. You will mostly be working with Microsoft Sentinel and want to work towards advancing your skills with it.
+
+Role: You are logged in with the following Azure job function role assignments:
+Log Analytics Contributor
+Microsoft Sentinel Contributor
+
+Lab scenario: A SIEM product needs to be utilized as part of organizational security policies. Your initial assignment is to onboard Microsoft Sentinel for the organization. 
+You will:
+1. First, create a Log Analytics workspace.
+2. Then, enable/onboard Microsoft Sentinel to that workspace.
+
+Steps requried for the lab scenario are mention in Activity.md file.
+
+Question 8: Is every Log Analytics workspace a Microsoft Sentinel workspace? (Yea/Nay)
+Answer: Nay
+
+Question 9: What do you need to create before enabling or onboarding Microsoft Sentinel?
+Answer: Log analytics workspace
+
+MS Sentinel Roles and Permissions
+
+Before we dive deep into Microsoft Sentinel's specific features, it might be worthwhile to understand some Sentinel-specific roles and the scopes under which SOC team members work.
+1. Microsoft Sentinel Reader
+    View data, incidents, workbooks, and other Microsoft Sentinel resources
+2. Microsoft Sentinel Responder  (in addition to the above Sentinel Reader)
+    Manage incidents
+3. Microsoft Sentinel Contributor (in addition to the above Sentinel Responder)
+    Install/Update solutions from the Content hub.
+    Create and edit workbooks, analytics rules, and other Microsoft Sentinel resources
+4. Microsoft Sentinel Playbook Operator
+    List, view, and manually run playbooks
+5. Microsoft Sentinel Automation Contributor (not for user accounts)
+    Allows Microsoft Sentinel to add playbooks to automation rules
+
+Looking from the Microsoft SOC team and analysts' perspective, team members will be assigned either or a combination of the above roles (except the last one!) to perform their daily tasks.
+
+Example:
+
+Below could be a sample distribution of Microsoft Sentinel-specific roles to SOC team members:
+1. Stakeholders, SOC managers, and more.                                                -> Microsoft Sentinel Reader
+2. Security analysts, incident responders (usually SOC Level-1 Analysts)                -> Microsoft Sentinel Responder
+3. Security engineers, Fusion Analytics team members (usually SOC Level-2 Analysts)     -> Microsoft Sentinel Contributor
+    (Install and manage Solutions using Content Hub)
+    (Create and delete workbooks)
+4. Automation team members (usually SOC Level-1 Analysts)                               -> Microsoft Sentinel Playbook Operator
+    (Automate responses to threats with playbooks)
+
+Note: As a best practice, try to assign these roles to the Resource Group where Microsoft Sentinel workspace resides, as there might be other resources in that resource group which support the functionality of Microsoft Sentinel.
+
+Question 10: You are an incident responder who needs to manage incidents, such as assigning and dismissing them. Which role do you need?
+Answer: Microsoft Sentinel Responder
+
+Question 11: You are a security engineer, and you are tasked with enabling pre-packaged Solutions from Content Hub. Which role do you need?
+Answer: Microsoft Sentinel Contributor
+
+Question 12: You are the CISO of the organization. You need visibility into Sentinel data, but you don't directly manage the Sentinel environment. Which role do you need?
+Answer: Microsoft Sentinel Reader
+
+MS Sentinel Settings
+
+Given that Microsoft Sentinel is an Azure service add-on to Log Analytics workspace, while working with Sentinel, there will be two sets of settings that you need to maintain.
+1. Microsoft Sentinel settings
+2. Log Analytics workspace settings
+
+Note: some functionality changes in Microsoft Sentinel require you to modify underlying Log Analytics workspace settings.
+
+Data Retention
+One of the most important ones: Data Retention. It is also important to note that Microsoft Sentinel is billed based on the volume of data ingested for analysis.
+These two tie together, and there is a correlation between them, i.e., the more data you have—or keep in the Log Analytics workspace—the more relevant and accurate threat analysis you can perform.
+
+Important to know:
+Microsoft Sentinel settings can be found at Microsoft Sentinel > Select the workspace > Configuration > Settings.
+To modify Data Retention, we need to go to Workspace settings since data is stored in the underlying Log Analytics workspace for Microsoft Sentinel.
+Data Retention settings are tucked into Usage and estimated costs under Settings.
+
+Note: Default data retention is 31 days, and due to organizational policies, data governance, and other requirements, you might need to increase it. Note that longer retention will incur additional charges as the Microsoft Sentinel billing model is based on log data storage. Depending on how many data connectors you have (we will get to Data Connectors soon) and the amount of log data they are pouring into LAW, sometimes these logs can grow exponentially, which, in return, will be reflected in the costs. Hence, it is important to monitor the organization's log usage details regularly.
+
+Question 13: How many sets of settings are there for Microsoft Sentinel?
+Answer: 2
+
+Question 14: Can Data Retention settings be found under Microsoft Sentinel workspace settings? (Yea/Nay)
+Answer: Yea
+
+Question 15: Under which subcategory of settings are the Data Retention settings tucked in?
+Answer: Usage and estimated costs
+
+Conclusion
+
+After completing this room, have learnt the following:
+How the Microsoft Sentinel provisioning process includes creating a Log Analytics workspace
+Where to configure the Microsoft Sentinel and Log Analytics workspace settings
+Microsoft Sentinel-specific Roles and Permissions
