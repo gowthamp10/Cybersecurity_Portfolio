@@ -1,0 +1,172 @@
+Introduction
+
+Learning Objectives
+Threat detection will be the main focus of this room. Specifically, we will look into:
+What Microsoft Sentinel Analytics is
+Detection types and Analytics rules
+How to create and manage Analytics rules
+How to detect threats
+
+Prerequisites
+To better understand and benefit from this room, it is recommended to complete these previous MS Sentinel rooms:
+MS Sentinel: Introduction
+MS Sentinel: Deploy
+MS Sentinel: Ingest Data
+
+
+What Are Analytics Rules
+
+Once Microsoft Sentinel is ready for the organization and log data is being ingested, it is time to dig through all that data to detect security threats in the environment. It is nearly impossible to manually go through the raw log data to detect threats, which is where Microsoft Sentinel Analytics rules come into play.
+Threat detection in Microsoft Sentinel is made possible by Analytics rules.
+
+Note: Threat detection in Microsoft Sentinel is made possible by Analytics rules.
+
+Microsoft Sentinel security experts provide analytics rule templates based on:
+Known threats
+Common attack vectors
+Suspicious activity escalation chains
+
+Note: SOC analysts are not actually creating Analytics rules from scratch (unless they have years of hands-on experience working with Microsoft Sentinel and KQL); instead, they are creating "active" Analytics rules by configuring the existing analytics rule templates for their environment.
+
+General Analytics rules flow and timeline are as follows:
+1. Microsoft Sentinel Analytics rules are the source of alerts and incidents triggered in your environment
+2. Using Analytics rule templates, specific rule templates are configured and enabled for your environment
+3. Once an analytics rule is enabled, based on the rule logic, it starts periodically monitoring the environment
+4. Once an analytics rule is triggered, also with the help of AI-infused correlation, related "alerts" are recorded and grouped into "incidents"
+5. These incidents are then triaged by (mostly) SOC Tier-1 analysts
+
+Question 1: Do analytics rule templates need to be configured and enabled first in order to detect threats? (Yea/Nay)
+Answer: Yea
+
+Question 2: Once "active" Analytics rules are triggered, what is generated in Microsoft Sentinel?
+Answer: Alerts
+
+Question 3: Related alerts, with the help of the correlation engine, are recorded and grouped into what?
+Answer: Incidents
+
+
+Exploring Analytics Rules
+
+Microsoft Sentinel Analytics plays an important part in the overall detection of security threats by correlating and matching signals. 
+With a properly configured analytics rule, the following can be identified:
+1. Where an attack originated from
+2. What resources were compromised
+3. Potential data lost
+4. Timeline for the incident
+
+Security Analytics Use Cases
+
+It is good to know in which cases Analytics rules may benefit us.
+1. Identification of compromised accounts
+2. User behaviour analysis - to detect potentially suspicious patterns
+3. Network traffic analysis - to locate trends indicating potential attacks
+4. Detection of Data exfiltration by Attackers
+5. Detection of Insider threats
+6. Incident investigation and management
+7. Threat hunting
+
+Exploring Analytics Rules
+
+Analytics Rules has three section on the UI:
+1. This is where you see the list of "Active Rules", "Rule Templates", and "Anomalies"
+    Active Rules: Rules that are enabled for your environment
+    Rule Templates: You can use templates to create an active rule. You need to go through the config wizard to enable the rule
+    Anomalies: Unusual behaviours of entities in an environment over a period of time
+2. There are attributes you can filter the rules with:
+    Rule Type: Scheduled, NRT (Near-Real-Time), Fusion, Microsoft Security, ML Behavior Analytics, Threat Intelligence
+    Data Sources: Data sources based on which the rule is working on
+    MITRE Tactics, Techniques
+3. Detailed description of the selected rule and data sources for it
+
+Rule Types
+1. Most of the rules will use Scheduled, which will require you to define a specific timing schedule for the rule to run. Basically, the rule will run every X days/hours/minutes.
+2. Certain detection scenarios may require Near-Real-Time (NRT) rules to be used. NRT rules are highly responsive and run every minute.
+3. Microsoft Sentinel uses the Fusion Analytics correlation engine, with machine learning algorithms, to detect advanced multistage attacks by correlating many low-fidelity alerts and events into high-fidelity and actionable incidents. Fusion is enabled by default.
+4. ML Behavioral Analytics templates are based on proprietary Microsoft machine learning algorithms; internal logic is hidden. Only one rule with each template of this type can be created.
+5. Microsoft Defender Threat Intelligence (MDTI) rule isn't customizable, but when enabled, it automatically matches Common Event Format (CEF) logs, Syslog data or Windows DNS events with domain, IP, and URL threat indicators from Microsoft Threat Intelligence. The alerts are very high-fidelity.
+
+Question 4: Are active rules Analytics rules that are currently running and generating security alerts? (Yea/Nay)
+Answer: Yea
+
+Question 5: How often do Near-Real Time (NRT) rules run?
+Answer: every minute
+
+Question 6: Which rule type runs at regular intervals based on specified timing?
+Answer: scheduled
+
+
+Analytics Rule Wizard
+
+we will see how to create an active (enabled) analytics rule from rule templates.
+Let's start by choosing a rule template and then create a rule, follow the mentioned path: Microsoft Sentinel > Analytics > Rule templates > Select a rule template > Create rule.
+
+Analytics Rule Wizard
+Analytics rules have many configuration options and are organized into tabs in the Analytics rule wizard. Since we are creating a rule from an existing template
+
+1. General Tab
+The tab has the following details in Name, Description, Severity, Tactics and Techniques, Status are available.
+
+2. Set Rule Logic
+The tab has the following details in Rule Query, Alert enhancement, Query Scheduling are available.
+rule logic - is implemented in KQL
+
+3. Incident Settings
+Incident settings is where we can enable/disable incident creation from this rule and apply alert grouping. Two main components are Incident Creation and Alert Grouping. 
+Note: Analytics rules generate "alerts" when triggered, not incidents. Incidents are made up of alerts triggered by the rule.
+
+4. Automated Response
+This is where we can define the automation options (SOAR part of Microsoft Sentinel) as a response to the analytics rule getting triggered.
+The trigger options, i.e., when the automated response will be applied, are based on the following:
+1. When an incident is created/updated
+2. When an alert is created
+
+Automated response actions are:
+1. To run a playbook
+2. To change status/severity
+3. To assign an owner
+4. To add tags
+5. To add task
+
+Note: Every organization has different needs regarding incident creation, and a security engineer's or a SOC analyst's familiarity with Analytics rules and configuration options can significantly improve the overall effectiveness of security operations.
+
+Question 7: What is used to customize Analytics rules templates?
+Answer: Analytics rule wizard
+
+Question 8: In which part of the wizard can you configure how often the rule will run?
+Answer: Query Scheduling
+
+Question 9: Which tab of the wizard serves as the SOAR side of Microsoft Sentinel?
+Answer: automated response
+
+Lab Instructions
+
+Kindly follow the instructions below to access your lab on the next task.
+1. click the Cloud Details button.
+2. On the Environment tab, click the Join Lab button to deploy your lab environment.
+3. Select the Credentials tab to view the credentials required to access the lab environment, including your lab ID.
+4. Click the Open Lab button to launch a new browser tab that will direct you to the Microsoft Azure portal.
+5. enter your credentials to access the Microsoft Azure portal. When asked to set up multi-factor authentication, you can click Ask later to skip this step.
+
+Note: Lab access will expire after 1 hour.
+
+Lab-04: Enable an Analytics Rule
+
+Context: Your company recently deployed Microsoft Sentinel. A Data connector is populated and connected. You are tasked to enable an analytics rule to start threat detection.
+
+Role: You are logged in as:
+1. Job function role: Microsoft Sentinel Contributor
+2. Log Analytics workspace permissions: read and write
+
+Check out the Activity.md file for steps to be taken as part of enabling the analytics rule.
+
+Conclusion
+
+Outcome of the room:
+Describe what Analytics rules and rule templates are
+Identify different sections of Analytics rules and what type of information is where
+Create an analytics Rule from a Rule Template and enable it
+Review your customizations to the original rule template
+
+
+
+
