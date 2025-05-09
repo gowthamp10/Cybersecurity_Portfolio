@@ -1,2 +1,87 @@
 Introduction
 
+This room introduces you to the analysis of security logs with Microsoft Sentinel KQL. As security engineers, we think of security logs as treasures because they can help us discover the hidden activities within our infrastructure.
+Kusto Query Language (KQL) is the tool used to proactively reveal the hidden secrets within those logs if you are the curious and hands-on type.
+Kusto Query Language (KQL), which empowers you, the security analyst/engineer, to become a security sleuth, proactively hunting for threats to ensure your organization's digital infrastructure is safe from attackers.
+
+Learning Objectives
+This room aims to provide you with the fundamental knowledge and skills necessary to use Kusto Query Language (KQL) for security analysis within MS Sentinel Log Analytics workspace. 
+Upon completion, you will be able to:
+Better understand the core concepts and functionalities of Microsoft Sentinel as a Security Information and Event Management (SIEM) solution.
+Easily understand the benefits of using Kusto Query Language (KQL) in Microsoft Sentinel for day-to-day security operations.
+Understand how KQL interacts with data stored within MS Sentinel Log Analytics workspaces and its uses in querying and analyzing them.
+
+Prerequisites
+Having completed the Microsoft Sentinel module.
+
+
+Overview of Microsoft Sentinel
+
+Microsoft Sentinel Explained
+MS Sentinel is a cloud-native Security Information and Event Management (SIEM) solution enabling security administrators to better detect, investigate, and respond to security threats across their enterprise environment. Sentinel is built on top of Azure, providing a centralized platform for security monitoring, log collection, threat detection, response, and investigation. It is not only a SIEM solution but also a Security Orchestration, Automation, and Response (SOAR) solution, which enhances its capabilities.
+
+Integration With Microsoft Services
+MS Sentinel offers pre-built connectors for easy integration with various Microsoft security services, eliminating complex configuration needs. 
+Below are a few key integrations with other Microsoft services:
+1. Microsoft Entra ID: Sentinel integrates with Entra ID for identity protection, identity and access management, and threat detection. You will be able to monitor user activities, filter audit logs, identify suspicious login attempts, and enforce conditional access policies if configured
+2. Microsoft Defender: When Sentinel is integrated with Microsoft's Defender suite, it expands its threat detection capabilities to several Azure resources, such as virtual machines, databases, and containers. This integration allows MS Sentinel to use Defender's advanced threat protection features for a more comprehensive security analysis. For instance, collecting endpoint security logs to detect and isolate devices with malware or even initiate an automated response
+3. Azure Logic Apps: Sentinel can leverage Azure Logic Apps to automate response and remediation workflows. This enables the harmonization of complex responses across different services when a threat is detected
+4. Azure Monitor: Integrating Azure Monitor with Sentinel allows the ingestion of metrics and logs from various Microsoft services, generating comprehensive security insights and analytics
+
+Integration With Third-Party Services
+Microsoft has a library of built-in data connectors for third-party security products to simplify log ingestion by handling the data format and communication protocols, allowing seamless ingestion. A few examples of third-party products include but are not limited to Palo Alto Networks, CrowdStrike, Fortinet, MacAfee, Splunk, AWS, and more.
+1. Syslog integration: Syslog is a widely used standard for transmitting logs. Sentinel can ingest security data from various devices, servers, and applications that support the Syslog format, providing flexibility when integrating with a wider range of security logs
+2. REST API integration: Sentinel offers an alternative through REST API for security solutions not covered by built-in connectors. This option may require experts to build custom scripts or applications that interact with the service API to transmit data to Microsoft Sentinel
+Note: It's worth knowing that Microsoft Sentinel utilizes Azure Log Analytics workspaces to store data logs. These logs may include Microsoft services such as Office 365, Microsoft Defender, and Azure activities, as well as third-party logs like firewall logs, network logs, SaaS application logs, and more.
+
+Question 1: In addition to being a SIEM solution, what else is Microsoft Sentinel? (use the abbreviation)
+Answer: SOAR
+
+Question 2: How does MS Sentinel support other security solutions that are not included in the built-in connectors? 
+Answer: REST API Integration
+
+
+What Is KQL
+
+Kusto Query Language, also KQL is more than just a syntax. Within the context of Microsoft Sentinel, it is a tool for discovering and investigating suspicious activities. With each query, you can sift through large amounts of logs, detect subtle traces of cyber threats, and connect the dots to get actionable insight from the logs across your digital estate.
+
+KQL in Action
+As cyber threats continue to become sophisticated, MS Sentinel is always ready for action. It gives you insights into all malicious activities and uses the power of KQL to reveal suspicious movements in tables and charts.
+With each query, the output gives more insight into every malicious activity, which the security team can then act upon to fortify the defenses of their digital estate.
+
+KQL Explained
+Kusto Query Language is developed by Microsoft to query large amounts of structured, semi-structured, and unstructured data. It was initially created for Azure Data Explorer but has been widely adopted across various Microsoft services, including Azure Monitor, Azure Sentinel, Microsoft 365 Defender, and more. It is worth knowing that KQL queries run against a log repository where the ingested logs are stored, in this case, a Log Analytics workspace.
+
+A simple description of KQL would be that it is a:
+1. Security analysis language: Used to filter, search, and analyze security logs and events.
+2. Powerful and flexible tool: Used to run simple and complex queries to extract detailed security insights.
+3. Tool for large datasets: Optimized for handling massive amounts of security logs.
+4. Tool built-in for Microsoft Sentinel: Seamlessly integrated for data exploration and threat hunting.
+5. Tool used in other Microsoft services: Such as Azure Data Explorer, Log Analytics, Azure Monitor, and Azure Sentinel.
+
+Kusto Query Language Editor
+
+Example KQL Query
+Below is what a KQL query may look like:
+Heartbeat
+| summarize AggregatedHeartbeatCount = count() by Computer
+| order by AggregatedHeartbeatCount desc
+| take 10
+
+Explanation
+This query retrieves data from the Heartbeat table, which typically contains information about the health and status of devices or systems within the organization.
+Then, the summarize operator aggregates the data by counting the number of heartbeats for each unique computer.
+The result is then outputted in descending order based on the aggregated heartbeat count.
+Finally, the take operator limits the output to the top 10 computers with the highest heartbeats.
+
+Question 3: What initial service was KQL created for?
+Answer: Azure Data Explorer
+
+Question 4: Analyze the example query from the task. How many computers will the query return?
+Answer: 10
+
+Question 5: What table is the example query retrieving its data from?
+Answer: Heartbeat
+
+
+

@@ -1,0 +1,9 @@
+Introduction to Phishing
+
+Learn how to use SOC Simulator by completing your first scenario. Close all True Positive alerts to pass!
+
+Scenario objectives
+Monitor and analyze real-time alerts.
+Identify and document critical events such as suspicious emails and attachments
+Create detailed case reports based on your observations to help your team understand the full scope of alerts and malicious activity.
+

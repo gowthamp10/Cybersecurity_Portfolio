@@ -1,0 +1,27 @@
+Introduction to Machine Learning
+The terms Artificial Intelligence (AI) and Machine Learning (ML) are often used interchangeab, Although they are closely related represent distinct concepts with specific applications and theoretical underpinnings.
+
+
+Artificial Intelligence (AI)
+Artificial Intelligence (AI) is a broad field focused on developing intelligent systems capable of performing tasks that typically require human intelligence. These tasks include understanding natural language, recognizing objects, making decisions, solving problems, and learning from experience.
+
+AI systems exhibit cognitive abilities like reasoning, perception, and problem-solving across various domains
+
+Some of the key areas are:
+Natural Language Processing (NLP): Enabling computers to understand, interpret, and generate human language.
+Computer Vision: Allowing computers to "see" and interpret images and videos.
+Robotics: Developing robots that can perform tasks autonomously or with human guidance.
+Expert Systems: Creating systems that mimic the decision-making abilities of human experts.
+
+Note: One of the primary goals of AI is to augment human capabilities, not just replace human efforts.
+
+AI solves complex problems in many diverse domains like healthcare, finance, and cybersecurity. 
+For example:
+1. In healthcare, AI improves disease diagnosis and drug discovery.
+2. In finance, AI detects fraudulent transactions and optimizes investment strategies.
+3. In cybersecurity, AI identifies and mitigates cyber threats.
+
+
+Machine Learning (ML)
+Machine Learning (ML) is a subfield of AI that focuses on enabling systems to learn from data and improve their performance on specific tasks without explicit programming. ML algorithms use statistical techniques to identify patterns, trends, and anomalies within datasets, allowing the system to make predictions, decisions, or classifications based on new input data.
+

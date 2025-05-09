@@ -11,3 +11,75 @@ OSI Model - Done
 HTTP Protocols and Methods
 Principles of Security - Done
 
+
+Application Layer
+
+we must be very clear about the following two ideas, which are the hallmark of any protocol regardless of its functionality:
+1. Each protocol represents specific layers of the OSI or TCP/IP model and operates as per the functionality of that layer.
+2. TCP and UDP-based protocols operate on specific network ports.
+
+HTTPS Protocol
+
+Technical Overview - HTTPS
+Hypertext Transfer Protocol Secure (HTTPS) is a client-server protocol; responsible for securely sending data between a web server (website) and a web browser (client side). It is an encrypted variant of HTTP which sends data in an unencrypted format.
+HTTPS was developed to securely share sensitive information, including passwords, contact information and financial information, between web browsers and websites. Without HTTPS, secure online banking and online payment wouldn’t have been possible.
+
+Workflow - HTTPS
+HTTPS uses its unencrypted counterpart, i.e., HTTP, and adds a layer of encryption. In this case, it is SSL/TLS (Secure Sockets Layer/Transport Layer Security); the rest of the workflow remains the same.
+
+Request and Response - HTTP
+An HTTP request is made by a user agent (a browser or any other application sending requests through a web API (Application Programming Interface)). It is vice versa in the case of response. This request aims to access some resources on the remote web server, which is then responded to by the web server. 
+
+Note: If an attacker can capture the network packets between the client and the server communicating over HTTP, they will be able to read their content as it is sent in cleartext.
+
+Request and Response - HTTPS
+Remember that the “S” in HTTPS is for the extra SSL/TLS layer of encryption
+
+Encryption Mechanism of HTTPS
+As already mentioned, SSL/TLS provides the encryption layer of HTTPS. It relies on asymmetric encryption (public key cryptography) and symmetric encryption. Asymmetric encryption uses two keys, i.e., public key and private key; its rule is to negotiate the symmetric encryption algorithm and the secret key. The default port of HTTPS is 443. Encryption protects against interception and alteration of data, maintaining the confidentiality and integrity of exchanged traffic.
+
+FTPS Protocol
+Technical Overview - FTPS
+File Transfer Protocol Secure (FTPS) is a communication protocol which is a refined and secure version of File Transfer Protocol (FTP). Initially, FTP was developed in 1971 and published as RFC 114. Additional improvements and various changes were published in RFC 765 and RFC 959.
+
+Workflow
+FTPS is an extension of FTP, which adds TLS security to commands and data connections. It is necessary to get an overview of FTP to understand FTPS.
+
+Request and Response - FTP
+As described earlier, FTP is based on the client-server model. It utilizes the following two communication channels between the client and the server.
+1. Control Connection: In this connection, an FTP client (such as Filezilla and CuteFTP) sends a connection request (authentication) to the remote FTP server at the default FTP port, TCP port 21. As the name implies, a control connection is used for sending and receiving commands and responses.
+2. Data Connection: After authentication, this connection is used for transferring data (files and folders).
+
+FTP Connection Types
+1. Active modes
+2. Passive mode
+
+Active Mode
+In active connection mode, the client establishes the control connection to send commands/authentication parameters to the server. After authentication and upon the client’s request to initiate data transfer, the server establishes the data connection to the client to transfer the data.
+In brief:
+1. The FTP client connects to the FTP server at TCP port 21 to establish a command connection.
+2. The FTP server connects to the FTP client at TCP port 20 to establish a data connection.
+
+Note: It is worth mentioning that this type of connection is unsuitable in an environment where the client is behind a firewall, as it will block incoming connections to the client. In the case of a client behind a firewall, a passive connection would be necessary.
+
+Passive Mode
+In passive connection mode, the client establishes the control and data connections. The client sends the PASV command to the server over the command channel; the server sends a random port to the client. As soon as the client receives the port number, the client establishes a connection to the provided port number so that the server can initiate the data transfer to the client.
+
+Note: This type of connection works well when the client is behind the firewall.
+
+FTP Data Types
+ASCII/Type A: This is the default type and is used for text file transfers. If necessary, data is converted into 8-bit ASCII before transmission and then converted back upon reception.
+Image/Type I: This is commonly referred to as the binary mode. It uses byte-by-byte transmission. The recipient stores the received bytes upon reception.
+EBCDIC/Type E: It is suitable for text communication using the EBCDIC character set.
+Local Type L n: It is typically used for file transfer among machines that do not support 8-bit bytes transfer. Here n is a second parameter that represents byte size. 
+
+Request and Response - FTPS
+The following two methods are used to invoke security:
+1. Implicit Connection: In this connection, FTPS client and server establish a link in which both command and data channels are secured automatically with SSL encryption.
+2. Explicit Connection: The FTP client explicitly requests the server to invoke an SSL/TLS secured session on port 21 and then continue data transfer based on a mutually agreed authentication mechanism. With explicit connection, you can choose which channel to encrypt by choosing among three modes of communication for control and data channel, i.e., control only encrypted, data only encrypted and both control and data encrypted.
+
+Note: The standard port for FTP and Explicit FTPS is 21, whereas it is 990 in the case of Implicit FTPS. Adding FTPS protects against sniffing attacks against login information and data.
+
+SMTPS Protocol
+
+Technical Overview

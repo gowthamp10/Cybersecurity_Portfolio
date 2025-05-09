@@ -1,0 +1,13 @@
+Introduction
+
+Learning Objectives
+This room is intended to provide users who are not familiar with cloud technologies insight into some of the cloud's unique characteristics. 
+Students in the room will learn about:
+How current cloud capabilities evolved from humble beginnings at AWS and other early internet companies.
+Why cloud technologies have changed how individuals and corporations interact with IT infrastructure.
+How business (non-tech) benefits have helped drive cloud adoption.
+Free resources and documentation that AWS has created for the public.
+
+
+Cloud Enters the Scene
+
