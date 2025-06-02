@@ -1,0 +1,11 @@
+API documentation
+
+Documentation is used by developers on how to integrate the APIs
+Types:
+1. Human-readable documentation is designed for developers to understand how to use the API. It may include detailed explanations, examples, and usage scenarios. 
+2. Machine-readable documentation is designed to be processed by software for automating tasks like API integration and validation. It's written in structured formats like JSON or XML.
+
+Note: API documentation is often publicly available, particularly if the API is intended for use by external developers. If this is the case, always start your recon by reviewing the documentation.
+
+
+Discovering API documentation

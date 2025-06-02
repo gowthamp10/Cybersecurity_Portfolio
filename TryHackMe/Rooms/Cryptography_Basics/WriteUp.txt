@@ -1,0 +1,148 @@
+Introduction
+
+Cryptography lays the foundation for our digital world. While networking protocols have made it possible for devices spread across the globe to communicate, cryptography has made it possible to trust this communication.
+
+Learning Objectives
+Upon completing this room, you will learn the following:
+1. Cryptography key terms
+2. Importance of cryptography
+3. Caesar Cipher
+4. Standard symmetric ciphers
+5. Common asymmetric ciphers
+6. Basic mathematics commonly used in cryptography
+
+
+Importance of Cryptography
+
+Cryptography’s ultimate purpose is to ensure secure communication in the presence of adversaries. The term secure includes confidentiality and integrity of the communicated data. Cryptography can be defined as the practice and study of techniques for secure communication and data protection where we expect the presence of adversaries and third parties. In other words, these adversaries should not be able to disclose or alter the contents of the messages.
+In the same way that handling payment card details requires complying with PCI DSS, handling medical records requires complying with their respective standards. Unlike credit cards, the standards for handling medical records vary from one country to another. Example laws and regulations that should be considered when handling medical records include HIPAA (Health Insurance Portability and Accountability Act) and HITECH (Health Information Technology for Economic and Clinical Health) in the USA, GDPR (General Data Protection Regulation) in the EU, DPA (Data Protection Act) in the UK.
+
+Question 1: What is the standard required for handling credit card information?
+Answer: PCI DSS 
+
+
+Plaintext to Ciphertext
+
+The plaintext is the readable data; it can be anything from a simple “hello”, a cat photo, credit card information, or medical health records. From a cryptography perspective, these are all “plaintext” messages waiting to be encrypted. The plaintext is passed through the encryption function along with a proper key; the encryption function returns a ciphertext. The encryption function is part of the cipher; a cipher is an algorithm to convert a plaintext into a ciphertext and vice versa.
+To recover the plaintext, we must pass the ciphertext along with the proper key via the decryption function, which would give us the original plaintext. 
+
+The terms are listed below:
+1. Plaintext is the original, readable message or data before it’s encrypted. It can be a document, an image, a multimedia file, or any other binary data.
+2. Ciphertext is the scrambled, unreadable version of the message after encryption. Ideally, we cannot get any information about the original plaintext except its approximate size.
+3. Cipher is an algorithm or method to convert plaintext into ciphertext and back again. A cipher is usually developed by a mathematician.
+4. Key is a string of bits the cipher uses to encrypt or decrypt data. In general, the used cipher is public knowledge; however, the key must remain secret unless it is the public key in asymmetric encryption. We will visit asymmetric encryption in a later task.
+5. Encryption is the process of converting plaintext into ciphertext using a cipher and a key. Unlike the key, the choice of the cipher is disclosed.
+6. Decryption is the reverse process of encryption, converting ciphertext back into plaintext using a cipher and a key. Although the cipher would be public knowledge, recovering the plaintext without knowledge of the key should be impossible (infeasible).
+
+Question 2: What do you call the encrypted plaintext?
+Answer: ciphertext
+
+Question 3: What do you call the process that returns the plaintext?
+Answer: decryption
+
+
+Historical Ciphers
+
+One of the simplest historical ciphers is the Caesar Cipher from the first century BCE. The idea is simple: shift each letter by a certain number to encrypt the message.
+Consider the following example:
+Plaintext: TRYHACKME
+Key: 3 (Assume it is a right shift of 3.)
+Cipher: Caesar Cipher
+We can easily figure out that T becomes W, R becomes U, Y becomes B, and so on. As you noticed, once we reach Z, we start all over, as shown in the figure below. Consequently, we get the ciphertext of WUBKDFNPH.
+Ciphertext: WUBKDFNPH
+
+To decrypt, we need the following information:
+Ciphertext: WUBKDFNPH
+Key: 3
+Cipher: Caesar Cipher
+Plaintext: TRYHACKME
+
+For encryption, we shift to the right by three; for decryption, we shift to the left by three and recover the original plaintext
+
+Note: Consequently, by today’s standards, where the cipher is publicly known, Caesar Cipher is considered insecure.
+
+more Historical cipher Examples include:
+The Vigenère cipher from the 16th century
+The Enigma machine from World War II
+The one-time pad from the Cold War
+
+Question 4: Knowing that XRPCTCRGNEI was encrypted using Caesar Cipher, what is the original plaintext?
+Answer: ICANENCRYPT
+
+
+Types of Encryption
+
+The two main categories of encryption are symmetric and asymmetric.
+
+Symmetric Encryption
+Symmetric encryption, also known as symmetric cryptography, uses the same key to encrypt and decrypt the data. Keeping the key secret is a must; it is also called private key cryptography.
+
+Note: Maintaining the secrecy of the key can be a significant challenge, especially if there are many recipients. The problem becomes more severe in the presence of a powerful adversary; consider the threat of industrial espionage, for instance.
+
+Examples of symmetric encryption are DES (Data Encryption Standard), 3DES (Triple DES) and AES (Advanced Encryption Standard).
+1. DES was adopted as a standard in 1977 and uses a 56-bit key. With the advancement in computing power, in 1999, a DES key was successfully broken in less than 24 hours, motivating the shift to 3DES.
+2. 3DES is DES applied three times; consequently, the key size is 168 bits, though the effective security is 112 bits. 3DES was more of an ad-hoc solution when DES was no longer considered secure. 3DES was deprecated in 2019 and should be replaced by AES; however, it may still be found in some legacy systems.
+3. AES was adopted as a standard in 2001. Its key size can be 128, 192, or 256 bits.
+
+Asymmetric Encryption
+Asymmetric encryption uses a pair of keys, one to encrypt and the other to decrypt.To protect confidentiality, asymmetric encryption or asymmetric cryptography encrypts the data using the public key; hence, it is also called public key cryptography.
+Examples are RSA, Diffie-Hellman, and Elliptic Curve cryptography (ECC).
+
+Note: Asymmetric encryption tends to be slower, and many asymmetric encryption ciphers use larger keys than symmetric encryption. For example, RSA uses 2048-bit, 3072-bit, and 4096-bit keys; 2048-bit is the recommended minimum key size. Diffie-Hellman also has a recommended minimum key size of 2048 bits but uses 3072-bit and 4096-bit keys for enhanced security. On the other hand, ECC can achieve equivalent security with shorter keys. For example, with a 256-bit key, ECC provides a level of security comparable to a 3072-bit RSA key.
+
+Points to remember:
+Symmetric encryption is a method in which the same key is used for both encryption and decryption. Consequently, this key must remain secure and never be disclosed to anyone except the intended party. Asymmetric encryption is a method that uses two different keys: a public key for encryption and a private key for decryption.
+
+Question 5: Should you trust DES? (Yea/Nay)
+Answer: Nay
+
+Question 6: When was AES adopted as an encryption standard?
+Answer: 2001
+
+
+Basic Math
+
+Two mathematical operations that are used in various algorithms:
+1. XOR Operation
+2. Modulo Operation
+
+XOR Operation
+XOR, short for “exclusive OR”, is a logical operation in binary arithmetic that plays a crucial role in various computing and cryptographic applications. In binary, XOR compares two bits and returns 1 if the bits are different and 0 if they are the same, as shown in the truth table below. This operation is often represented by the symbol ⊕ or ^.
+
+A	B	    A ⊕ B
+0	0	    0
+0	1	    1
+1	0	    1
+1	1	    0
+
+Note: You may be wondering how XOR can play any role in cryptography. XOR has several interesting properties that make it useful in cryptography and error detection. One key property is that applying XOR to a value with itself results in 0, and applying XOR to any value with 0 leaves it unchanged. This means A ⊕ A = 0, and A ⊕ 0 = A for any binary value A. Additionally, XOR is commutative, i.e., A ⊕ B = B ⊕ A. And it is associative, i.e., (A ⊕ B) ⊕ C = A ⊕ (B ⊕ C).
+
+Usage: We will demonstrate how XOR can be used as a basic symmetric encryption algorithm. Consider the binary values P and K, where P is the plaintext, and K is the secret key. The ciphertext is C = P ⊕ K.
+Now, if we know C and K, we can recover P. We start with C ⊕ K = (P ⊕ K) ⊕ K. But we know that (P ⊕ K) ⊕ K = P ⊕ (K ⊕ K) because XOR is associative. Furthermore, we know that K ⊕ K = 0; consequently, (P ⊕ K) ⊕ K = P ⊕ (K ⊕ K) = P ⊕ 0 = P. In other words, XOR served as a simple symmetric encryption algorithm. In practice, it is more complicated as we need a secret key as long as the plaintext.
+
+Modulo Operation
+mathematical operation we often encounter in cryptography is the modulo operator, commonly written as % or as mod. The modulo operator, X%Y, is the remainder when X is divided by Y. In our daily life calculations, we focus more on the result of division than on the remainder. 
+Note: The remainder plays a significant role in cryptography.
+
+Note: An important thing to remember about modulo is that it’s not reversible. If we are given the equation x%5 = 4, infinite values of x would satisfy this equation.
+
+The modulo operation always returns a non-negative result less than the divisor. This means that for any integer a and positive integer n, the result of a%n will always be in the range 0 to n − 1.
+
+Question 7: What’s 1001 ⊕ 1010?
+Answer: 0011
+
+Question 8: What’s 118613842%9091?
+Answer: 3565
+
+Question 9: What’s 60%12?
+Answer: 0
+
+
+Summary
+
+In this room, we learned about the importance of cryptography and some of the problems that it solves. We also introduced symmetric and asymmetric encryption ciphers. Finally, we explained the XOR and the modulo operations.
+
+Note: Before proceeding to the next room, make sure you have taken note of all the key terms and concepts introduced in this room.
+
+
+

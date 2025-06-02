@@ -1,0 +1,20 @@
+API recon
+
+Note: Find out as much information about the API as possible, to discover its attack surface.
+
+First identify API endpoints, these are the locations from where api's request specific resources.
+Example of GET request:
+GET /api/books HTTP/1.1
+Host: example.com 
+
+Endpoint: /api/books 
+Purpose: API to retrieve a list of books from a library
+
+Second how to interact with the endpoints.
+Construct valid HTTP requests to test the API.
+
+Main focus should be on the following:
+1. Input data: Both compulsory and optional parameters.
+2. Type of requests: All possible type of request the API accepts including supported HTTP methods and media formats.
+3. Rate limits and Auth mechanisms.
+
