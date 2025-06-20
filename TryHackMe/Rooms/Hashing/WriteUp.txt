@@ -1,0 +1,234 @@
+Introduction
+
+A hash value is a fixed-size string or characters that is computed by a hash function. 
+A hash function takes an input of an arbitrary size and returns an output of fixed length, i.e., a hash value. 
+
+Learning Objectives
+Upon the completion of this room, you will learn about:
+Hash functions and collisions
+The role of hashing in authentication systems
+Recognizing stored hash values
+Cracking hash values
+The use of hashing for integrity protection
+
+
+Hash Functions
+
+What is a Hash Function?
+A hash function takes some input data of any size and creates a summary or digest of that data. The output has a fixed size. It’s hard to predict the output for any input and vice versa.
+
+The output of a hash function is typically raw bytes, which are then encoded. Common encodings are base64 or hexadecimal. md5sum, sha1sum, sha256sum, and sha512sum produce their outputs in hexadecimal format. Remember that hexadecimal format prints each raw byte as two hexadecimal digits.
+
+Why is Hashing Important?
+Hashing plays a vital role in our daily use of the Internet. Like other cryptographic functions, hashing remains hidden from the user. Hashing helps protect data’s integrity and ensure password confidentiality
+
+What’s a Hash Collision?
+A hash collision is when two different inputs give the same output. Hash functions are designed to avoid collisions as best as possible. Furthermore, hash functions are designed to prevent an attacker from being able to create, i.e., engineer, a collision intentionally. However, because the number of inputs is practically unlimited and the number of possible outputs is limited, this leads to a pigeonhole effect.
+
+numeric example, if a hash function produces a 4-bit hash value, we only have 16 different hash values. The total number of possible hash values is 2number_of_bits = 24 = 16. The probability of a collision is relatively very high.
+
+pigeonhole effect: states that the number of items (pigeons) is more than the number of containers (pigeonholes); some containers must hold more than one item. In other words, in this context, there are a fixed number of different output values for the hash function, but you can give it any size input. As there are more inputs than outputs, some inputs must inevitably give the same output. If you have 21 pigeons and 16 pigeonholes, some of the pigeons are going to share the pigeonholes. Consequently, collisions are unavoidable. However, a good hash function ensures that the probability of a collision is negligible.
+
+Question 1: What is the SHA256 hash of the passport.jpg file in ~/Hashing-Basics/Task-2?
+
+Question 2: What is the output size in bytes of the MD5 hash function?
+Answer: 16
+
+Question 3: If you have an 8-bit hash output, how many possible hash values are there?
+Answer: 256
+
+Note: Answer can be found Question 1 once Activity of Task 2 is done.
+
+
+Insecure Password Storage for Authentication
+
+focus on two uses: password storage and data integrity.
+Note: We refer to password storage when used for authentication. It is important to note that this does not apply to password managers, where you must retrieve your password in cleartext. On the other hand, authentication mechanisms only need to confirm that the user knows the password so they can be granted access to the resource; therefore, this problem differs from password managers.
+
+Stories of Insecure Password Storage for Authentication
+Most web applications need to verify a user’s password at some point. Storing these passwords in plaintext is a very insecure security practice. 
+
+We will visit three insecure practices when it comes to passwords:
+1. Storing passwords in plaintext
+2. Storing passwords using a deprecated encryption
+3. Storing passwords using an insecure hashing algorithm
+
+Storing Passwords in Plaintext
+Quite a few data breaches have leaked plaintext passwords. You’re probably familiar with the “rockyou.txt” password list on Kali Linux, among many other offensive security distributions. This password list came from RockYou, a company that developed social media applications and widgets. They stored their passwords in plaintext, and the company had a data breach. The text file contains over 14 million passwords. You can find rockyou.txt in the /usr/share/wordlists directory.
+
+Using an Insecure Encryption Algorithm
+Adobe’s notable data breach was slightly different. Instead of using a secure hashing function to store the hash values of the passwords, the company used a deprecated encryption format. Furthermore, password hints were stored in plain text, sometimes containing the password itself. Consequently, the plaintext password could be retrieved relatively quickly.
+
+Using an Insecure Hash Function
+LinkedIn also suffered a data breach in 2012. LinkedIn used an insecure hashing algorithm, the SHA-1, to store user passwords. Furthermore, no password salting was used. Password salting refers to adding a salt, i.e., a random value, to the password before it is hashed.
+
+Question 4: What is the 20th password in rockyou.txt?
+Note: Please perform the Activity to get the solution
+
+
+Using Hashing for Secure Password Storage
+
+Using Hashing to Store Passwords
+This is where hashing comes in. What if, instead of storing the password, you just stored its hash value using a secure hashing function? This process means you never have to store the user’s password, and if your database is leaked, an attacker will have to crack each password to find out what the password was.
+
+Note: This has only one issue. What happens if two users share a password? The password hash will be the same for every user since a hash function will always provide the same result from the same input. This implies that access to several accounts is possible if that hash is cracked. It also implies that a Rainbow Table can be made by someone to crack the hashes.
+
+Rainbow Table: Is a lookup table of hashes to plaintexts, so you can quickly find out what password a user had just from the hash. A rainbow table trades the time to crack a hash for hard disk space, but it takes time to create. 
+Here’s a quick example to get an idea of what a rainbow table looks like.
+
+Hash	                            Password
+02c75fb22c75b23dc963c7eb91a062cc	zxcvbnm
+b0baee9d279d34fa1dfd71aadb908c3f	11111
+c44a471bd78cc6c2fea32b9fe028d30a	asdfghjkl
+d0199f51d2728db6011945145a1b607a	basketball
+dcddb75469b4b4875094e14561e573d8	000000
+
+Remember: Doing a lookup in a sorted list of hashes is quicker than trying to crack the hash.
+Helpers: https://hashes.com/en/decrypt/hash, https://crackstation.net/
+
+Protecting Against Rainbow Tables
+We add a salt to the passwords to guard against rainbow tables. The database contains a randomly generated value called "salt," which ought to be distinct for every user. Although it is theoretically possible to use the same salt for all users, duplicate passwords would still have the same hash, and passwords containing that salt might still result in a rainbow table.
+Even if two users have the same password, their hashes will differ because salt is added to either the beginning or the end of the password before it is hashed. This is automatically handled by hash functions such as Bcrypt and Scrypt. It's not necessary to keep salts secret.
+
+Example of Securely Storing Passwords
+Consider this example following good security practices when storing user passwords:
+1. We select a secure hashing function, such as Argon2, Scrypt, Bcrypt, or PBKDF2.
+2. We add a unique salt to the password, such as Y4UV*^(=go_!
+3. Concatenate the password with the unique salt. For example, if the password is AL4RMc10k, the result string would be AL4RMc10kY4UV*^(=go_!
+4. Calculate the hash value of the combined password and salt. In this example, using the chosen algorithm, you need to calculate the hash value of AL4RMc10kY4UV*^(=go_!.
+5. Store the hash value and the unique salt used (Y4UV*^(=go_!).
+
+Using Encryption to Store Passwords
+The reason is that even if we select a secure hashing algorithm to encrypt the passwords before storing them, we still need to store the used key. Consequently, if someone gets the key, they can easily decrypt all the passwords.
+
+Question 5: Manually check the hash “4c5923b6a6fac7b7355f53bfe2b8f8c1” using the rainbow table above.
+Answer: inS3CyourP4$$
+
+Question 6: Crack the hash “5b31f93c09ad1d065c0491b764d04933” using an online tool.
+Note: use any online tool mentioned in the task to find the solution.
+
+Question 7: Should you encrypt passwords in password-verification systems? Yea/Nay
+Answer: Nay 
+
+
+Recognising Password Hashes
+
+Although there are automated hash recognition programs like hashID, they are not always reliable for a variety of formats. The tools work well for hashes with a prefix. Make good use of both tools and context.  It is more likely to be MD5 than NTLM (NT LAN Manager) if the hash is found in a web application database. These hash types are frequently confused by automated hash recognition systems, which emphasises the value of self-education.
+
+Linux Passwords
+On Linux, password hashes are stored in /etc/shadow, which is normally only readable by root. They used to be stored in /etc/passwd, which was readable by everyone.
+
+The shadow file contains the password information. Each line contains nine fields, separated by colons (:). The first two fields are the login name and the encrypted password. More information about the other fields can be found by executing man 5 shadow on a Linux system.
+The encrypted password field contains the hashed passphrase with four components: prefix (algorithm id), options (parameters), salt, and hash. It is saved in the format $prefix$options$salt$hash. The prefix makes it easy to recognise Unix and Linux-style passwords; it specifies the hashing algorithm used to generate the hash.
+
+Prefix	                    Algorithm
+$y$	                        yescrypt is a scalable hashing scheme and is the default and recommended choice in new systems
+$gy$	                    gost-yescrypt uses the GOST R 34.11-2012 hash function and the yescrypt hashing method
+$7$	                        scrypt is a password-based key derivation function
+$2b$, $2y$, $2a$, $2x$	    bcrypt is a hash based on the Blowfish block cipher originally developed for OpenBSD but supported on a recent version of FreeBSD, NetBSD, Solaris 10 and newer, and several Linux distributions
+$6$	                        sha512crypt is a hash based on SHA-2 with 512-bit output originally developed for GNU libc and commonly used on (older) Linux systems
+$md5	                    SunMD5 is a hash based on the MD5 algorithm originally developed for Solaris
+$1$	                        md5crypt is a hash based on the MD5 algorithm originally developed for FreeBSD
+
+Modern Linux Example
+Command: sudo cat /etc/shadow | grep strategos
+output: strategos:$y$j9T$76UzfgEM5PnymhQ7TlJey1$/OOSg64dhfF.TigVPdzqiFang6uZA4QA1pzzegKdVm4:19965:0:99999:7:::
+
+In the example above, we have four parts separated by $:
+y indicates the hash algorithm used, yescrypt
+j9T is a parameter passed to the algorithm
+76UzfgEM5PnymhQ7TlJey1 is the salt used
+/OOSg64dhfF.TigVPdzqiFang6uZA4QA1pzzegKdVm4 is the hash value
+
+MS Windows Passwords
+MS Windows passwords are hashed using NTLM, a variant of MD4. They’re visually identical to MD4 and MD5 hashes, so it’s very important to use context to determine the hash type.
+MS Windows, password hashes are stored in the SAM (Security Accounts Manager). MS Windows tries to prevent normal users from dumping them, but tools like mimikatz exist to circumvent MS Windows security. Notably, the hashes found there are split into NT hashes and LM hashes.
+
+A great place to find more hash formats and password prefixes: http://hashcat.net/wiki/doku.php?id=example_hashes
+
+Note: For other hash types, you’ll typically need to check the length or encoding or even conduct some research into the application that generated them.
+
+Question 8: What is the hash size in yescrypt?
+Answer: 256
+
+Question 9: What’s the Hash-Mode listed for Cisco-ASA MD5?
+Answer: 2410
+
+Question 10: What hashing algorithm is used in Cisco-IOS if it starts with $9$?
+Answer: Scrypt
+
+
+Password Cracking
+
+what if there’s a salt involved?
+You can’t “decrypt” password hashes. They’re not encrypted. You have to crack the hashes by hashing many different inputs (such as rockyou.txt as it covers many possible passwords), potentially adding the salt if there is one and comparing it to the target hash. Once it matches, you know what the password was. Tools like Hashcat and John the Ripper are commonly used for these purposes.
+
+Cracking Passwords with GPUs
+Thousands of cores are found in contemporary GPUs (Graphics Processing Units). Their areas of expertise are computer graphics acceleration and digital image processing. Despite their inability to perform tasks that a CPU can, they excel at certain mathematical computations related to hash functions. A graphics card can be used to swiftly break a variety of hash types. Some hashing algorithms, like Bcrypt, are made to be resistant to cracking by not allowing hashing on a GPU to increase speed over utilising a CPU.
+
+Cracking on VMs?
+It’s worth mentioning that VMs (Virtual Machines) normally don’t have access to the host’s graphics card(s). Depending on the virtualisation software you are using, you can set this up, but it is cumbersome. Furthermore, performance degradation occurs as you use the CPU from a virtualised OS, and when your purpose is to crack a hash, you need every extra CPU cycle.
+If you want to run Hashcat, it’s best to run it on your host to make the most of your GPU, if available. If you prefer MS Windows, you are in luck; MS Windows builds are available on the website, and you can run it from PowerShell. You can get Hashcat working with OpenCL in a VM, but the speeds will likely be worse than cracking on your host.
+John the Ripper uses CPU by default and works in a VM out of the box, although you may get better speeds running it on the host OS to avoid any virtualisation overhead and make the most of your CPU cores and threads.
+
+Time to Crack Some Hashes
+Hashcat uses the following basic syntax: hashcat -m <hash_type> -a <attack_mode> hashfile wordlist, where:
+1. -m <hash_type> specifies the hash-type in numeric format. For example, -m 1000 is for NTLM. Check the official documentation (man hashcat) and example page to find the hash type code to use.
+2. -a <attack_mode> specifies the attack-mode. For example, -a 0 is for straight, i.e., trying one password from the wordlist after the other.
+3. hashfile is the file containing the hash you want to crack.
+4. wordlist is the security word list you want to use in your attack.
+
+For example, "hashcat -m 3200 -a 0 hash.txt /usr/share/wordlists/rockyou.txt" will treat the hash as Bcrypt and try the passwords in the rockyou.txt file.
+
+Question 11: Use hashcat to crack the hash, $2a$06$7yoU3Ng8dHTXphAg913cyO6Bjs3K5lBnwq5FJyA6d01pMSrddr1ZG, saved in ~/Hashing-Basics/Task-6/hash1.txt.
+Question 12: Use hashcat to crack the SHA2-256 hash, 9eb7ee7f551d2f0ac684981bd1f1e2fa4a37590199636753efe614d4db30e8e1, saved in saved in ~/Hashing-Basics/Task-6/hash2.txt.
+Question 13: Use hashcat to crack the hash, $6$GQXVvW4EuM$ehD6jWiMsfNorxy5SINsgdlxmAEl3.yif0/c3NqzGLa0P.S7KRDYjycw5bnYkF5ZtB8wQy8KnskuWQS3Yr1wQ0, saved in ~/Hashing-Basics/Task-6/hash3.txt.
+Question 14: Crack the hash, b6b0d451bbf6fed658659a9e7e5598fe, saved in ~/Hashing-Basics/Task-6/hash4.txt
+
+Note: Perform the actions mentioned in Task 6 of activity file.
+
+
+Hashing for Integrity Checking
+
+how we can use hash functions to check the integrity of files.
+Integrity Checking
+Hashing can be used to check that files haven’t been changed. If you put the same data in, you always get the same data out. Even if a single bit changes, the hash will change significantly.
+This means you can use it to check that files haven’t been modified or to ensure that the file you downloaded is identical to the file on the web server. The text file listed below shows the SHA256 hash of two Fedora Workstation ISO files. If running sha256sum on the file you downloaded returned the same hash listed in this signed file, you can be confident that your file is identical to the official one.
+
+Note: hashing to find duplicate files; if two documents have the same hash, they are the same document. This is very convenient for finding and deleting duplicate files.
+
+HMACs
+HMAC (Keyed-Hash Message Authentication Code) is a type of message authentication code (MAC) that uses a cryptographic hash function in combination with a secret key to verify the authenticity and integrity of data.
+
+An HMAC can be used to ensure that the person who created the HMAC is who they say they are, i.e., authenticity is confirmed; moreover, it proves that the message hasn’t been modified or corrupted, i.e., integrity is maintained. This is achieved through the use of a secret key to prove authenticity and a hashing algorithm to produce a hash and prove integrity.
+
+how HMAC works.
+1. The secret key is padded to the block size of the hash function.
+2. The padded key is XORed with a constant (usually a block of zeros or ones).
+3. The message is hashed using the hash function with the XORed key.
+4. The result from Step 3 is then hashed again with the same hash function but using the padded key XORed with another constant.
+5. The final output is the HMAC value, typically a fixed-size string.
+
+HMAC function is calculated using the following expression: HMAC(K,M) = H((K⊕opad)||H((K⊕ipad)||M))
+Note that M and K represent the message and the key, respectively.
+
+Question 15: What is SHA256 hash of libgcrypt-1.11.0.tar.bz2 found in ~/Hashing-Basics/Task-7?
+Question 16: What’s the hashcat mode number for HMAC-SHA512 (key = $pass)?
+
+Note: Perform the actions mentioned in task-7 of the activity document.
+
+
+Conclusion
+
+distinguish between hashing, encoding, and encryption.
+
+Hashing, as already stated, is a process that takes input data and produces a hash value, a fixed-size string of characters, also referred to as digest. This hash value uniquely represents the data, and any change in the data, no matter how small, should lead to a change in the hash value. Hashing should not be confused with encryption or encoding; hashing is one-way, and you can’t reverse the process to get the original data.
+
+Encoding converts data from one form to another to make it compatible with a specific system. ASCII, UTF-8, UTF-16, UTF-32, ISO-8859-1, and Windows-1252 are valid encoding methods for the English language. Note that UTF-8, UTF-16, and UTF-32 are Unicode encodings, and they can represent characters from other languages, such as Arabic and Japanese.
+Note: Encoding should not be confused with encryption, as using a specific encoding does not protect the confidentiality of the message. Encoding is reversible; anyone can change the data encoding with the right tools.
+
+Encryption, which we covered in the previous rooms, protects data confidentiality using a cryptographic cipher and a key. Encryption is reversible, provided we know the cipher and can access the key.
+
+Question 17: Use base64 to decode RU5jb2RlREVjb2RlCg==, saved as decode-this.txt in ~/Hashing-Basics/Task-8. What is the original word?
+
+Note: Perform the actions mentioned in task-7 of the activity document.
