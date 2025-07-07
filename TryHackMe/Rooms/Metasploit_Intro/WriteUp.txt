@@ -1,0 +1,161 @@
+Introduction to Metasploit
+
+Metasploit is the most widely used exploitation framework. Metasploit is a powerful tool that can support all phases of a penetration testing engagement, from information gathering to post-exploitation.
+
+Metasploit has two main versions:
+1. Metasploit Pro: The commercial version that facilitates the automation and management of tasks. This version has a graphical user interface (GUI).
+2. Metasploit Framework: The open-source version that works from the command line. This room will focus on this version, installed on the AttackBox and most commonly used penetration testing Linux distributions.
+
+The Metasploit Framework is a set of tools that allow information gathering, scanning, exploitation, exploit development, post-exploitation, and more. While the primary usage of the Metasploit Framework focuses on the penetration testing domain, it is also useful for vulnerability research and exploit development.
+
+The main components of the Metasploit Framework can be summarized as follows;
+1. msfconsole: The main command-line interface.
+2. Modules: supporting modules such as exploits, scanners, payloads, etc.
+3. Tools: Stand-alone tools that will help vulnerability research, vulnerability assessment, or penetration testing. Some of these tools are msfvenom, pattern_create and pattern_offset.
+
+
+Main Components of Metasploit
+
+Metasploit Framework -> primarily interact using the  Metasploit Console(msfconsole command).
+The console will be your main interface to interact with the different modules of the Metasploit Framework. Modules are small components within the Metasploit framework that are built to perform a specific task, such as exploiting a vulnerability, scanning a target, or performing a brute-force attack.
+
+Exploit: A piece of code that uses a vulnerability present on the target system.
+Vulnerability: A design, coding, or logic flaw affecting the target system. The exploitation of a vulnerability can result in disclosing confidential information or allowing the attacker to execute code on the target system.
+Payload: An exploit will take advantage of a vulnerability. However, if we want the exploit to have the result we want (gaining access to the target system, read confidential information, etc.), we need to use a payload. Payloads are the code that will run on the target system.
+
+Modules and categories under each one are listed below.
+1. Auxiliary: Any supporting module, such as scanners, crawlers and fuzzers, can be found here.
+2. Encoders: Encoders will allow you to encode the exploit and payload in the hope that a signature-based antivirus solution may miss them.
+Note: Signature-based antivirus and security solutions have a database of known threats. They detect threats by comparing suspicious files to this database and raise an alert if there is a match. Thus encoders can have a limited success rate as antivirus solutions can perform additional checks.
+3. Evasion: direct attempt to evade antivirus software
+4. Exploits: Exploits, neatly organized by target system.
+5. NOPs: NOPs (No OPeration) do nothing, literally. They are represented in the Intel x86 CPU family with 0x90, following which the CPU will do nothing for one cycle. They are often used as a buffer to achieve consistent payload sizes.
+6. Payloads: Payloads are codes that will run on the target system.
+Examples could be; getting a shell, loading a malware or backdoor to the target system, running a command, or launching calc.exe as a proof of concept to add to the penetration test report. Starting the calculator on the target system remotely by launching the calc.exe application is a benign way to show that we can run commands on the target system.
+Note: Metasploit offers the ability to send different payloads that can open shells on the target system.
+Four different directories under payloads: adapters, singles, stagers and stages.
+    1. Adapters: An adapter wraps single payloads to convert them into different formats. For example, a normal single payload can be wrapped inside a Powershell adapter, which will make a single powershell command that will execute the payload.
+    2. Singles: Self-contained payloads (add user, launch notepad.exe, etc.) that do not need to download an additional component to run.
+    3. Stagers: Responsible for setting up a connection channel between Metasploit and the target system. Useful when working with staged payloads. “Staged payloads” will first upload a stager on the target system then download the rest of the payload (stage). This provides some advantages as the initial size of the payload will be relatively small compared to the full payload sent at once.
+    4. Stages: Downloaded by the stager. This will allow you to use larger sized payloads.
+Metasploit has a subtle way to help you identify single (also called “inline”) payloads and staged payloads.
+    1. generic/shell_reverse_tcp
+    2. windows/x64/shell/reverse_tcp
+Both are reverse Windows shells. The former is an inline (or single) payload, as indicated by the “_” between “shell” and “reverse”. While the latter is a staged payload, as indicated by the “/” between “shell” and “reverse”.
+7. Post: Post modules will be useful on the final stage of the penetration testing process listed above, post-exploitation.
+
+Question 1:What is the name of the code taking advantage of a flaw on the target system?
+Answer: Exploit
+
+Question 2: What is the name of the code that runs on the target system to achieve the attacker's goal?
+Answer: Payload
+
+Question 3: What are self-contained payloads called?
+Answer: Singles
+
+Question 4: Is "windows/x64/pingback_reverse_tcp" among singles or staged payload?
+Answer: Singles
+
+
+Msfconsole
+
+The console will be your main interface to the Metasploit Framework.
+The Metasploit console (msfconsole) can be used just like a regular command-line shell.
+Note: It will support most Linux commands, including clear (to clear the terminal screen), but will not allow you to use some features of a regular command line (e.g. does not support output redirection)
+
+Help feature:
+the help command can be used on its own or for a specific command.
+
+History feature:
+use the history command to see commands you have typed earlier.
+
+Tab Completion:
+An important feature of msfconsole is the support of tab completion. This will come in handy later when using Metasploit commands or dealing with modules.
+
+Note: Msfconsole is managed by context; this means that unless set as a global variable, all parameter settings will be lost if you change the module you have decided to use.
+
+Example Usage: MS17-010 “Eternalblue” exploit
+1. Use an exploit : Run command "use exploit/windows/smb/ms17_010_eternalblue".
+Significance: The "EternalBlue" is an exploit allegedly developed by the U.S. National Security Agency (N.S.A.) for a vulnerability affecting the SMBv1 server on numerous Windows systems. The SMB (Server Message Block) is widely used in Windows networks for file sharing and even for sending files to printers. EternalBlue was leaked by the cybercriminal group "Shadow Brokers" in April 2017. In May 2017, this vulnerability was exploited worldwide in the WannaCry ransomware attack.
+
+use command: Is used to select the module to be used as part of exploit.
+Example usage: Run the search command:" search ms17", now use the use commad: "use <result_no>"
+
+Note: The prompt tells us we now have a context set in which we will work. 
+2. You can see this by typing the show options command: "show options".
+This will print options related to the exploit we have chosen earlier. The show options command will have different outputs depending on the context it is used in.
+
+Note:The show command can be used in any context followed by a module type (auxiliary, payload, exploit, etc.) to list available modules. If used from the msfconsole prompt, the show command will list all modules.
+
+Back command: You can leave the context using the back command.
+
+Info command: Further information on any module can be obtained by typing the info command within its context.
+Alternatively, you can use the info command followed by the module’s path from the msfconsole prompt (e.g. info exploit/windows/smb/ms17_010_eternalblue). 
+
+Search command:One of the most useful commands in msfconsole is search. This command will search the Metasploit Framework database for modules relevant to the given search parameter. You can conduct searches using CVE numbers, exploit names (eternalblue, heartbleed, etc.), or target system.
+direct the search function using keywords such as type and platform.
+
+Note: Please remember that exploits take advantage of a vulnerability on the target system and may always show unexpected behavior. A low-ranking exploit may work perfectly, and an excellent ranked exploit may not, or worse, crash the target system.
+
+Question 5: How would you search for a module related to Apache?
+Answer: search apache
+
+Question 6: Who provided the auxiliary/scanner/ssh/ssh_login module?
+Answer: todb
+
+
+Working with modules
+
+All parameters are set using the same command syntax:
+set PARAMETER_NAME VALUE
+
+dealing with Metasploit, you may see five different prompts:
+1. The regular command prompt: You can not use Metasploit commands here.
+2. The msfconsole prompt: msf6 (or msf5 depending on your installed version) is the msfconsole prompt. As you can see, no context is set here, so context-specific commands to set parameters and run modules can not be used here.
+3. A context prompt: Once you have decided to use a module and used the set command to chose it, the msfconsole will show the context. You can use context-specific commands (e.g. set RHOSTS 10.10.x.x) here.
+4. The Meterpreter prompt: Meterpreter is an important payload, This means a Meterpreter agent was loaded to the target system and connected back to you. You can use Meterpreter specific commands here.
+5. A shell on the target system: Once the exploit is completed, you may have access to a command shell on the target system. This is a regular command line, and all commands typed here run on the target system.
+
+Parameters you will often use are:
+1. RHOSTS: “Remote host”, the IP address of the target system. A single IP address or a network range can be set. This will support the CIDR (Classless Inter-Domain Routing) notation (/24, /16, etc.) or a network range (10.10.10.x – 10.10.10.y). You can also use a file where targets are listed, one target per line using file:/path/of/the/target_file.txt, as you can see below.
+2. RPORT: “Remote port”, the port on the target system the vulnerable application is running on.
+3. PAYLOAD: The payload you will use with the exploit.
+4. LHOST: “Localhost”, the attacking machine (your AttackBox or Kali Linux) IP address.
+5. LPORT: “Local port”, the port you will use for the reverse shell to connect back to. This is a port on your attacking machine, and you can set it to any port not used by any other application.
+6. SESSION: Each connection established to the target system using Metasploit will have a session ID. You will use this with post-exploitation modules that will connect to the target system using an existing connection.
+
+use the setg command to set values that will be used for all modules. The setg command is used like the set command. The difference is that if you use the set command to set a value using a module and you switch to another module, you will need to set the value again. The setg command allows you to set the value so it can be used by default across different modules. You can clear any value set with setg using unsetg.
+
+Using modules
+launch the module using the exploit command. Metasploit also supports the run command, which is an alias created for the exploit command as the word exploit did not make sense when using modules that were not exploits (port scanners, vulnerability scanners, etc.).
+
+Note: The exploit command can be used without any parameters or using the “-z” parameter, The exploit -z command will run the exploit and background the session as soon as it opens.
+
+Some modules support the check option. This will check if the target system is vulnerable without exploiting it.
+
+Sessions
+Once a vulnerability has been successfully exploited, a session will be created. This is the communication channel established between the target system and Metasploit.
+You can use the background command to background the session prompt and go back to the msfconsole prompt.
+Alternatively, CTRL+Z can be used to background sessions.
+
+The sessions command can be used from the msfconsole prompt or any context to see the existing sessions.
+To interact with any session, you can use the sessions -i command followed by the desired session number.
+
+Question 7: How would you set the LPORT value to 6666?
+Answer: set LPORT 6666
+
+Question 8: How would you set the global value for RHOSTS  to 10.10.19.23 ?
+Answer: setg RHOSTS 10.10.19.23
+
+Question 9: What command would you use to clear a set payload?
+Answer: unset PAYLOAD
+
+Question 10: What command do you use to proceed with the exploitation phase?
+Answer: exploit
+
+
+Summary
+
+Metasploit is a powerful tool that facilitates the exploitation process. The exploitation process comprises three main steps; finding the exploit, customizing the exploit, and exploiting the vulnerable service.
+Metasploit provides many modules that you can use for each step of the exploitation process. Through this room, we have seen the basic components of Metasploit and their respective use.
+
