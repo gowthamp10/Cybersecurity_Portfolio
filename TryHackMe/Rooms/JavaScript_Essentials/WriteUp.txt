@@ -163,3 +163,8 @@ JS provides several control flow structures such as if-else, switch statements t
 Conditional Statements in Action
 One of the most used conditional statements is the if-else statements, which allows you to execute different blocks of code depending on whether a condition evaluates to true or false.
 
+Bypassing Login Forms
+Suppose a developer has implemented authentication functionality in JS, where only users with the username "admin" and passwords matching a specific value are allowed to log in.
+
+
+
