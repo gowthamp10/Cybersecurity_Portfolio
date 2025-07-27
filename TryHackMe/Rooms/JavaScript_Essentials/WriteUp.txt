@@ -1,0 +1,165 @@
+Introduction
+
+JavaScript (JS) is a popular scripting language that allows web developers to add interactive features to websites containing HTML and CSS (styling). Once the HTML elements are created, you can add interactiveness like validation, onClick actions, animations, etc, through JS. Learning the language is equally important as that of HTML and CSS. The JS scripts are used primarily with HTML.
+
+Learning Objectives
+1. Understand the basics of JS
+2. Integrating JS in HTML
+3. Abusing Dialogue Function
+4. Bypassing Control Flow Statements
+5. Exploring Minified Files
+
+
+Essential Concepts
+
+Variables: Variables are containers that allow you to store data values in them. 
+There are three ways to declare variables in JS: var, let, and const.
+1. var is function-scoped
+2. let, and const are block-scoped, offering better control over variable visibility within specific code blocks.
+
+Data Types: data types define the type of value a variable can hold.
+Examples include string (text), number, boolean (true/false), null, undefined, and object (for more complex data like arrays or objects).
+
+Function: A function represents a block of code designed to perform a specific task. Inside a function, you group code that needs to perform a similar task.
+Ex: <script>
+        function PrintResult(rollNum) {
+            alert("Username with roll number " + rollNum + " has passed the exam");
+            // any other logic to display the result
+        }
+
+        for (let i = 0; i < 100; i++) {
+            PrintResult(rollNumbers[i]);
+        }
+    </script>
+
+Loops: Loops allow you to run a code block multiple times as long as a condition is true
+Common loops in JS are for, while, and do...while, which are used to repeat tasks, like going through a list of items.
+Ex:  // Function to print student result
+        function PrintResult(rollNum) {
+            alert("Username with roll number " + rollNum + " has passed the exam");
+            // any other logic to the display result
+        }
+
+        for (let i = 0; i < 100; i++) {
+            PrintResult(rollNumbers[i]); // this will be called 100 times 
+        }
+
+Request-Response Cycle: In web development, the request-response cycle is when a user's browser (the client) sends a request to a web server, and the server responds with the requested information. 
+
+Question 1: What term allows you to run a code block multiple times as long as it is a condition?
+Answer: loop
+
+
+JavaScript Overview
+
+JS is an interpreted language, meaning the code is executed directly in the browser without prior compilation.
+JS code demonstrating key concepts, such as defining a variable, understanding data types, using control flow statements, and writing simple functions. These essential building blocks help create more dynamic and interactive web apps.
+
+Example: 
+// Hello, World! program
+console.log("Hello, World!");
+
+// Variable and Data Type
+let age = 25; // Number type
+
+// Control Flow Statement
+if (age >= 18) {
+    console.log("You are an adult.");
+} else {
+    console.log("You are a minor.");
+}
+
+// Function
+function greet(name) {
+    console.log("Hello, " + name + "!");
+}
+
+// Calling the function
+greet("Bob");
+
+Steps to execute simple js code in browser:
+1. Open Google Chrome by clicking the Google Chrome icon on the Desktop of the VM.
+2. Once Chrome is open, press Ctrl + Shift + I to open the Console or right-click anywhere on the page and select Inspect.
+3. Then, click on the Console tab. This console allows you to run JS code directly in the browser without installing additional software.
+
+Question 2: What is the code output if the value of x is changed to 10?
+Checkout the activity file
+
+Question 3: Is JavaScript a compiled or interpreted language?
+Answer: Interpreted 
+
+
+Integrating JavaScript in HTML
+
+There are two main ways to integrate JS into HTML: internally and externally.
+
+Internal JavaScript
+Internal JS refers to embedding the JS code directly within an HTML document. This method is preferable for beginners because it allows them to see how the script interacts with the HTML. The script is inserted between <script> tags. These tags can be placed inside the <head> section, typically used for scripts that need to be loaded before the page content is rendered, or inside the <body> section, where the script can be utilised to interact with elements as they are loaded on the web page.
+
+External JavaScript
+External JS involves creating and storing JS code in a separate file ending with a .js file extension. This method helps developers keep the HTML document clean and organised. The external JS file can be stored or hosted on the same web server as the HTML document or stored on an external web server
+
+Verifying Internal or External JS
+When pen-testing a web application, it is important to check whether the website uses internal or external JS. This can be easily verified by viewing the page's source code.
+
+Question 4: Which type of JavaScript integration places the code directly within the HTML document?
+Answer: internal
+
+Question 5: Which method is better for reusing JS across multiple web pages?
+Answer: External
+
+Question 6: What is the name of the external JS file that is being called by external_test.html?
+Check out activity file for solution.
+
+Question 7: What attribute links an external JS file in the <script> tag?
+Answer: src 
+
+
+Abusing Dialogue Functions
+
+One of the main objectives of JS is to provide dialogue boxes for interaction with users and dynamically update content on web pages. JS provides built-in functions like alert, prompt, and confirm to facilitate this interaction. These functions allow developers to display messages, gather input, and obtain user confirmation. However, if not implemented securely, attackers may exploit these features to execute attacks like Cross-Site Scripting (XSS).
+
+Alert: The alert function displays a message in a dialogue box with an "OK" button, typically used to convey information or warnings to users.
+example: if we want to display "Hello THM" to the user, we would use an alert("HelloTHM");
+
+Prompt: The prompt function displays a dialogue box that asks the user for input. It returns the entered value when the user clicks "OK", or null if the user clicks "Cancel".
+example, to ask the user for their name, we would use prompt("What is your name?");.
+
+Confirm: The confirm function displays a dialogue box with a message and two buttons: "OK" and "Cancel". It returns true if the user clicks "OK" and false if the user clicks "Cancel".
+example, to ask the user for confirmation, we would use confirm("Are you sure?");
+
+How Hackers Exploit the Functionality
+Imagine receiving an email from a stranger with an attached HTML file. The file looks harmless, but when you open it, it contains JS that disrupts your browsing experience.
+example, the following code will show an alert box with the message "Hacked" three times:
+Code:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hacked</title>
+</head>
+<body>
+    <script>
+        for (let i = 0; i < 3; i++) {
+            alert("Hacked");
+        }
+    </script>
+</body>
+</html>
+
+Question 8: In the file invoice.html, how many times does the code show the alert Hacked?
+View the activity file.
+
+Question 9: Which of the JS interactive elements should be used to display a dialogue box that asks the user for input?
+Answer: prompt
+
+Question 10: If the user enters Tesla, what value is stored in the carName= prompt("What is your car name?")? in the carName variable?
+Answer: Tesla
+
+
+Bypassing Control Flow Statements
+
+JS provides several control flow structures such as if-else, switch statements to make decisions, and loops like for, while, and do...while to repeat actions.
+
+Conditional Statements in Action
+One of the most used conditional statements is the if-else statements, which allows you to execute different blocks of code depending on whether a condition evaluates to true or false.
+

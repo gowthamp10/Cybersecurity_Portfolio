@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--The JS interacts with the HTML by selecting an element (<p> with id="result") and updating its content using document.getElementById("result").innerHTML. This internal JS is executed when the browser loads the HTML file.-->
+    <title>Internal JS</title>
+</head>
+<body>
+    <h1>Addition of Two Numbers</h1>
+    <p id="result"></p>
+
+    <script>
+        let x = 5;
+        let y = 10;
+        let result = x + y;
+        document.getElementById("result").innerHTML = "The result is: " + result;
+    </script>
+</body>
+</html>
