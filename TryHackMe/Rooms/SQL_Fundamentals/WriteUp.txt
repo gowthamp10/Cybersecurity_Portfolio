@@ -1,0 +1,20 @@
+Introduction
+
+Cyber security is a broad topic that covers a wide range of subjects, but few of those are as ubiquitous as databases. Whether you’re working on securing a web application, working in a SOC and using a SIEM, configuring user authentication/access control, or using malware analysis/threat detection tools (the list goes on), you will in some way be relying on databases.
+
+Room Prerequisites
+Having the Linux Fundamentals down would prove helpful.
+
+Learning Objectives
+1. Understand what databases are, as well as key terms and concepts
+2. Understand the different types of databases 
+3. Understand what SQL is
+4. Understand and be able to use SQL CRUD Operations
+5. Understand and be able to use SQL Clauses Operations
+6. Understand and be able to use SQL Operations
+7. Understand and be able to use SQL Operators
+8. Understand and be able to use SQL Functions
+
+
+Databases 101
+

@@ -166,5 +166,79 @@ One of the most used conditional statements is the if-else statements, which all
 Bypassing Login Forms
 Suppose a developer has implemented authentication functionality in JS, where only users with the username "admin" and passwords matching a specific value are allowed to log in.
 
+Question 11: What is the message displayed if you enter the age less than 18?
+Answer: You are a minor.
+
+Question 12: What is the password for the user admin?
+Checkout the activity file 
 
 
+Exploring Minified Files
+
+Minification in JS is the process of compressing JS files by removing all unnecessary characters, such as spaces, line breaks, comments, and even shortening variable names. This helps reduce the file size and improves the loading time of web pages, especially in production environments. Minified files make the code more compact and harder to read for humans, but they still function exactly the same.
+
+Obfuscation is often used to make JS harder to understand by adding undesired code, renaming variables and functions to meaningless names, and even inserting dummy code.
+Example: hello.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Obfuscated JS Code</title>
+</head>
+<body>
+    <h1>Obfuscated JS Code</h1>
+    <script src="hello.js"></script>
+</body>
+</html>
+
+hello.js
+function hi() {
+  alert("Welcome to THM");
+}
+hi();
+
+Behaviour: hello.html file to open it in Google Chrome. Once the file is opened, you will see an alert greeting you with "Welcome to THM".
+Upon inspection we can view the js code available in sources.
+
+Obfuscation in Action
+
+Online Tool: https://codebeautify.org/javascript-obfuscator
+The tool will minify and obfuscate the code, turning it into a string of gibberish characters
+
+Example: hello.js
+function _0x114a(){var _0x498f71=['2131464FKAvZw','654VxtNyW','30332FsEJUc','oMfgo','2242890wDAidT','37031rwHPZR','Welcome\x20to','tDpqp','\x20THM','9072mplDfX','1221705KGaqmv','129640vFdjly','4SnVNDg'];_0x114a=function(){return _0x498f71;};return _0x114a();}(function(_0x51423f,_0x5387f6){var _0x191a31=_0x4272,_0x41428c=_0x51423f();while(!![]){try{var _0x275433=-parseInt(_0x191a31(0x170))/(-0x1*-0xd21+-0x13ef+0x6cf)+-parseInt(_0x191a31(0x16d))/(0x12a7+0xb*-0x161+-0x59*0xa)+parseInt(_0x191a31(0x168))/(-0xe*0x2bf+0x233e+-0x1*-0x337)+-parseInt(_0x191a31(0x16a))/(-0x156b+0x1*-0x61f+0x1b8e)*(-parseInt(_0x191a31(0x169))/(0x1918+0x719+-0x202c))+-parseInt(_0x191a31(0x16c))/(-0xca1+0x1902+-0xc5b)*(parseInt(_0x191a31(0x167))/(0x1c9*0x9+-0x5*0x556+0xaa4))+parseInt(_0x191a31(0x16b))/(-0x882+-0x2574+-0x7*-0x692)+-parseInt(_0x191a31(0x16f))/(-0x1*0x3c1+0x9c3+-0x5f9);if(_0x275433===_0x5387f6)break;else _0x41428c['push'](_0x41428c['shift']());}catch(_0x4bcf0e){_0x41428c['push'](_0x41428c['shift']());}}}(_0x114a,0x3c10f+-0x14c*-0x1b7+-0x1*0x20ec6));function _0x4272(_0x5e2186,_0x388704){var _0x4ab28a=_0x114a();return _0x4272=function(_0x65b0aa,_0x5c2a59){_0x65b0aa=_0x65b0aa-(0x1a9e+-0x1*-0x16ca+-0x3001);var _0x2bf0d9=_0x4ab28a[_0x65b0aa];return _0x2bf0d9;},_0x4272(_0x5e2186,_0x388704);}function hi(){var _0x4fbfa0=_0x4272,_0x364c4c={'tDpqp':function(_0x337013,_0xfa099d){return _0x337013(_0xfa099d);},'oMfgo':_0x4fbfa0(0x171)+_0x4fbfa0(0x173)};_0x364c4c[_0x4fbfa0(0x172)](alert,_0x364c4c[_0x4fbfa0(0x16e)]);}hi();
+
+Note:  The only difference is that they are not human-readable, but the browser can still execute them correctly.
+
+Deobfuscating a Code
+
+Tool: https://obf-io.deobfuscate.io/
+The website will generate the equivalent, human-readable JS code for you, making it easier to understand and analyze the original script.
+
+Question 13: What is the alert message shown after running the file hello.html?
+Answer: Welcome to THM
+
+Question 14: What is the value of the age variable in the following obfuscated code snippet?
+age=0x1*0x247e+0x35*-0x2e+-0x1ae3;
+Answer: 21
+
+Note: Use the Online tools mentioned in the content.
+
+
+Best Practices
+
+The practices below will assist you in reducing the attack surface and minimizing the chances of attack. 
+1. Avoid Relying on Client-Side Validation Only: Developers sometimes use it for validating forms and rely entirely on it, which is not a good practice. Since a user can disable/manipulate JS on the client side, performing validation on the server side is also essential.
+2. Refrain from Adding Untrusted Libraries: JS allows you to include any other JS scripts using the src attribute inside a script tag. But have you considered whether the library we include is from a trusted source? Bad actors have uploaded a bundle of libraries on the internet with names that resemble legitimate ones. So, if you blindly include a malicious library, you will expose your web application to threats.
+3. Avoid Hardcoded Secrets: Never hardcode sensitive data like API keys, access tokens, or credentials into your JS code, as the user can easily check the source code and get the password. 
+4. Minify and Obfuscate Your JavaScript Code: Minifying and obfuscating JS code reduces its size, improves load time, and makes it harder for attackers to understand the logic of the code. Therefore, always minify and obfuscate the code when using code in production. The attacker can eventually reverse engineer it, but getting the original code will take at least some effort. 
+
+Question 15: Is it a good practice to blindly include JS in your code from any source (yea/nay)?
+Answer:  nay 
+
+
+Conclusion
+
+1. integrating JS in HTML
+2. prompts
+3. control flow statements
+4. minify and obfuscate

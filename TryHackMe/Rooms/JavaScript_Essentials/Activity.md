@@ -15,5 +15,9 @@
 1. Navigate to the exercise file and double click on the <file> mentioned for the activity and based on your interaction with the alert element answer the question.
 2. Another way is tho view the source file as a doc and analyze the document to get the loop count.
 
+- **Bypassing Control Flow Statements** :
+1. Navigate to the excerise file and checkout the login.html file in Vim.
+2. Check the JS script section about the validation of username and password.
+
 
 
