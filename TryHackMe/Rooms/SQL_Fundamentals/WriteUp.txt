@@ -18,3 +18,223 @@ Learning Objectives
 
 Databases 101
 
+Introducing Databases
+Databases are so ubiquitous that you very likely interact with systems that are using them. Databases are an organised collection of structured information or data that is easily accessible and can be manipulated or analysed.
+
+Different Types of Databases
+focus on the two primary types: relational databases (aka SQL) vs non-relational databases (aka NoSQL). 
+
+1. Relational Databases: Store structured data, meaning the data inserted into this database follows a structure. 
+relationships can then be made between two or more tables 
+
+2. Non-Relational Databases: store data in a non-tabular format.
+
+what database should be chosen?
+It always comes down to the context in which the database is going to be used.
+
+Relational databases are often used when the data being stored is reliably going to be received in a consistent format, where accuracy is important, such as when processing e-commerce transactions. 
+Non-relational databases, on the other hand, are better used when the data being received can vary greatly in its format but need to be collected and organised in the same place, such as social media platforms collecting user-generated content.
+
+Tables, Rows and Columns
+All data stored in a relational database will be stored in a table
+Columns are being defined, you would also define what data type this column should contain. The data types that can be defined can vary depending on what database you are using, but the core data types used by all include Strings (a collection of words and characters), Integers (numbers), floats/decimals (numbers with a decimal point) and Times/Dates. 
+Once data is inserted, record would be represented as a row.
+
+Primary and Foreign Keys
+1. Primary Keys: A primary key is used to ensure that the data collected in a certain column is unique. That is, there needs to be a way to identify each record stored in a table, a value unique to that record and is not repeated by any other record in that table.
+2. Foreign Keys: A foreign key is a column (or columns) in a table that also exists in another table within the database, and therefore provides a link between the two tables.
+
+Question 1: What type of database should you consider using if the data you're going to be storing will vary greatly in its format?
+Answer: Non-Relational Databases 
+
+Question 2: What type of database should you consider using if the data you're going to be storing will reliably be in the same structured format?
+Answer: Relational Databases
+
+Question 3: In our example, once a record of a book is inserted into our "Books" table, it would be represented as a ___ in that table?
+Answer: row 
+
+Question 4: Which type of key provides a link from one table to another?
+Answer: foreign key 
+
+Question 5: which type of key ensures a record is unique within a table?
+Answer: primary key 
+
+
+SQL
+
+What is SQL?
+Databases are usually controlled using a Database Management System (DBMS). Serving as an interface between the end user and the database, a DBMS is a software program that allows users to retrieve, update and manage the data being stored. Some examples of DBMSs include MySQL, MongoDB, Oracle Database and Maria DB. 
+The interaction between the end user and the database can be done using SQL (Structured Query Language). SQL is a programming language that can be used to query, define and manipulate the data stored in a relational database. 
+
+The Benefits of SQL and Relational Databases
+1. It's fast: Relational databases (aka those that SQL is used for) can return massive batches of data almost instantaneously due to how little storage space is used and high processing speeds. 
+2. Easy to Learn: Unlike many programming languages, SQL is written in plain English, making it much easier to pick up. The highly readable nature of the language means users can concentrate on learning the functions and syntax.
+3. Reliable: As mentioned before, relational databases can guarantee a level of accuracy when it comes to data by defining a strict structure into which data sets must fall in order to be inserted.
+4. Flexible: SQL provides all kinds of capabilities when it comes to querying a database; this allows users to perform vast data analysis tasks very efficiently.
+
+Question 6: What serves as an interface between a database and an end user?
+Answer: DBMS 
+
+Question 7: What query language can be used to interact with a relational database?
+Answer: SQL 
+
+
+Database and Table Statements
+
+Database Statements
+1. CREATE DATABASE: in SQL using the CREATE DATABASE statement we can create a new database.
+syntax: CREATE DATABASE <database_name>;
+
+2. SHOW DATABASES: SHOW DATABASES statement will return a list of present databases. 
+the returned list, you should see the database you have just created and some databases that are included by default (mysql, information_scheme, performance_scheme and sys), which are used for various purposes that enable mysql to function.
+syntax: SHOW DATABASES;
+
+3. USE DATABASE: In order to use a particular database which is present we can utilize the USE command.
+syntax: USE <database_name>;
+
+4. DROP DATABASE: To remove the database utilize DROP statement.
+syntax: DROP database <database_name>;
+
+Table Statements
+1. CREATE TABLE: Use the CREATE TABLE command to create tables in the databases.
+syntax: CREATE TABLE example_table_name (
+    example_column1 data_type,
+    example_column2 data_type,
+    example_column3 data_type
+);
+
+Ex: CREATE TABLE book_inventory (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_name VARCHAR(255) NOT NULL,
+    publication_date DATE
+);
+
+2. SHOW TABLES: we can also list the tables in our currently active database.
+syntax: SHOW TABLES;
+
+3. DESCRIBE: to know what columns are contained within a table (and their data type).
+syntax: DESCRIBE <table_name>;
+
+4. ALTER: need for the dataset changes, and you need to alter the table. This can be done using the ALTER statement. 
+The ALTER statement can be used to make changes to a table, such as renaming columns, changing the data type in a column or removing a column. 
+syntax: ALTER TABLE <table_name>
+ADD <column> INT;
+
+5. DROP: remove tables using the DROP statement.
+syntax: DROP TABLE table_name;
+
+Question 8: Using the statement you've learned to list all databases, it should reveal a database with a flag for a name; what is it?
+Question 9: In the list of available databases, you should also see the  task_4_db database. Set this as your active database and list all tables in this database; what is the flag present here?
+Checkout the activity file, for solution.
+
+
+CRUD Operations
+
+CRUD: CRUD stands for Create, Read, Update, and Delete, which are considered the basic operations in any system that manages data.
+1. Create Operation (INSERT): The Create operation will create new records in a table. In MySQL, this can be achieved by using the statement INSERT INTO.
+syntax: INSERT INTO <table_name> (col1, col2, col3, col4)
+    VALUES (val1, val2, val3, val4);
+
+2. Read Operation (SELECT): The Read operation, as the name suggests, is used to read or retrieve information from a table. We can fetch a column or all columns from a table with the SELECT statement.
+syntax:  SELECT * FROM <table_name>; or SELECT col1,clo2 FROM <table_name>;
+
+3. Update Operation (UPDATE): The Update operation modifies an existing record within a table, and the same statement, UPDATE.
+syntax: UPDATE <table_name>
+    SET col = val
+    WHERE PK = val;
+
+4. Delete Operation (DELETE): The delete operation removes records from a table.
+syntax: DELETE FROM <table_name> WHERE PK = val;
+
+Summary
+CRUD operations results are fundamental for data operations and when interacting with databases. The statements associated with them are listed below.
+1. Create (INSERT statement) - Adds a new record to the table.
+2. Read (SELECT statement) - Retrieves record from the table.
+3. Update (UPDATE statement) - Modifies existing data in the table.
+4. Delete (DELETE statement) - Removes record from the table.
+
+
+Question 10: Using the tools_db database, what is the name of the tool in the hacking_tools table that can be used to perform man-in-the-middle attacks on wireless networks?
+Question 11: Using the tools_db database, what is the shared category for both USB Rubber Ducky and Bash Bunny?
+Please Checkout the activity file.
+
+
+Clauses
+
+A clause is a part of a statement that specifies the criteria of the data being manipulated, usually by an initial statement. Clauses can help us define the type of data and how it should be retrieved or sorted. 
+
+Few Clauses that are used are:
+1. DISTINCT Clause: The DISTINCT clause is used to avoid duplicate records when doing a query, returning only unique values.
+syntax: SELECT DISTINCT <COL> FROM <TABLE>;
+
+2. GROUP BY Clause: The GROUP BY clause aggregates data from multiple records and groups the query results in columns. This can be helpful for aggregating functions.
+syntax: SELECT <COL>, COUNT(*) FROM <TABLE> GROUP BY <COL>;
+
+3. ORDER BY Clause: The ORDER BY clause can be used to sort the records returned by a query in ascending or descending order. Using functions like ASC and DESC.
+syntax: SELECT <COL1>, <COL2> FROM <TABLE> ORDER BY <COL1> <ASC/DESC>;
+
+4. HAVING Clause: The HAVING clause is used with other clauses to filter groups or results of records based on a condition. In the case of GROUP BY, it evaluates the condition to TRUE or FALSE, unlike the WHERE clause HAVING filters the results after the aggregation is performed.
+syntax: SELECT <COL1>, <COL2> FROM <TABLE> GROUP BY <COL1> HAVING <COL2> LIKE '%<VALUE>%';
+
+Question 12: Using the tools_db database, what is the total number of distinct categories in the hacking_tools table?
+Question 13: Using the tools_db database, what is the first tool (by name) in ascending order from the hacking_tools table?
+Question 14: Using the tools_db database, what is the first tool (by name) in descending order from the hacking_tools table?
+Checkout the activity file.
+
+Operators
+
+SQL and dealing with logic and comparisons, operators are our way to filter and manipulate data effectively.
+
+Logical Operators: These operators test the truth of a condition and return a boolean value of TRUE or FALSE.
+1. LIKE Operator: The LIKE operator is commonly used in conjunction with clauses like WHERE in order to filter for specific patterns within a column.
+2. AND Operator: The AND operator uses multiple conditions within a query and returns TRUE if all of them are true.
+3. OR Operator: The OR operator combines multiple conditions within queries and returns TRUE if at least one of these conditions is true.
+4. NOT Operator: The NOT operator reverses the value of a boolean operator, allowing us to exclude a specific condition.
+5. BETWEEN Operator: The BETWEEN operator allows us to test if a value exists within a defined range.
+
+Comparison Operators: The comparison operators are used to compare values and check if they meet specified criteria.
+1. Equal To Operator: The = (Equal) operator compares two expressions and determines if they are equal, or it can check if a value matches another one in a specific column.
+2. Not Equal To Operator: The != (not equal) operator compares expressions and tests if they are not equal; it also checks if a value differs from the one within a column.
+3. Less Than Operator: The < (less than) operator compares if the expression with a given value is lesser than the provided one.
+4. Greater Than Operator: The > (greater than) operator compares if the expression with a given value is greater than the provided one.
+5. Less Than or Equal To and Greater  Than or Equal To Operators: The <= (Less than or equal) operator compares if the expression with a given value is less than or equal to the provided one. On the other hand, The >= (Greater than or Equal) operator compares if the expression with a given value is greater than or equal to the provided one.
+
+Question 15: Using the tools_db database, which tool falls under the Multi-tool category and is useful for pentesters and geeks?
+Question 16: Using the tools_db database, what is the category of tools with an amount greater than or equal to 300?
+Question 17: Using the tools_db database, which tool falls under the Network intelligence category with an amount less than 100?
+Please Checkout the activity file.
+
+
+Functions
+
+functions can help us streamline queries and operations and manipulate data.
+
+String Functions: Strings functions perform operations on a string, returning a value associated with it.
+1. CONCAT() Function: This function is used to add two or more strings together. It is useful to combine text from different columns.
+2. GROUP_CONCAT() Function: This function can help us to concatenate data from multiple rows into one field.
+3. SUBSTRING() Function: This function will retrieve a substring from a string within a query, starting at a determined position. The length of this substring can also be specified.
+4. LENGTH() Function: This function returns the number of characters in a string. This includes spaces and punctuation.
+
+Aggregate Functions: These functions aggregate the value of multiple rows within one specified criteria in the query; It can combine multiple values into one result.
+1. COUNT() Function: This function returns the number of records within an expression.
+2. SUM() Function: This function sums all values (not NULL) of a determined column.
+3. MAX() Function: This function calculates the maximum value within a provided column in an expression.
+4. MIN() Function: This function calculates the minimum value within a provided column in an expression.
+
+Question 18: Using the tools_db database, what is the tool with the longest name based on character length?
+Question 19: Using the tools_db database, what is the total sum of all tools?
+Question 20: Using the tools_db database, what are the tool names where the amount does not end in 0, and group the tool names concatenated by " & ".
+Checkout the activity file for solutions.
+
+
+Conclusion
+
+Summarise everything that was covered in this room:
+1. Databases are collections of organised data or information that are easily accessible and can be manipulated or analysed.
+2. The two primary types of databases are relational databases (used to store structured data) and non-relational databases (used to store data in a non-tabular format).
+3. Relational databases are made up of Tables, columns and rows. Primary keys can ensure a record is unique within a table, and foreign keys can allow for a relationship/connection to be made between two (or more) tables.
+4. SQL is an easy-to-learn programming language that can be used to interact with relational databases.
+5. Database and Table statements can be used to create/manipulate databases and tables.
+6. CRUD Operations (INSERT, SELECT, UPDATE and DELETE) can be used to manage data in a database.
+7. In SQL, we can use clauses to define how data should be retrieved, filtered, sorted, or grouped.
+8. The efficient use of operators and functions can help us filter and manipulate data in SQL.
