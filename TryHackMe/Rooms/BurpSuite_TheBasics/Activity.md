@@ -1,4 +1,4 @@
-# Activity performed as part of SQL Fundamentals
+# Activity performed as part of BurpSuite The Basics
 
 - **Pre-requisite** :
 1. Run the VM prrovided for practicing, Start the attack machine to use burpsuite tool.
