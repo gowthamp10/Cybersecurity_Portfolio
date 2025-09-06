@@ -1,0 +1,156 @@
+Here’s what the code is doing, in plain English and with a worked example.
+
+# What the snippet does
+
+1. `from secret import FLAG`
+   Imports a (presumably secret) string named `FLAG`.
+
+2. Defines `enc(plaintext)`
+   This function **encrypts** a string using a *position-based Caesar shift*:
+
+   * Walk through the text character by character with `enumerate(plaintext)`, so each char has an index `i = 0,1,2,...`.
+   * If the character is a letter:
+
+     * Pick a **base** of `ord('A')` for uppercase or `ord('a')` for lowercase (so we keep the case).
+     * Convert the letter to a 0–25 number with `ord(c) - base`.
+     * **Shift by `i`** (the position) and wrap within the alphabet: `(pos + i) % 26`.
+     * Convert back to a letter with `chr(... + base)`.
+   * If it isn’t a letter (space, digit, punctuation), leave it unchanged.
+   * The code uses the **walrus operator** `:=` to compute and reuse `base` inside the expression.
+
+3. Writes the encrypted `FLAG` to `message.txt`.
+
+So effectively:
+
+* 1st character (index 0) is shifted by 0
+* 2nd character (index 1) is shifted by 1
+* 3rd by 2, and so on…
+* **Non-letters still advance the index** (because `enumerate` counts every character), even though they themselves aren’t changed.
+
+This is a “no-key” scheme; security-wise it’s just a toy cipher.
+
+---
+
+# Line-by-line, compact
+
+```py
+def enc(plaintext):
+    return "".join(
+        # For each (i, c) in plaintext...
+        chr((ord(c) - (base := ord('A') if c.isupper() else ord('a')) + i) % 26 + base)
+        # If it's a letter: normalize to 0–25, add i, wrap, re-add base
+        if c.isalpha() else c
+        # Otherwise keep it as-is
+        for i, c in enumerate(plaintext)
+    )
+```
+
+* `enumerate(plaintext)` gives `(i, c)` pairs.
+* `c.isalpha()` guards letters vs non-letters.
+* `(base := ...)` is the walrus operator, saving `base` to reuse after the `% 26`.
+* `% 26` wraps around the alphabet.
+* Case is preserved via the `base` (`'A'` or `'a'`).
+
+---
+
+# Worked example
+
+Take: `Abc XYZ!`
+
+Encrypted becomes: `Ace BDF!`
+
+Step by step:
+
+|  i | char | isalpha | base | pos (0–25) | shift (=i) | new\_pos | out |
+| -: | :--: | :-----: | :--: | :--------: | :--------: | :------: | :-: |
+|  0 |   A  |   True  |   A  |      0     |      0     |     0    |  A  |
+|  1 |   b  |   True  |   a  |      1     |      1     |     2    |  c  |
+|  2 |   c  |   True  |   a  |      2     |      2     |     4    |  e  |
+|  3 |  ( ) |  False  |      |            |            |          | ( ) |
+|  4 |   X  |   True  |   A  |     23     |      4     |     1    |  B  |
+|  5 |   Y  |   True  |   A  |     24     |      5     |     3    |  D  |
+|  6 |   Z  |   True  |   A  |     25     |      6     |     5    |  F  |
+|  7 |   !  |  False  |      |            |            |          |  !  |
+
+Another example:
+
+```py
+enc("Attack at dawn.")  # -> "Auvdgp hb nlia."
+```
+
+---
+
+# How to **decrypt** (reverse it)
+
+Just subtract the index `i` instead of adding it:
+
+```py
+def dec(ciphertext):
+    return "".join(
+        chr((ord(c) - (base := ord('A') if c.isupper() else ord('a')) - i) % 26 + base)
+        if c.isalpha() else c
+        for i, c in enumerate(ciphertext)
+    )
+```
+
+Round-trip check:
+
+```py
+dec(enc("Abc XYZ!"))  # "Abc XYZ!"
+```
+
+If you only have `message.txt` (and not `secret.FLAG`), you can still recover the original:
+
+```py
+with open("message.txt") as f:
+    ct = f.read()
+print(dec(ct))
+```
+
+> ⚠️ Important: Because `enumerate` counts **every** character, including spaces and punctuation, you must use the exact same indexing rule for decryption. If you tried to increment `i` only for letters, you’d get the wrong answer.
+
+---
+
+# Notes & gotchas
+
+* **Python version:** Uses the walrus operator `:=` (requires Python 3.8+).
+* **Unicode letters:** `str.isalpha()` is `True` for many non-ASCII letters (like `é`). This cipher assumes A–Z or a–z; using `ord('A')/ord('a')` on non-ASCII letters will produce nonsense. If you need strict ASCII only, you might prefer `c in string.ascii_letters`.
+* **File write mode:** `open("message.txt", "w")` overwrites the file each run.
+
+---
+
+# A clearer (more readable) rewrite
+
+Same logic, but expanded for clarity and easy modification:
+
+```py
+def enc(plaintext: str) -> str:
+    out = []
+    for i, c in enumerate(plaintext):
+        if c.isalpha():
+            base = ord('A') if c.isupper() else ord('a')
+            pos = ord(c) - base        # 0..25
+            new_pos = (pos + i) % 26   # shift by position i
+            out.append(chr(new_pos + base))
+        else:
+            out.append(c)
+    return "".join(out)
+```
+
+And the matching decrypt:
+
+```py
+def dec(ciphertext: str) -> str:
+    out = []
+    for i, c in enumerate(ciphertext):
+        if c.isalpha():
+            base = ord('A') if c.isupper() else ord('a')
+            pos = ord(c) - base
+            new_pos = (pos - i) % 26
+            out.append(chr(new_pos + base))
+        else:
+            out.append(c)
+    return "".join(out)
+```
+
+If you’d like, I can adapt it so the index only increments for letters (ignores spaces/punctuation) and show how that changes the result.
