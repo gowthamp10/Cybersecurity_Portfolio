@@ -1,0 +1,105 @@
+Introduction to Digital Forensics
+
+Forensics is the application of methods and procedures to investigate and solve crimes. The branch of forensics that investigates cyber crimes is known as digital forensics.
+Cyber crime is any criminal activity conducted on or using a digital device.
+
+Learning Objectives
+1. Phases of digital forensics
+2. Types of digital forensics
+3. Procedure of evidence acquisition
+4. Windows forensics
+5. Solving a forensics case
+
+Question 1: Which team was handed the case by law enforcement?
+Answer: digital forensics
+
+
+Digital Forensics Methodology
+
+The NIST works on defining frameworks for different areas of technology, including cyber security, where they introduce the process of digital forensics in four phases.
+1. Collecting
+2. Examination
+3. Analysis
+4. Reporting
+
+1. Collecting: 
+    The first phase of digital forensics is data collection. Identifying all the devices from which the data can be collected is essential.
+    It is also necessary to ensure the original data is not tampered with while collecting the evidence and to maintain a proper document containing the collected items’ details.
+
+2. Examination:
+    The collected data may overwhelm investigators due to its size. This data usually needs to be filtered, and the data of interest needs to be extracted.
+    The examination phase helps you filter this particular data for analysis.
+
+3. Analysis: 
+    This is a critical phase.
+    The analysis depends upon the case scenario and available data. The analysis aims to extract the activities relevant to the case chronologically.
+
+4. Reporting: 
+    In the last phase of digital forensics, a detailed report is prepared. This report contains the investigation’s methodology and detailed findings from the collected evidence. It may also contain recommendations. 
+    This report is presented to law enforcement and executive management. It is important to include executive summaries as part of the report, considering the level of understanding of all the receiving parties.
+
+There are different types of digital forensics, all with their own collection and analysis methodologies. Some of the most common types are listed below.
+1. Computer forensics: The most common type of digital forensics is computer forensics, which concerns investigating computers, the devices most commonly used in crimes.
+2. Mobile forensics: Mobile forensics involves investigating mobile devices and extracting evidence such as call records, text messages, GPS locations, and more.
+3. Network forensics: This area of forensics covers investigation beyond individual devices. It includes the whole network. The majority of the evidence found in networks is the network traffic logs.
+4. Database forensics: Many critical data is stored in dedicated databases. Database forensics investigates any intrusion into these databases that results in data modification or exfiltration.
+5. Cloud forensics: Cloud forensics is the type of forensics that involves investigating data stored on cloud infrastructure. This type of forensics sometimes gets tricky for the investigators as there is little evidence on cloud infrastructures.
+6. Email forensics: Email, the most common communication method between professionals, has become an important part of digital forensics. Emails are investigated to determine whether they are part of phishing or fraudulent campaigns.
+
+Question 2: Which phase of digital forensics is concerned with correlating the collected data to draw any conclusions from it?
+Answer: Analysis
+
+Question 3: Which phase of digital forensics is concerned with extracting the data of interest from the collected evidence?
+Answer: Examination
+
+
+Evidence Acquisition
+
+Acquiring evidence is a critical job. The forensics team must collect all the evidence securely without tampering with the original data. Evidence acquisition methods for digital devices depend on the type of digital device.
+Some general practices must be followed while the evidence is acquired. Let’s discuss some of the important ones.
+1. Proper Authorization
+    The forensics team should obtain authorization from the relevant authorities before collecting any data. Evidence collected without prior approval may be deemed inadmissible in court. Forensic evidence contains private and sensitive data of an organization or individual. Proper authorization before collecting this data is essential for investigating according to the limits of the law.
+2. Chain of Custody
+    A chain of custody is a formal document containing all the details of the evidence.
+    Some of the key details are listed below:
+        Description of the evidence (name, type).
+        Name of individuals who collected the evidence.
+        Date and time of evidence collection.
+        Storage location of each piece of evidence.
+        Access times and the individual record who accessed the evidence.
+    The chain of custody document can be used to prove the integrity and reliability of the evidence admitted in court.
+3. Use of Write Blockers
+    Hard drive would remain in its original state as the write blocker can block any evidence alteration actions.
+
+Question 4: Which tool is used to ensure data integrity during the collection?
+Answer: write blocker
+
+Question 5: What is the name of the document that has all the details of the collected digital evidence?
+Answer: chain of custody
+
+
+Windows Forensics
+
+As part of the data collection phase, forensic images of the Windows operating system are taken. These forensic images are bit-by-bit copies of the whole operating system. 
+Two different categories of forensic images are taken from a Windows operating system.
+1. Disk images: The disk image contains all the data present on the storage device of the system (HDD, SSD, etc.). This data is non-volatile, meaning that the disk data would survive even after a restart of the operating system. For example, all the files like media, documents, internet browsing history, and more.
+2. Memory image: The memory image contains the data inside the operating system’s RAM. This memory is volatile, meaning the data will get lost after the system is powered off or restarted. For example, to capture open files, running processes, current network connections, etc., the memory image should be prioritized and taken first from the suspect’s operating system; otherwise, any restart or shutdown of the system would result in all the volatile data getting deleted. While carrying out digital forensics on a Windows operating system, disk and memory images are very important to collect.
+
+Some popular tools used for disk and memory image acquisition and analysis of the Windows operating system.
+FTK Imager: FTK Imager is a widely used tool for taking disk images of Windows operating systems. It offers a user-friendly graphical interface for creating the image in various formats. This tool can also analyze the contents of a disk image. It can be used for both acquisition and analysis purposes.
+Autopsy: Autopsy is a popular open-source digital forensics platform. An investigator can import an acquired disk image into this tool, and the tool will conduct an extensive analysis of the image. It offers various features during image analysis, including keyword search, deleted file recovery, file metadata, extension mismatch detection, and many more.
+DumpIt: DumpIt offers the utility of taking a memory image from a Windows operating system. This tool creates memory images using a command-line interface and a few commands. The memory image can also be taken in different formats.
+Volatility: Volatility is a powerful open-source tool for analyzing memory images. It offers some extremely useful plugins. Each artifact can be analyzed using a specific plugin. This tool supports various operating systems, including Windows, Linux, macOS, and Android.
+
+Question 6: Which type of forensic image is taken to collect the volatile data from the operating system?
+Answer: Memory Image
+
+Practical Example of Digital Forensics
+
+pdfinfo: Pdfinfo displays various metadata related to a PDF file, such as title, subject, author, creator, and creation date.
+Photo EXIF Data: EXIF stands for Exchangeable Image File Format; it is a standard for saving metadata to image files.
+
+Question 7: Using pdfinfo, find out the author of the attached PDF file, ransom-letter.pdf.
+Question 8: Using exiftool or any similar tool, try to find where the kidnappers took the image they attached to their document. What is the name of the street?
+Question 9: What is the model name of the camera used to take this photo?
+Note: Check-out the Activity file for the answers.

@@ -1,0 +1,98 @@
+Introduction
+
+SQL injection is a prevalent vulnerability and has long been a hot topic in cyber security. To understand this vulnerability, we must first learn what a database is and how websites interact with a database.
+A database is a collection of data that can be stored, modified, and retrieved. It stores data from several applications in a structured format, making storage, modification, and retrieval easy and efficient.
+The databases are managed by Database Management Systems (DBMS), such as MySQL, PostgreSQL, SQLite, or Microsoft SQL Server. These systems understand the Structured Query Language (SQL). So, any application or website uses SQL queries when interacting with the database.
+
+Learning Objectives
+1. SQL injection vulnerability
+2. Hunting SQL injection through the SQLMap tool
+
+Question 1: Which language builds the interaction between a website and its database?
+Answer: sql
+
+
+SQL Injection Vulnerability
+
+Note: Before we proceed, please ensure that you try the manual or automated SQL injection methods only after the permission of the application owner.
+
+example of a login page that asks you to enter your username and password to log in
+Using following credentials
+Username: John
+Password: Un@detectable444
+
+Once user enters username and password, the website will receive it, make an SQL query with your credentials, and send it to the database. 
+Query: SELECT * FROM users WHERE username = 'John' AND password = 'Un@detectable444';
+
+Note that the above query will be successful only if the given user and pass both have a match together in the database as they are separated by the boolean “AND”.
+
+Reason: input is improperly sanitized, meaning that user input is not validated, attackers can manipulate the input and write SQL queries that would get executed in the database and perform the attacker’s desired actions.
+
+Use Case: website login page we discussed above lacks input validation and sanitization. This means that it is vulnerable to SQL injection. The attacker does not know the password of the user John. They will type the following input in the given fields:
+Username: John
+Password: abc' OR 1=1;-- -
+
+The SQL query that the website would send to the database will now become the following:
+SELECT * FROM users WHERE username = 'John' AND password = 'abc' OR 1=1;-- -';
+
+One of the important things to note here is the use of a single quote ' after abc. Without this single quote,' the whole string 'abc OR 1=1;-- -' would be considered the password, which is not intended. However, if we add a single quote ' after abc, the password would look like 'abc' OR 1=1;---', which encloses the original string abc in the query and allows us to introduce a logical condition OR 1=1, which is always true.
+
+Question 2: Which boolean operator checks if at least one side of the operator is true for the condition to be true?
+Answer: or
+
+Question 3: Is 1=1 in an SQL query always true? (YEA/NAY)
+Answer: YEA
+
+
+Automated SQL Injection Tool
+
+Remember: Carrying out an SQL injection attack involves discovering the SQL injection vulnerability inside the application and manipulating the database. However, manually doing all this can take time and effort.
+
+SQLMap is an automated tool for detecting and exploiting SQL injection vulnerabilities in web applications. It simplifies the process of identifying these vulnerabilities. This tool is built into some Linux distributions, but you can easily install it if it's not.
+
+Multiple ways of using the sqlmap tool:
+1. Using the --help command and figuring out the flags/options needed to used to automate the scanning task.
+2. Using the --wizard command and tool will ask a bunch of questions to figure out the options.
+
+Few of the options which can be used to extract db, tables and data.
+1. --dbs flag helps you to extract all the database names
+2. extract information about the tables of that database by using -D database_name --tables
+3. enumerate the records in those tables, you can use -D database_name -T table_name --dump
+
+first step is to look for a possible vulnerable URL or request.
+
+example, a URL like http://sqlmaptesting.thm/search?cat=1 uses a parameter cat that takes the value 1. If you see any web application using GET parameters in the URLs to retrieve data, you can test that URL with the -u flag in the SQLMap tool. This is considered to be HTTP GET-based testing. This approach is followed when the application uses GET parameters in the URL to retrieve data from the searches.
+Use command: "sqlmap -u http://sqlmaptesting.thm/search/cat=1", To check for possible vulnerabilities.
+output: different types of SQL injection, such as boolean-based blind, error-based, time-based blind, and UNION query, are identified in the target URL
+
+different techniques for exploiting a SQL injection vulnerability. For example, in the boolean-based blind SQL injection, the SQL query is modified, and a boolean expression (that is always true, e.g., 1=1) is included with the query to extract the information. Whereas in the error-based SQL injection, some queries are intentionally modified to generate errors in the results sent by the database. These errors often contain valuable information about the data. Similarly, other SQL injection techniques can also be employed to exploit a database.
+
+to exploit them and extract some valuable data from the database.
+1. To fetch the databases, we use the flag --dbs
+command:"sqlmap -u http://sqlmaptesting.thm/search/cat=1 --dbs"
+2. Select the users database and fetch the tables inside of it. We will define the database after the flag -D and use the --tables flag at the end to extract all the table names.
+command:"sqlmap -u http://sqlmaptesting.thm/search/cat=1 -D users --tables"
+3. Now that we have all the available table names of the database, let's dump the records present in the thomas table. To do so, we will define the database with the -D flag, the table with the -T flag, and for extracting the records of the table, we will use the --dump flag.
+command:"sqlmap -u http://sqlmaptesting.thmsearch/cat=1 -D users -T thomas --dump"
+
+you can also use POST-based testing, where the application sends data in the request's body instead of the URL. Examples of this could be login forms, registration forms, etc. To follow this approach, you must intercept a POST request on the login or registration page and save it as a text file. 
+You can use the following command to input that request saved in the text file to the SQLMap tool:"sqlmap -r intercepted_request.txt"
+
+Question 4: Which flag in the SQLMap tool is used to extract all the databases available?
+Answer: --dbs
+
+Question 5: What would be the full command of SQLMap for extracting all tables from the "members" database? (Vulnerable URL: http://sqlmaptesting.thm/search/cat=1)
+Answer: sqlmap -u http://sqlmaptesting.thm/search/cat=1 -D members --tables
+
+
+Practical
+
+Question 6: How many databases are available in this web application?
+Question 7: What is the name of the table available in the "ai" database?
+Question 8: What is the name of the table available in the "ai" database?
+Chckout the activity file for the Solution.
+
+
+
+
+

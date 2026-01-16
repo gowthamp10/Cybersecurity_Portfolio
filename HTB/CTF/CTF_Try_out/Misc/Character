@@ -1,0 +1,13 @@
+Challenge Name: Character
+Description:
+Security through Induced Boredom is a personal favourite approach of mine. Not as exciting as something like The Fray, but I love making it as tedious as possible to see my secrets, so you can only get one character at a time!
+
+Pre-requisite: Start the Docker machine.
+
+Solution:
+1. Brute force(Manual/Tiresome)
+Steps:
+1. connect to the Target IP provided using the command:"nc <TargetIP> <PORT>".
+2. The machine asks for input on which index character is needed as output.
+3. Start from 0 till the output ends with '}' or the output says: "index out of range".
+ 

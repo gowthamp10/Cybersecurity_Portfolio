@@ -1,0 +1,118 @@
+Introduction to Logs
+
+Use Cases of Logs
+The following are some key areas in which the logs play an integral role.
+
+Use Case	                                    Description
+Security Events Monitoring	                    Logs help us detect anomalous behavior when real-time monitoring is used.
+Incident Investigation and Forensics	        Logs are the traces of every kind of activity. It offers detailed information on what happened during the incident. The security team utilizes the logs to perform root cause analysis of incidents.
+Troubleshooting	                                As the logs also record the errors in systems or applications, they can be used to diagnose issues and helpful in fixing them.
+Performance Monitoring	                        Logs can also provide valuable insights into the performance of applications.
+Auditing and Compliance	                        Logs play a major role in Auditing and Compliance, making it easier with its capability to establish a trail of different kinds of activities.
+
+Learning Objectives
+After completing this room, you will learn about the following:
+1. The different types of logs
+2. How to analyze logs
+3. Analyzing Windows Event logs
+4. Analyzing Web Access logs
+
+Question 1: Where can we find the majority of attack traces in a digital system?
+Answer: Logs
+
+
+Types of Logs
+
+Logs are segregated into multiple categories according to the type of information they provide. So now you just need to look into the specific log file for which the issue relates.
+
+Log Types and there usage: 
+1. System Logs: The system logs can be helpful in troubleshooting running issues in the OS. These logs provide information on various operating system activities.	- System Startup and shutdown events
+Example:
+- Driver Loading events
+- System Error events
+- Hardware events
+2. Security Logs:	The security logs help detect and investigate incidents. These logs provide information on the security-related activities in the system.	-Authentication events
+Example: 
+- Authorization events
+- Security Policy changes events
+- User Account changes events - Abnormal Activity events
+3. Application Logs:	The application logs contain specific events related to the application. Any interactive or non-interactive activity happening inside the application will be logged here.	- User Interaction events
+Example:
+- Application Changes events
+- Application Update events
+- Application Error events
+4. Audit Logs:	The Audit logs provide detailed information on the system changes and user events. These logs are helpful for compliance requirements and can play a vital role in security monitoring as well.	- Data Access events
+Example:
+- System Change events
+- User Activity events
+- Policy Enforcement events
+5. Network Logs:	Network logs provide information on the network’s outgoing and incoming traffic. They play crucial roles in troubleshooting network issues and can also be handy during incident investigations.	- Incoming Network Traffic events
+Example:
+- Outgoing Network Traffic events
+- Network Connection Logs - Network Firewall Logs
+6. Access Logs:	The Access logs provide detailed information about the access to different resources. These resources can be of different types, providing us with information on their access.	- Webserver Access Logs
+Example:
+- Database Access Logs - Application Access Logs
+- API Access Logs
+
+Log Analysis is a technique for extracting valuable data from logs. It involves looking for any signs of abnormal or unusual activities. Searching for a specific activity or abnormalities in the logs with the naked eye is impossible. For this reason, we have several manual and automated techniques for log analysis. 
+
+Question 2: Which type of logs contain information regarding the incoming and outgoing traffic in the network?
+Answer: Network Logs
+
+Question 3: Which type of logs contain the authentication and authorization events?
+Answer: Security Logs
+
+
+Windows Event Logs Analysis
+
+Some of the crucial types of logs stored in a Windows Operating System are:
+1. Application: There are many applications running on the operating system. Any information related to those applications is logged into this file. This information includes errors, warnings, compatibility issues, etc.
+2. System: The operating system itself has different running operations. Any information related to these operations is logged in the System log file. This information includes driver issues, hardware issues, system startup and shutdown information, services information, etc.
+3. Security: This is the most important log file in Windows OS in terms of security. It logs all security-related activities, including user authentication, changes in user accounts, security policy changes, etc.
+
+Windows OS has a utility known as Event Viewer, which gives a nice graphical user interface to view and search for anything in these logs.
+
+Steps to view Windows log in Event Viewer:
+1. To open Event Viewer, click on the Start button of Windows and type ‘Event Viewer’. It will open the Event Viewer
+2. Click on ‘Windows Logs’ 
+3. Left section shows the different log files, When we click one of these log files, we will see the different logs in the middle section. Right section has different options for analyzing the logs.
+
+Following are the different fields on the Windows event log.
+1. Description: This field has a detailed information of the activity.
+2. Log Name: The Log Name indicates the log file name.
+3. Logged: This field indicates the time of the activity.
+4. Event ID: Event IDs are unique identifiers for a specific activity.
+
+Some important Event IDs in Windows Operating System:
+Event ID	Description
+4624	    A user account successfully logged in
+4625	    A user account failed to login
+4634	    A user account successfully logged off
+4720	    A user account was created
+4724	    An attempt was made to reset an account’s password
+4722	    A user account was enabled
+4725	    A user account was disabled
+4726	    A user account was deleted
+Note: good to remember the crucial event IDs.
+
+Event Viewer allows us to search for the logs related to a specific event ID with its ‘Filter Current Log’ feature.
+1. click on this feature to apply any filter. 
+2. Will be prompted to enter the event IDs we want to filter.
+3. hit the 'OK' button, I can see all the logs with the event ID: <eventID>.
+
+Question 4: What is the name of the last user account created on this system?
+Question 5: Which user account created the above account?
+Question 6: On what date was this user account enabled? Format: M/D/YYYY
+Question 7: Did this account undergo a password reset as well? Format: Yes/No
+Checkout the activity file.
+
+
+Web Server Access Logs Analysis
+
+perform manual log analysis by using some command line utilities in the Linux operating system
+1. 'cat' is a popular utility for displaying the contents of a text file. We can use the cat command to display the contents of a log file, as they are typically in the text format.
+2. combine 2 log files using the command syntax: cat log_file1 log_file2 > combined_log_file
+3. grep is a very useful command line utility that allows you to search for strings and patterns inside a log file.
+4. less command is helpful for handling multiple log files, spacebar to move to the next page and b to the previous page. type / followed by the pattern you are searching for and hit enter. Use n to navigate to the next occurrence of your search and N to navigate to the previous occurrence of your search.
+
